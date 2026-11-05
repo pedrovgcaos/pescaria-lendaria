@@ -2187,6 +2187,11 @@ function renderPlayer(){
     renderPlayer(); showToast('Jogo novo começado! 🎣', '', 1800);
   });
   foot.append(rb); body.append(foot);
+  if (ACCOUNTS_API){
+    const legal = document.createElement('p'); legal.className = 'note'; legal.style.textAlign = 'center';
+    legal.innerHTML = '<a href="/privacidade.html" target="_blank" rel="noopener">Privacidade</a> · <a href="/termos.html" target="_blank" rel="noopener">Termos de uso</a>';
+    body.append(legal);
+  }
 }
 function renderTitleLogin(){
   const box = $('titleLogin'); box.innerHTML = '';
