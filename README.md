@@ -32,12 +32,17 @@ Depois de editar `pescaria-lendaria.html`, rode `node build-index.mjs` e faça o
 
 ## Contas (Google + Neon + Vercel Blob)
 
-Sem configuração, o jogo funciona como convidado (progresso salvo no navegador). Para ligar o login:
+O login está ligado em `pescarialendaria.housemedia.app`. Sem login, o jogo funciona como convidado (progresso no navegador). Dentro do Claude (artefato) é sempre convidado.
 
-1. **Neon:** no projeto da Vercel → *Storage* → *Create Database* → **Neon** (região São Paulo, `gru1`) e conecte ao projeto `pescaria-lendaria`. Isso cria a variável `DATABASE_URL`. As tabelas `players` e `saves` são criadas automaticamente no primeiro login.
-2. **Google:** no Google Cloud Console → *APIs e serviços* → *Credenciais* → *Criar ID do cliente OAuth* → tipo **Aplicativo da Web**. Em *Origens JavaScript autorizadas*, adicione `https://pescarialendaria.housemedia.app` e `https://pescaria-lendaria.vercel.app`. Não é preciso URI de redirecionamento nem Client Secret.
-3. Na Vercel, crie a variável de ambiente `GOOGLE_CLIENT_ID` com o ID do cliente (termina em `.apps.googleusercontent.com`) e faça um novo deploy.
-4. **Blob:** o store `pescaria-lendaria-blob` (privado) já está conectado (`BLOB_READ_WRITE_TOKEN`). Ele guarda uma cópia de segurança diária do progresso de cada conta em `backups/<conta>/<data>.json`.
+O que está configurado:
+
+- **Neon:** banco `pescaria-lendaria-db` (plano Free, região `iad1`, a mesma das funções), conectado ao projeto com o prefixo `DATABASE` (`DATABASE_URL`). As tabelas `players` e `saves` são criadas automaticamente no primeiro login.
+- **Google Cloud:** projeto `pescaria-lendaria` da conta `housemediabrasil@gmail.com`. A tela de consentimento "Pescaria Lendária" é externa e está em produção, só com nome, e-mail e foto. O ID do cliente OAuth Web `Pescaria Lendaria Web` tem a origem `https://pescarialendaria.housemedia.app`. Não usamos Client Secret nem URI de redirecionamento.
+- **Vercel:** variável `GOOGLE_CLIENT_ID` com o ID desse cliente.
+- **Blob:** store `pescaria-lendaria-blob` (privado, `gru1`) conectado com `BLOB_READ_WRITE_TOKEN`. Ele guarda uma cópia de segurança diária do progresso de cada conta em `backups/<conta>/<data>.json`.
+- **Páginas legais** exigidas pelo Google: `privacidade.html` e `termos.html`.
+
+Para usar outro domínio, adicione a origem no ID do cliente OAuth (Google Cloud → Google Auth Platform → Clientes) e o domínio em *Branding → Domínios autorizados*.
 
 Opcional: defina `SESSION_SECRET` (texto aleatório longo) para assinar as sessões. Sem ela, a chave é derivada das credenciais do banco.
 

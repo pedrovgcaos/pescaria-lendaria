@@ -4,7 +4,7 @@ import { configured, ensureSchema, sessionPlayer, json, loadPlayer, clearCookie 
 export async function GET(request) {
   if (!configured()) return json({ error: 'Login ainda não configurado.' }, 503);
   const id = await sessionPlayer(request);
-  if (!id) return json({ error: 'Sem sessão.' }, 401);
+  if (!id) return json({ player: null, save: null }); // convidado: sem sessão não é erro
   await ensureSchema();
   const data = await loadPlayer(id);
   if (!data) return json({ error: 'Conta não encontrada.' }, 401, { 'set-cookie': clearCookie() });

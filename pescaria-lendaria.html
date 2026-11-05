@@ -2204,7 +2204,7 @@ async function initAccount(){
   if (!ACCOUNTS_API) return;
   try { const r = await fetch('/api/config', {cache:'no-store'}); if (!r.ok) return; acctCfg = await r.json(); } catch(e){ return; }
   if (!acctCfg || !acctCfg.enabled) return;
-  try { const r = await fetch('/api/me', {credentials:'same-origin', cache:'no-store'}); if (r.ok){ const d = await r.json(); await setUser(d.player, d.save); } } catch(e){}
+  try { const r = await fetch('/api/me', {credentials:'same-origin', cache:'no-store'}); if (r.ok){ const d = await r.json(); if (d.player) await setUser(d.player, d.save); } } catch(e){}
   try {
     await loadScript(GSI_SRC);
     google.accounts.id.initialize({client_id: acctCfg.googleClientId, callback: onGoogleCredential, auto_select: false, cancel_on_tap_outside: true, use_fedcm_for_prompt: true});
