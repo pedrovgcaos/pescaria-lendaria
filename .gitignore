@@ -1,0 +1,9 @@
+# Versão de artefato do Claude (sem <html>/<head>/<body>); o site usa index.html
+pescaria-lendaria.html
+
+# Arquivos do sistema / Google Drive
+desktop.ini
+.DS_Store
+Thumbs.db
+*.tmp
+.vercel
