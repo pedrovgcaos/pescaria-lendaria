@@ -1,0 +1,17 @@
+{
+  "name": "pescaria-lendaria",
+  "private": true,
+  "type": "module",
+  "description": "Jogo de pescaria educativo. Site estático (index.html) + funções em /api para contas (Google, Neon e Vercel Blob).",
+  "scripts": {
+    "build:index": "node build-index.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "1.2.0",
+    "@vercel/blob": "2.8.2",
+    "jose": "6.2.13"
+  }
+}

@@ -1,9 +1,11 @@
-# Versão de artefato do Claude (sem <html>/<head>/<body>); o site usa index.html
-pescaria-lendaria.html
+# Dependências e configurações locais
+node_modules
+.vercel
+.claude
+.env*
 
 # Arquivos do sistema / Google Drive
 desktop.ini
 .DS_Store
 Thumbs.db
 *.tmp
-.vercel
