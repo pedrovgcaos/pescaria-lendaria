@@ -399,7 +399,11 @@ button{touch-action:manipulation;}
   </div>
 </div>
 
-<script>
+<script type="module">
+import { inject } from '@vercel/analytics';
+
+inject();
+
 (() => {
 'use strict';
 
