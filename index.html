@@ -56,6 +56,15 @@ button{touch-action:manipulation;}
 .hbtn.bag{background:#ffb38a;}
 .hbtn.shop.can{animation:pulse 1.2s ease-in-out infinite;}
 .hbtn.travel{background:var(--kelp);}
+.hbtn.rank{background:#ffe27a;}
+.rank-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px;}
+.rank-row{display:grid;grid-template-columns:44px 36px minmax(0,1fr) auto;align-items:center;gap:8px;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:6px 10px;font-weight:900;}
+.rank-row.me{background:#fff6c9;border-color:#b8860b;}
+.rank-row .pos{font-family:var(--display);font-size:20px;text-align:center;font-variant-numeric:tabular-nums;}
+.rank-row .ini{width:34px;height:34px;border-radius:50%;background:var(--kelp);color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:17px;border:2px solid var(--ink);}
+.rank-row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.rank-row .val{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums;}
+.rank-gap{text-align:center;color:var(--muted);font-weight:900;}
 .hbtn.travel.new{animation:pulse 1.2s ease-in-out infinite;}
 .hbtn .ava{display:inline-block;width:22px;height:22px;border-radius:50%;vertical-align:middle;background:var(--kelp) center/cover;color:#fff;font-size:13px;line-height:22px;text-align:center;}
 @keyframes pulse{0%,100%{box-shadow:0 4px 0 var(--ink),0 0 0 0 rgba(255,201,60,.9)}50%{box-shadow:0 4px 0 var(--ink),0 0 0 8px rgba(255,201,60,0)}}
@@ -163,6 +172,8 @@ button{touch-action:manipulation;}
 .bait-card p{margin:0;font-weight:700;font-size:14px;line-height:1.35;color:#24364f;}
 .bait-card .likes{font-weight:800;font-size:13px;color:var(--muted);}
 .bait-card .btn{align-self:flex-start;}
+.pack-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;}
+.acell .rare{position:absolute;top:-8px;left:-6px;font-size:18px;}
 .tag{display:inline-block;font:900 11px var(--body);letter-spacing:.06em;text-transform:uppercase;background:var(--kelp);color:var(--ink);border:2px solid var(--ink);border-radius:8px;padding:1px 6px;margin-left:auto;}
 
 /* Álbum e Mochila */
@@ -232,6 +243,8 @@ button{touch-action:manipulation;}
 .panel-credit a{color:var(--ink);font-weight:900;}
 @media (max-height:500px){ .credit{position:static;margin-top:6px;} }
 .resume{font-weight:800;font-size:14px;color:var(--gold);}
+.how-video{display:block;width:100%;max-width:100%;aspect-ratio:16/9;margin-top:12px;border-radius:14px;border:3px solid var(--ink);background:#06142b;}
+.login-tip{margin:0;font-weight:900;font-size:17px;color:#fff;background:rgba(6,20,43,.6);border:2px solid rgba(255,255,255,.35);border-radius:14px;padding:8px 14px;text-wrap:balance;}
 .announce{font-weight:900;font-size:16px;line-height:1.35;color:var(--ink);background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:8px 14px;box-shadow:0 4px 0 var(--ink);max-width:min(520px,100%);text-wrap:balance;}
 .mult{display:inline-block;margin-left:6px;font-size:14px;background:var(--coral);color:#fff;border:2px solid var(--ink);border-radius:8px;padding:1px 6px;vertical-align:2px;}
 
@@ -299,6 +312,7 @@ button{touch-action:manipulation;}
     <button class="hbtn bag" id="bagBtn" type="button" aria-label="Mochila">🎒<span class="lbl"> Mochila</span></button>
     <button class="hbtn travel" id="mapBtn" type="button" hidden>🛶<span class="lbl"> Rio</span></button>
     <button class="hbtn" id="albumBtn" type="button" aria-label="Álbum">📖<span class="lbl"> Álbum</span></button>
+    <button class="hbtn rank" id="rankBtn" type="button" aria-label="Ranking">🏆</button>
     <button class="hbtn" id="playerBtn" type="button" aria-label="Painel do jogador">👤</button>
   </div>
 </div>
@@ -336,10 +350,21 @@ button{touch-action:manipulation;}
     <div class="announce" id="announce" hidden></div>
     <div class="resume" id="resumeTxt" hidden></div>
     <button class="btn big" id="playBtn" type="button">▶ JOGAR</button>
+    <p class="login-tip" id="loginTip" hidden></p>
+    <button class="btn alt" id="howBtn" type="button" hidden>🎬 Como jogar</button>
     <div id="titleLogin"></div>
     <div class="how">Mouse ou dedo: mexe o anzol · Segure o botão para puxar o peixe</div>
   </div>
-  <footer class="credit">Site desenvolvido por <a href="https://housemedia.app" target="_blank" rel="noopener">House Media</a></footer>
+  <footer class="credit">Jogo desenvolvido por <a href="https://housemedia.app" target="_blank" rel="noopener">House Media</a></footer>
+</div>
+
+<div class="overlay modal" id="videoOv" hidden>
+  <div class="panel wide" style="text-align:center">
+    <button class="close" id="videoClose" type="button" aria-label="Fechar vídeo">✕</button>
+    <h2>🎬 Como jogar</h2>
+    <video id="howVideo" class="how-video" controls playsinline muted preload="none" src="/video/como-jogar.mp4"></video>
+    <p class="note" style="font-size:14px">Lançar, parar o anzol, esperar o peixe morder e segurar para puxar. Bora pescar!</p>
+  </div>
 </div>
 
 <div class="overlay modal" id="cardOv" hidden>
@@ -361,8 +386,8 @@ button{touch-action:manipulation;}
   <div class="panel card mega">
     <div><span class="badge gold">🏆 LENDÁRIO</span></div>
     <canvas id="megaCv" class="card-cv" width="560" height="300"></canvas>
-    <h2 style="margin-top:10px;padding:0">VOCÊ PESCOU O MEGALODON!</h2>
-    <div class="stats"><span class="stat" id="megaSize"></span><span class="stat">🪙 +50.000</span></div>
+    <h2 style="margin-top:10px;padding:0" id="megaTitle">VOCÊ PESCOU UM LENDÁRIO!</h2>
+    <div class="stats"><span class="stat" id="megaSize"></span><span class="stat" id="megaValue"></span></div>
     <p class="fact" id="megaFact"></p>
     <p class="food" id="megaFood"></p>
     <div class="card-actions">
@@ -401,6 +426,20 @@ button{touch-action:manipulation;}
       <button class="tab" role="tab" data-tab="estilo" type="button">🎨 Personalizar</button>
     </div>
     <div id="bagBody"></div>
+  </div>
+</div>
+
+<div class="overlay modal" id="rankOv" hidden>
+  <div class="panel">
+    <button class="close" id="rankClose" type="button" aria-label="Fechar ranking">✕</button>
+    <h2>🏆 Ranking</h2>
+    <div class="tabs" role="tablist" id="rankTabs">
+      <button class="tab" role="tab" data-por="album" type="button">📖 Álbum</button>
+      <button class="tab" role="tab" data-por="lendarios" type="button">🌟 Lendários</button>
+      <button class="tab" role="tab" data-por="moedas" type="button">💰 Moedas</button>
+      <button class="tab" role="tab" data-por="pescados" type="button">🎣 Pescados</button>
+    </div>
+    <div id="rankBody"></div>
   </div>
 </div>
 
@@ -445,13 +484,16 @@ const RIO = {id:'rio', name:'Rio Amazonas', zones:ZONES_RIO, counts:[6,5,5,4], m
 let LOC = SEA, ZONES = SEA.zones;
 const TRAVEL = [{name:'Só o mar', cost:0}, {name:'Barco para o Rio Amazonas', cost:250}];
 
+// Cada vara desce até o MEIO de uma faixa: a vara N chega no meio da zona N (no rio, das zonas do rio).
+const zoneMid = z => (z.from + z.to)/2;
 const RODS = [
-  {name:'Vara de Bambu',      depth:50,  cost:0},
-  {name:'Vara de Fibra',      depth:150, cost:80},
-  {name:'Vara de Carbono',    depth:300, cost:400},
-  {name:'Vara Profissional',  depth:550, cost:1600},
-  {name:'Vara Abissal',       depth:900, cost:5000},
-];
+  {name:'Vara de Bambu',      cost:0},
+  {name:'Vara de Fibra',      cost:80},
+  {name:'Vara de Carbono',    cost:400},
+  {name:'Vara Profissional',  cost:1600},
+  {name:'Vara Abissal',       cost:5000},
+].map((r, i) => ({...r, depth: zoneMid(ZONES_SEA[i])}));
+const rodDepthIn = (loc, rod) => zoneMid(loc.zones[Math.min(rod, loc.zones.length - 1)]);
 const LINES = [
   {name:'Linha Fina',      str:1,   cost:0},
   {name:'Linha Forte',     str:1.8, cost:60},
@@ -459,15 +501,18 @@ const LINES = [
   {name:'Linha de Kevlar', str:4.5, cost:1400},
   {name:'Linha Titânica',  str:6.5, cost:4500},
 ];
+// Iscas são compradas por unidade (cost = preço de 1) e cada peixe que morde gasta uma. A minhoca é de graça e não acaba.
 const BAITS = [
-  {id:'minhoca',  name:'Minhoca',       icon:'🪱', cost:0,    desc:'A isca de todo pescador. Quase todo peixe comum aceita.'},
-  {id:'grilo',    name:'Grilo',         icon:'🦗', cost:90,   rio:true, desc:'O Aruanã adora insetos e pula para pegar!'},
-  {id:'camarao',  name:'Camarão',       icon:'🦐', cost:150,  desc:'O Peixe-palhaço e a Arraia só mordem camarão.'},
-  {id:'fruta',    name:'Frutinha',      icon:'🍒', cost:180,  rio:true, desc:'Pacu e Tambaqui só comem frutas e sementes!'},
-  {id:'peixinho', name:'Peixinho',      icon:'🐟', cost:300,  desc:'Os peixes caçadores adoram. A Piraíba só come peixinho!'},
-  {id:'lula',     name:'Lula',          icon:'🦑', cost:1200, desc:'Espadarte, Celacanto e Tubarão-da-Groenlândia só mordem lula.'},
-  {id:'lendaria', name:'Isca Lendária', icon:'✨', cost:8000, desc:'A única isca que o MEGALODON morde!'},
+  {id:'minhoca',  name:'Minhoca',       icon:'🪱', cost:0,   desc:'A isca de todo pescador. É de graça e nunca acaba!'},
+  {id:'grilo',    name:'Grilo',         icon:'🦗', cost:5,   rio:true, desc:'O Aruanã adora insetos e pula para pegar!'},
+  {id:'camarao',  name:'Camarão',       icon:'🦐', cost:8,   desc:'O Peixe-palhaço e a Arraia só mordem camarão.'},
+  {id:'fruta',    name:'Frutinha',      icon:'🍒', cost:8,   rio:true, desc:'Pacu e Tambaqui só comem frutas e sementes!'},
+  {id:'peixinho', name:'Peixinho',      icon:'🐟', cost:15,  desc:'Os peixes caçadores adoram. A Piraíba só come peixinho!'},
+  {id:'lula',     name:'Lula',          icon:'🦑', cost:60,  desc:'Espadarte, Celacanto e Tubarão-da-Groenlândia só mordem lula.'},
+  {id:'lendaria', name:'Isca Lendária', icon:'✨', cost:400, desc:'A única isca que os peixes LENDÁRIOS mordem!'},
 ];
+const BAIT_PACKS = [1, 5, 10];
+const RARE_CHANCE = .04, RARE_MULT = 5; // peixe raro dourado: 4% de chance, vale 5x
 const BAIT = Object.fromEntries(BAITS.map(b => [b.id, b]));
 const ROD_SKINS = [
   {id:'madeira', name:'Madeira', c:'#6b4423'}, {id:'vermelha', name:'Vermelha', c:'#d63a2f'}, {id:'azul', name:'Azul', c:'#2f6fd6'},
@@ -525,7 +570,11 @@ const SPECIES = [
    fact:'A lula-colossal tem os maiores olhos de todos os animais: do tamanho de uma bola de futebol!'},
   {id:'groenlandia', name:'Tubarão-da-Groenlândia', zone:4, type:'shark', len:235, h:.24, c1:'#55606c', c2:'#8d97a2', fin:'#48525d', real:500, value:3200, power:6, stam:4.6, w:2, speed:25, ex:{tinyEye:true},
    fact:'Ele pode viver mais de 250 anos! Nenhum outro animal com coluna vive tanto tempo.'},
-  {id:'megalodon', name:'Megalodon', zone:4, type:'shark', len:560, h:.27, c1:'#3f4c5a', c2:'#cfd6dd', fin:'#35404c', real:1600, value:50000, power:8, stam:4.8, w:0, speed:45, legend:true, ex:{teeth:true, scars:true},
+  {id:'tubaraobaleia', name:'Tubarão-baleia', zone:2, type:'shark', len:470, h:.26, c1:'#38556f', c2:'#e8edf0', fin:'#304a61', real:1200, value:2500, power:6.5, stam:4, w:0, speed:35, legend:true, ex:{whale:true},
+   fact:'O tubarão-baleia é o maior peixe do mundo, maior que um ônibus! Mesmo gigante, ele é calmo e come bichinhos minúsculos.'},
+  {id:'dunkleosteus', name:'Dunkleosteus', zone:3, type:'shark', len:340, h:.3, c1:'#5b5246', c2:'#b9ad97', fin:'#4a4238', real:600, value:3500, power:7, stam:4.4, w:0, speed:40, legend:true, extinct:true, ex:{armor:true},
+   fact:'O Dunkleosteus viveu há 360 milhões de anos e tinha uma armadura de osso na cabeça. Em vez de dentes, cortava a comida com lâminas na boca!'},
+  {id:'megalodon', name:'Megalodon', zone:4, type:'shark', len:560, h:.27, c1:'#3f4c5a', c2:'#cfd6dd', fin:'#35404c', real:1600, value:6000, power:8, stam:4.8, w:0, speed:45, legend:true, extinct:true, ex:{teeth:true, scars:true},
    fact:'O megalodon viveu há milhões de anos e foi o maior tubarão que já existiu! Cada dente era maior que a mão de um adulto.'},
   // ---------- RIO AMAZONAS ----------
   {id:'lambari', name:'Lambari', loc:'rio', zone:0, type:'fish', len:26, h:.36, c1:'#8a9aa6', c2:'#eef2f4', fin:'#e8b020', tail:'#e8b020', real:10, value:6, power:.5, stam:.7, w:10, speed:80, ex:{humeral:true, hlines:'#c8d2da'},
@@ -548,14 +597,18 @@ const SPECIES = [
    fact:'A arraia-de-fogo tem pintas laranja e um ferrão no rabo. Ela se esconde na areia do fundo do rio!'},
   {id:'poraque', name:'Poraquê', loc:'rio', zone:2, type:'eel', len:180, h:.09, c1:'#4a4038', c2:'#d9822b', fin:'#3a322c', real:200, value:300, power:2.4, stam:2.4, w:3, speed:30, ex:{electric:true},
    fact:'O poraquê é o peixe-elétrico da Amazônia: ele dá choques de até 800 volts para caçar e se defender!'},
-  {id:'pintado', name:'Pintado', loc:'rio', zone:2, type:'fish', len:135, h:.2, c1:'#7d8790', c2:'#f2f4f5', fin:'#6c757d', real:150, value:260, power:2.3, stam:2.2, w:4, speed:35, ex:{barbels:true, catfish:true, spots:'#1d2125'},
+  {id:'pintado', name:'Pintado', loc:'rio', zone:2, type:'catfish', len:140, h:.2, c1:'#8a949c', c2:'#f4f6f7', fin:'#6c757d', real:150, value:260, power:2.3, stam:2.2, w:4, speed:35, ex:{pattern:'pintado', barbels:1.25, head:.9},
    fact:'O pintado, também chamado de surubim, é um bagre cheio de pintas que caça de noite usando os bigodes!'},
-  {id:'dourada', name:'Dourada', loc:'rio', zone:3, type:'fish', len:150, h:.22, c1:'#b08a3e', c2:'#efe6cf', fin:'#9a7632', real:150, value:700, power:3.2, stam:3, w:5, speed:40, ex:{barbels:true, catfish:true},
+  {id:'dourada', name:'Dourada', loc:'rio', zone:3, type:'catfish', len:150, h:.2, c1:'#c99a3a', c2:'#f6ecd2', fin:'#b07f22', real:150, value:700, power:3.2, stam:3, w:5, speed:40, ex:{pattern:'brilho', barbels:.8, head:.8},
    fact:'A dourada faz a maior viagem de todos os peixes de rio: nada mais de 11 mil quilômetros, das montanhas dos Andes até o mar e de volta!'},
-  {id:'jau', name:'Jaú', loc:'rio', zone:3, type:'fish', len:170, h:.28, c1:'#5b5a3c', c2:'#cfc8a8', fin:'#4a4930', real:150, value:850, power:3.4, stam:3.2, w:4, speed:30, ex:{barbels:true, catfish:true, spots:'#3a3925'},
+  {id:'jau', name:'Jaú', loc:'rio', zone:3, type:'catfish', len:170, h:.32, c1:'#5e5a38', c2:'#d8d0ad', fin:'#46432a', real:150, value:850, power:3.4, stam:3.2, w:4, speed:30, ex:{pattern:'manchas', barbels:.55, head:1.25},
    fact:'O jaú é um bagre enorme e muito forte que mora nos poços mais fundos e nas corredeiras do rio!'},
-  {id:'piraiba', name:'Piraíba', loc:'rio', zone:3, type:'fish', len:210, h:.24, c1:'#59636b', c2:'#e6e9ea', fin:'#4a535a', real:280, value:1000, power:3.6, stam:3.2, w:2, speed:30, ex:{barbels:true, catfish:true},
+  {id:'piraiba', name:'Piraíba', loc:'rio', zone:3, type:'catfish', len:215, h:.24, c1:'#4d5862', c2:'#eef1f2', fin:'#3f4a53', real:280, value:1000, power:3.6, stam:3.2, w:2, speed:30, ex:{pattern:'liso', barbels:1.5, head:1, filament:true},
    fact:'A piraíba é o maior bagre da Amazônia: pode passar de 2 metros e meio e tem bigodes compridos para sentir a comida!'},
+  {id:'megapiranha', name:'Megapiranha', loc:'rio', zone:2, type:'fish', len:125, h:.62, c1:'#56616a', c2:'#c43a26', fin:'#6e4436', real:100, value:1500, power:4.5, stam:3.4, w:0, speed:55, legend:true, extinct:true, ex:{piranha:true, redEye:true, bigTeeth:true},
+   fact:'A megapiranha viveu há uns 8 milhões de anos nos rios da América do Sul e era bem maior que as piranhas de hoje, com dentes em zigue-zague!'},
+  {id:'boiuna', name:'Boiúna', loc:'rio', zone:3, type:'eel', len:520, h:.1, c1:'#2e4a2b', c2:'#cdb54a', fin:'#22381f', real:3000, value:3000, power:6.5, stam:4.6, w:0, speed:35, legend:true, ex:{serpent:true},
+   fact:'A Boiúna, ou Cobra-Grande, é uma lenda da Amazônia: dizem que é uma cobra enorme com olhos que brilham como lanternas no rio!'},
 ];
 // O que cada peixe come (para ensinar) e se o nome é "a" ou "o" (para a narração falar certinho)
 const FOOD = {
@@ -566,6 +619,8 @@ const FOOD = {
   lanterna:['o','plâncton'], vibora:['o','peixes pequenos'], diabo:['o','os peixes que chegam perto da sua luz'], celacanto:['o','peixes e lulas'],
   remo:['o','plâncton e camarõezinhos'], duende:['o','peixes, lulas e camarões'], lula:['a','peixes do fundo do mar'],
   groenlandia:['o','peixes, focas e quase tudo o que encontra'], megalodon:['o','baleias e outros animais grandes do mar'],
+  tubaraobaleia:['o','plâncton e peixinhos bem pequenos'], dunkleosteus:['o','outros peixes grandes da sua época'],
+  megapiranha:['a','peixes grandes'], boiuna:['a','peixes e tudo o que cai no rio, segundo a lenda'],
   lambari:['o','sementes, insetos e bichinhos'], piranha:['a','peixes, sementes e frutas que caem na água'], pacu:['o','frutas e sementes'],
   aruana:['o','insetos, aranhas e até passarinhos'], jaraqui:['o','o lodo e as algas das pedras e dos galhos'], tucunare:['o','outros peixes'],
   tambaqui:['o','frutas e sementes que caem das árvores'], pirarucu:['o','peixes'], arraiafogo:['a','caramujos, camarões e peixinhos'],
@@ -577,7 +632,7 @@ const LIKES = {
   cirurgiao:'camarao minhoca', papagaio:'camarao minhoca', garoupa:'peixinho camarao minhoca', arraia:'!camarao',
   atum:'peixinho lula camarao minhoca', dourado:'peixinho lula minhoca', martelo:'peixinho lula minhoca', espadarte:'!lula',
   lanterna:'camarao minhoca', vibora:'peixinho minhoca', diabo:'peixinho camarao minhoca', celacanto:'!lula',
-  remo:'camarao minhoca', duende:'peixinho lula minhoca', lula:'peixinho camarao minhoca', groenlandia:'!lula', megalodon:'!lendaria',
+  remo:'camarao minhoca', duende:'peixinho lula minhoca', lula:'peixinho camarao minhoca', groenlandia:'!lula', megalodon:'!lendaria', tubaraobaleia:'!lendaria', dunkleosteus:'!lendaria', megapiranha:'!lendaria', boiuna:'!lendaria',
   lambari:'minhoca fruta grilo', piranha:'peixinho minhoca', pacu:'!fruta', aruana:'!grilo', jaraqui:'minhoca fruta',
   tucunare:'peixinho grilo minhoca', tambaqui:'!fruta', pirarucu:'peixinho minhoca', arraiafogo:'camarao minhoca',
   poraque:'peixinho minhoca', pintado:'peixinho minhoca', dourada:'peixinho minhoca', jau:'peixinho minhoca', piraiba:'!peixinho',
@@ -588,6 +643,11 @@ SPECIES.forEach(s => {
 });
 const SP = Object.fromEntries(SPECIES.map(s => [s.id, s]));
 const MEGA = SP.megalodon;
+const LEGENDS = SPECIES.filter(s => s.legend);
+const comeVerb = sp => sp.extinct ? 'comia' : 'come';
+// Áudio de cada momento de um lendário (o Megalodon usa os áudios mega_* que já existiam)
+const legendClip = (sp, kind) => sp.id === 'megalodon' ? `mega_${kind}` : `lenda_${kind}_${sp.id}`;
+const theName = sp => `${sp.art === 'a' ? 'a' : 'o'} ${sp.name}`;
 const zonesOf = sp => sp.loc === 'rio' ? ZONES_RIO : ZONES_SEA;
 
 /* ================= UTIL ================= */
@@ -613,23 +673,31 @@ function buzz(p){ try { if (navigator.vibrate) navigator.vibrate(p); } catch(e){
 /* ================= SAVE ================= */
 const KEY = 'pescaria_lendaria_v1';
 const PREFS_KEY = 'pescaria_lendaria_prefs';
-const defaultSave = () => ({coins:0, rod:0, line:0, bait:'minhoca', baits:{minhoca:1}, river:0, loc:'mar', album:{}, casts:0, mega:false, tips:{}, target:null,
-  rodSkin:'madeira', lineSkin:'branca', boatSkin:'vermelho', stats:{caught:0, lost:0, earned:0, biggest:null}, updated:0});
+const defaultSave = () => ({coins:0, rod:0, line:0, bait:'minhoca', baits:{}, baitV:2, river:0, loc:'mar', album:{}, casts:0, mega:false, tips:{}, target:null, hideRank:false,
+  rodSkin:'madeira', lineSkin:'branca', boatSkin:'vermelho', stats:{caught:0, lost:0, earned:0, rare:0, legends:0, biggest:null}, updated:0});
 let save = defaultSave(), saveKey = KEY;
+// Iscas por unidade (a minhoca é infinita)
+const baitCount = id => id === 'minhoca' ? Infinity : Math.max(0, Math.floor(Number(save.baits[id]) || 0));
+const hasBait = id => baitCount(id) > 0;
 function migrate(){
   if (typeof save.bait === 'number'){
     const lv = save.bait; save.baits = {minhoca:1};
     if (lv >= 1) save.baits.camarao = 1; if (lv >= 2) save.baits.lula = 1; if (lv >= 3) save.baits.lendaria = 1;
     save.bait = lv >= 3 ? 'lendaria' : lv >= 2 ? 'lula' : lv >= 1 ? 'camarao' : 'minhoca';
   }
-  if (!save.baits || typeof save.baits !== 'object') save.baits = {minhoca:1};
-  save.baits.minhoca = 1;
-  if (!BAIT[save.bait] || !save.baits[save.bait]) save.bait = 'minhoca';
+  if (!save.baits || typeof save.baits !== 'object') save.baits = {};
+  if (save.baitV !== 2){ // versão antiga: iscas compradas eram para sempre; vira um estoque de presente
+    const old = save.baits; save.baits = {};
+    for (const [id, v] of Object.entries(old)) if (id !== 'minhoca' && v && BAIT[id]) save.baits[id] = id === 'lendaria' ? 3 : 10;
+    save.baitV = 2;
+  }
+  delete save.baits.minhoca;
+  if (!BAIT[save.bait] || !hasBait(save.bait)) save.bait = 'minhoca';
   if (save.target && !SP[save.target]) save.target = null;
   if (!ROD_SKINS.some(s => s.id === save.rodSkin)) save.rodSkin = 'madeira';
   if (!LINE_SKINS.some(s => s.id === save.lineSkin)) save.lineSkin = 'branca';
   if (!BOAT_SKINS.some(s => s.id === save.boatSkin)) save.boatSkin = 'vermelho';
-  save.stats = Object.assign({caught:0, lost:0, earned:0, biggest:null}, save.stats || {});
+  save.stats = Object.assign({caught:0, lost:0, earned:0, rare:0, legends:0, biggest:null}, save.stats || {});
   if (!save.stats.caught) save.stats.caught = Object.values(save.album).reduce((a,e) => a + (e.count||0), 0);
   save.album = save.album || {}; save.tips = save.tips || {};
 }
@@ -778,14 +846,15 @@ const known = sp => !!save.album[sp.id];
 const nameOf = sp => known(sp) ? sp.name : (sp.legend ? '??? Lendário' : 'Peixe misterioso');
 const pickI = a => Math.floor(Math.random()*a.length);
 // Devolve {text, clips}: o texto (balão e voz do aparelho) e a sequência de áudios gravados.
-function fishSpeech(sp, isNew, giant, record, wasTarget){
+function fishSpeech(sp, isNew, giant, record, wasTarget, rare){
   const um = sp.art === 'a' ? 'uma' : 'um';
   if (sp.legend) return {
-    text: `Você conseguiu! Você pescou o Megalodon! Você é um pescador lendário! ${sabia(sp.fact)} ${ele(sp)} comia ${sp.food}. Eu tô muito orgulhosa de você!`,
-    clips: ['mega_pescou', `sabia_${sp.id}`, `come_${sp.id}`, 'mega_orgulho'] };
+    text: `Você conseguiu! Você pescou ${theName(sp)}! Você é um pescador lendário! ${sabia(sp.fact)} ${ele(sp)} ${comeVerb(sp)} ${sp.food}. Eu tô muito orgulhosa de você!`,
+    clips: [legendClip(sp, 'pescou'), `sabia_${sp.id}`, `come_${sp.id}`, 'mega_orgulho'] };
   const ci = pickI(CHEERS);
   let s = `${CHEERS[ci]} Você pescou ${um} ${sp.name}! `;
   const clips = [`comemora_${ci+1}`, `pescou_${sp.id}`];
+  if (rare){ s += 'Uau, é um peixe raro, todo dourado! Ele vale muito mais! '; clips.push('peixe_raro'); }
   if (wasTarget){ s += 'Missão cumprida! Era o peixe que você escolheu! '; clips.push('alvo_cumprido'); }
   if (isNew){ s += 'Peixe novo pro álbum! '; clips.push('peixe_novo'); }
   if (giant){ s += 'E que peixe gigante! '; clips.push('peixe_gigante'); } else if (record){ s += 'É o seu maior até agora! '; clips.push('peixe_recorde'); }
@@ -817,7 +886,7 @@ let T = 0, camY = 770*PX, paused = false;
 const hook = {x:0, y:0, tx:0, stopped:false, atMax:false};
 let castT = 0, castFrom = null, castTo = null;
 let waitT = 0, checkT = 0, chaser = null, diveZone = 0, megaTold = false, megaTeaseT = -1, limitTold = false, targetStopDone = false, rareTold = false;
-let fight = null, holding = false;
+let fight = null, holding = false, baitOut = null, teaseSp = null;
 let fishes = [], respawns = [], parts = [], texts = [], glows = [], confetti = [];
 let shakeT = 0, shakeAmp = 0;
 const keys = {};
@@ -830,7 +899,7 @@ function rodTip(){ const s = bs(); return {x: boatX() + 112*s, y: bob() - 6*s - 
 function fishLen(f){ return f.sp.len*SC*f.s; }
 const canBite = sp => !sp.only || sp.likes.includes(save.bait);
 function curTarget(){ const sp = save.target && SP[save.target]; return sp && sp.loc === LOC.id ? sp : null; }
-function targetDepth(sp){ if (sp.legend) return 880; const z = zonesOf(sp)[sp.zone]; return (z.from + z.to)/2; }
+function targetDepth(sp){ return zoneMid(zonesOf(sp)[sp.zone]); }
 
 function pickSpecies(zone){
   const list = SPECIES.filter(s => s.loc === LOC.id && s.zone === zone && !s.legend);
@@ -839,16 +908,19 @@ function pickSpecies(zone){
   return weighted(list, s => s.w);
 }
 function sizeFactor(){ return Math.random() < .06 ? rand(1.35,1.6) : rand(.8,1.2); }
+// Altura (m) onde um peixe nada: lendários ficam perto do meio da zona deles
+function fishDepth(sp, z){ if (sp.legend){ const span = z.to - z.from; return rand(z.from + span*.3, z.to - span*.12); } return rand(Math.max(z.from, 6)+3, z.to-4); }
 function makeFish(sp, zone){
   const z = ZONES[zone];
-  const yM = sp.legend ? rand(720, 870) : rand(Math.max(z.from, 6)+3, z.to-4);
+  const yM = fishDepth(sp, z);
   return {sp, x: rand(0, W||800), y: yM*PX, baseY: yM*PX, dir: Math.random()<.5?-1:1, s: sp.legend ? rand(1,1.08) : sizeFactor(),
+    rare: !sp.legend && Math.random() < RARE_CHANCE,
     t: rand(0,10), seed: rand(0,6), speedMul: rand(.8,1.2), state:'swim', fleeT:0, rot:0};
 }
 function spawnAll(){
   fishes = [];
   ZONES.forEach((z,i) => { for (let k=0;k<LOC.counts[i];k++) fishes.push(makeFish(pickSpecies(i), i)); });
-  if (LOC === SEA) fishes.push(makeFish(MEGA, 4));
+  for (const sp of LEGENDS) if (sp.loc === LOC.id) fishes.push(makeFish(sp, sp.zone));
   respawns = [];
   ensureTarget();
 }
@@ -870,7 +942,7 @@ function travel(){
   camY = -H*.42;
   SFX.zone();
   showToast(LOC === RIO ? '🌿 Rio Amazonas' : '🌊 De volta ao mar!', 'zone', 2400,
-    LOC === RIO ? 'Agora com 14 peixes para descobrir!' : 'O Megalodon continua lá no Abismo…');
+    LOC === RIO ? `Agora com ${SPECIES.filter(s => s.loc === 'rio').length} peixes para descobrir!` : 'O Megalodon continua lá no Abismo…');
   say(LOC === RIO ? 'Chegamos no Rio Amazonas, o maior rio do mundo! Aqui tem piranha, tucunaré, tambaqui, pirarucu, poraquê e muito mais!' : 'De volta ao mar! Bora pescar!', undefined, [LOC === RIO ? 'viagem_rio' : 'viagem_mar']);
   uiKey = ''; refreshUI();
 }
@@ -927,11 +999,20 @@ function fishBody(c,L,H){
   c.bezierCurveTo(-L*.05,H*.62,L*.46,H*.5,L*.5,H*.02);
   c.closePath();
 }
+// Versão rara (dourada) de qualquer espécie
+const RARE_SKINS = {};
+function rareSkin(sp){
+  if (!RARE_SKINS[sp.id]) RARE_SKINS[sp.id] = {...sp, c1:'#d9a514', c2:'#fff0bd', fin:'#c48508', tail:'#c48508',
+    ex: {...(sp.ex||{}), ...(sp.ex && sp.ex.spots ? {spots:'#a8700a'} : {}), ...(sp.ex && sp.ex.bars ? {bars:'#a8700a'} : {})}};
+  return RARE_SKINS[sp.id];
+}
 function drawSpecies(c, sp, L, t, o={}){
+  if (o.rare && !o.sil) sp = rareSkin(sp);
   const H = L*sp.h;
   c.lineCap = 'round'; c.lineJoin = 'round';
   switch (sp.type){
     case 'fish': return drawFishT(c,sp,L,H,t,o);
+    case 'catfish': return drawCatfish(c,sp,L,H,t,o);
     case 'puffer': return drawPuffer(c,sp,L,H,t,o);
     case 'shark': return drawShark(c,sp,L,H,t,o);
     case 'ray': return drawRay(c,sp,L,H,t,o);
@@ -1041,8 +1122,9 @@ function drawFishT(c,sp,L,H,t,o){
     c.strokeStyle='rgba(0,0,0,.45)'; c.lineWidth=Math.max(1,H*.035);
     c.beginPath(); c.moveTo(L*.49,H*.05); c.lineTo(L*(ex.bigmouth?.35:.43),H*(ex.bigmouth?.13:.08)); c.stroke();
     if (ex.piranha){
-      c.fillStyle = '#fffbea';
-      for (let k=0;k<4;k++){ const x = L*(.47-k*.03), y = H*(.1+k*.008); c.beginPath(); c.moveTo(x-L*.012,y); c.lineTo(x+L*.012,y); c.lineTo(x,y-H*.09); c.fill(); }
+      c.fillStyle = '#fffbea'; const tk = ex.bigTeeth ? 1.7 : 1, n = ex.bigTeeth ? 5 : 4;
+      for (let k=0;k<n;k++){ const x = L*(.47-k*.028), y = H*(.1+k*.008); c.beginPath(); c.moveTo(x-L*.012*tk,y); c.lineTo(x+L*.012*tk,y); c.lineTo(x,y-H*.09*tk); c.fill(); }
+      if (ex.bigTeeth) for (let k=0;k<4;k++){ const x = L*(.455-k*.028), y = H*(.07+k*.008); c.beginPath(); c.moveTo(x-L*.012*tk,y); c.lineTo(x+L*.012*tk,y); c.lineTo(x,y+H*.08*tk); c.fill(); }
     }
     if (ex.fangs){
       c.fillStyle='#e9f3ff';
@@ -1054,6 +1136,68 @@ function drawFishT(c,sp,L,H,t,o){
   if (ex.lights && !sil){
     for (let k=0;k<6;k++){ const x=L*(.28-k*.12), y=H*.3; c.fillStyle=ex.lights; c.beginPath(); c.arc(x,y,Math.max(1,H*.05),0,7); c.fill(); glow(c,x,y,Math.max(5,H*.32),ex.lights); }
   }
+}
+// Bagres (pintado, dourada, jaú, piraíba): cabeça achatada e larga, corpo comprido, bigodes e nadadeira adiposa
+function drawCatfish(c,sp,L,H,t,o){
+  const sil=o.sil, ex=sp.ex||{}, fin=sil?SIL:sp.fin, hd = ex.head || 1;
+  const wag = Math.sin(t*(o.fight?12:5) + (o.seed||0))*(o.fight?.3:.16);
+  const finLine = () => { if (!sil){ c.strokeStyle='rgba(10,20,35,.26)'; c.lineWidth=Math.max(.7,L*.006); c.stroke(); } };
+  // rabo bifurcado (a piraíba tem um filamento comprido no lobo de cima)
+  c.save(); c.translate(-L*.4,0); c.rotate(wag); c.fillStyle = fin;
+  c.beginPath(); c.moveTo(L*.02,-H*.06); c.quadraticCurveTo(-L*.08,-H*.3,-L*.17,-H*.62); c.quadraticCurveTo(-L*.1,-H*.12,-L*.09,0);
+  c.quadraticCurveTo(-L*.1,H*.12,-L*.16,H*.52); c.quadraticCurveTo(-L*.07,H*.28,L*.02,H*.06); c.closePath(); c.fill(); finLine();
+  if (ex.filament){ c.strokeStyle = fin; c.lineWidth = Math.max(1, H*.035); c.beginPath(); c.moveTo(-L*.17,-H*.62); c.quadraticCurveTo(-L*.3,-H*.7+Math.sin(t*4)*H*.15,-L*.42,-H*.5+Math.sin(t*4+1)*H*.2); c.stroke(); }
+  c.restore();
+  // nadadeiras: dorsal alta (com espinho), adiposa e anal
+  c.fillStyle = fin;
+  c.beginPath(); c.moveTo(L*.14,-H*.42); c.lineTo(L*.06,-H*1.02); c.quadraticCurveTo(L*.0,-H*.7,-L*.04,-H*.4); c.closePath(); c.fill(); finLine();
+  c.beginPath(); c.moveTo(-L*.18,-H*.3); c.quadraticCurveTo(-L*.26,-H*.62,-L*.33,-H*.16); c.closePath(); c.fill(); finLine();
+  c.beginPath(); c.moveTo(-L*.08,H*.34); c.quadraticCurveTo(-L*.2,H*.62,-L*.32,H*.18); c.closePath(); c.fill(); finLine();
+  // corpo com cabeça larga e achatada
+  const body = () => { c.beginPath();
+    c.moveTo(L*.5,H*.14);
+    c.quadraticCurveTo(L*.5,-H*.2*hd,L*.34,-H*.33*hd);
+    c.quadraticCurveTo(L*.1,-H*.5,-L*.18,-H*.3);
+    c.quadraticCurveTo(-L*.32,-H*.16,-L*.41,-H*.07);
+    c.lineTo(-L*.41,H*.07);
+    c.quadraticCurveTo(-L*.3,H*.18,-L*.05,H*.38);
+    c.quadraticCurveTo(L*.28,H*.46*hd,L*.44,H*.34);
+    c.quadraticCurveTo(L*.52,H*.26,L*.5,H*.14); c.closePath(); };
+  body(); c.fillStyle = bodyGrad(c,H,sp.c1,sp.c2,sil); c.fill();
+  if (!sil){
+    c.save(); body(); c.clip();
+    const r = rng(hash(sp.id));
+    if (ex.pattern === 'pintado'){ // pintas pretas e faixas finas
+      c.fillStyle = '#1d2125';
+      for (let k=0;k<6;k++){ const x = L*(.22 - k*.11); c.beginPath(); c.ellipse(x,-H*.12,L*.012,H*.26,.15,0,7); c.fill(); }
+      for (let k=0;k<34;k++){ c.beginPath(); c.arc((r()-.5)*L*.85,(r()-.7)*H*.55,Math.max(1,H*(.025+r()*.03)),0,7); c.fill(); }
+    } else if (ex.pattern === 'manchas'){ // jaú: manchas grandes e irregulares
+      c.fillStyle = 'rgba(40,36,18,.55)';
+      for (let k=0;k<14;k++){ c.beginPath(); c.ellipse((r()-.5)*L*.85,(r()-.75)*H*.5,L*(.025+r()*.03),H*(.06+r()*.07),r()*3,0,7); c.fill(); }
+    } else if (ex.pattern === 'brilho'){ // dourada: brilho metálico
+      const g = c.createLinearGradient(-L*.4,0,L*.5,0); g.addColorStop(0,'rgba(255,255,255,0)'); g.addColorStop(.6,'rgba(255,248,210,.35)'); g.addColorStop(1,'rgba(255,255,255,0)');
+      c.fillStyle = g; c.fillRect(-L*.5,-H*.5,L,H*.5);
+    }
+    c.strokeStyle='rgba(255,255,255,.25)'; c.lineWidth=Math.max(.8,H*.03); c.beginPath(); c.moveTo(L*.3,-H*.02); c.quadraticCurveTo(0,-H*.06,-L*.38,0); c.stroke();
+    c.fillStyle='rgba(255,255,255,.16)'; c.beginPath(); c.ellipse(L*.12,-H*.28,L*.26,H*.07,-.05,0,7); c.fill();
+    c.strokeStyle='rgba(0,0,0,.2)'; c.lineWidth=Math.max(1,H*.04); c.beginPath(); c.arc(L*.42,H*.04,H*.4*hd,Math.PI*.7,Math.PI*1.25); c.stroke();
+    c.restore();
+    body(); outline(c, L);
+  }
+  // nadadeira peitoral com espinho
+  c.fillStyle = fin; c.save(); c.translate(L*.26,H*.26); c.rotate(.45+Math.sin(t*4+(o.seed||0))*.2);
+  c.beginPath(); c.moveTo(0,0); c.lineTo(-L*.12,H*.08); c.quadraticCurveTo(-L*.06,-H*.02,0,0); c.fill(); finLine(); c.restore();
+  // boca larga e bigodes (barbilhões)
+  if (!sil){ c.strokeStyle='rgba(0,0,0,.5)'; c.lineWidth=Math.max(1,H*.035); c.beginPath(); c.moveTo(L*.5,H*.16); c.quadraticCurveTo(L*.45,H*.22,L*.38,H*.21); c.stroke(); }
+  const bl = ex.barbels || 1, wv = Math.sin(t*3+(o.seed||0))*H*.08;
+  c.strokeStyle = sil ? SIL : '#2f363c'; c.lineCap = 'round';
+  c.lineWidth = Math.max(1, H*.035);
+  c.beginPath(); c.moveTo(L*.47,H*.06); c.quadraticCurveTo(L*(.4-.1*bl),H*(.5*bl)+wv,L*(.38-.42*bl),H*(.7*bl)+wv*1.6); c.stroke();
+  c.beginPath(); c.moveTo(L*.48,H*.02); c.quadraticCurveTo(L*(.42-.08*bl),-H*(.3*bl)+wv,L*(.36-.3*bl),-H*(.12*bl)+wv); c.stroke();
+  c.lineWidth = Math.max(.8, H*.022);
+  for (const k of [0,1]){ c.beginPath(); c.moveTo(L*(.46-k*.03),H*.26); c.quadraticCurveTo(L*(.44-k*.03),H*.5+wv,L*(.38-k*.04),H*(.62+k*.06)+wv); c.stroke(); }
+  // olho pequeno no alto da cabeça
+  if (!sil) eye(c, L*.39, -H*.13*hd, Math.max(1.3, H*.06), sil, '#c9b24a');
 }
 function drawPuffer(c,sp,L,H,t,o){
   const sil=o.sil, ex=sp.ex||{}, R=L*.36, cx=L*.04, fin=sil?SIL:sp.fin;
@@ -1087,10 +1231,24 @@ function drawShark(c,sp,L,H,t,o){
   body(); c.fillStyle=bodyGrad(c,H,sp.c1,sp.c2,sil); c.fill();
   if (!sil){
     c.save(); body(); c.clip();
+    if (ex.whale){ // tubarão-baleia: pintinhas brancas e cristas no dorso
+      c.fillStyle='rgba(240,246,250,.85)'; const r=rng(77);
+      for (let x=L*.42; x>-L*.42; x-=L*.035) for (let y=-H*.42; y<H*.08; y+=H*.11){ c.beginPath(); c.arc(x+(r()-.5)*L*.012, y+(r()-.5)*H*.04, Math.max(1, H*.03), 0, 7); c.fill(); }
+      c.strokeStyle='rgba(240,246,250,.35)'; c.lineWidth=Math.max(1,H*.025);
+      for (const yy of [-.3,-.18]){ c.beginPath(); c.moveTo(L*.35,H*yy); c.quadraticCurveTo(0,H*(yy-.06),-L*.4,H*(yy*.3)); c.stroke(); }
+    }
     c.fillStyle='rgba(255,255,255,.18)'; c.beginPath(); c.ellipse(L*.05,-H*.3,L*.32,H*.08,0,0,7); c.fill();
     c.strokeStyle='rgba(255,255,255,.2)'; c.lineWidth=Math.max(1,H*.03); c.beginPath(); c.moveTo(L*.4,H*.14); c.quadraticCurveTo(0,H*.06,-L*.4,H*.02); c.stroke();
     c.restore();
     body(); outline(c, L*.8);
+    if (ex.armor){ // Dunkleosteus: armadura de osso na cabeça
+      const plate = () => { c.beginPath(); c.moveTo(L*.51,H*.06); c.quadraticCurveTo(L*.47,-H*.38,L*.3,-H*.47); c.lineTo(L*.08,-H*.5); c.lineTo(L*.04,H*.46); c.lineTo(L*.3,H*.44); c.quadraticCurveTo(L*.48,H*.36,L*.51,H*.06); c.closePath(); };
+      const g = c.createLinearGradient(0,-H*.5,0,H*.45); g.addColorStop(0,'#8a7e69'); g.addColorStop(.6,'#6e6352'); g.addColorStop(1,'#a89c84');
+      plate(); c.fillStyle = g; c.fill(); outline(c, L*.8);
+      c.strokeStyle='rgba(30,24,18,.45)'; c.lineWidth=Math.max(1,H*.03);
+      c.beginPath(); c.moveTo(L*.3,-H*.47); c.quadraticCurveTo(L*.26,0,L*.3,H*.44); c.moveTo(L*.17,-H*.49); c.quadraticCurveTo(L*.14,0,L*.17,H*.45); c.moveTo(L*.3,-H*.05); c.lineTo(L*.08,-H*.08); c.stroke();
+      c.fillStyle='rgba(255,255,255,.18)'; for (let k=0;k<9;k++){ c.beginPath(); c.arc(L*(.12+k*.042),-H*(.3-(k%3)*.08),Math.max(1,H*.025),0,7); c.fill(); }
+    }
   }
   if (ex.goblin){
     c.fillStyle=sil?SIL:sp.c1; c.beginPath(); c.moveTo(L*.38,-H*.34); c.quadraticCurveTo(L*.6,-H*.3,L*.72,-H*.12); c.lineTo(L*.44,-H*.02); c.closePath(); c.fill(); if (!sil) outline(c, L*.7);
@@ -1110,18 +1268,32 @@ function drawShark(c,sp,L,H,t,o){
     if (ex.scars){ c.strokeStyle='rgba(255,255,255,.35)'; c.lineWidth=Math.max(1,H*.03);
       c.beginPath(); c.moveTo(L*.05,-H*.3); c.lineTo(-L*.05,-H*.12); c.moveTo(L*.08,-H*.26); c.lineTo(-L*.02,-H*.08); c.moveTo(-L*.18,-H*.25); c.lineTo(-L*.24,-H*.05); c.stroke(); }
     if (!ex.hammer){
-      const er = Math.max(1.4, H*(ex.tinyEye?.04:.065));
-      c.fillStyle='#0a0a0a'; c.beginPath(); c.arc(L*.37,-H*.12,er,0,7); c.fill();
-      c.fillStyle='rgba(255,255,255,.85)'; c.beginPath(); c.arc(L*.37+er*.3,-H*.12-er*.3,er*.35,0,7); c.fill();
+      const er = Math.max(1.4, H*(ex.tinyEye?.04:ex.armor?.09:.065)), ex0 = ex.whale ? L*.42 : L*.37, ey0 = ex.whale ? -H*.04 : -H*.12;
+      if (ex.armor){ c.fillStyle='#d8ccb0'; c.beginPath(); c.arc(ex0,ey0,er*1.5,0,7); c.fill(); }
+      c.fillStyle='#0a0a0a'; c.beginPath(); c.arc(ex0,ey0,er,0,7); c.fill();
+      c.fillStyle='rgba(255,255,255,.85)'; c.beginPath(); c.arc(ex0+er*.3,ey0-er*.3,er*.35,0,7); c.fill();
     }
     if (ex.teeth){
-      const op = o.open ? .16 + Math.abs(Math.sin(t*6))*.08 : .1;
-      c.fillStyle='#4a0d14'; c.beginPath(); c.moveTo(L*.49,H*.05); c.lineTo(L*.24,H*.2); c.lineTo(L*.44,H*(.2+op*1.6)); c.lineTo(L*.48,H*(.15+op)); c.closePath(); c.fill();
-      c.fillStyle='#fffbea';
-      for (let k=0;k<7;k++){ const u=k/7, x=lerp(L*.47,L*.27,u), y=lerp(H*.06,H*.19,u);
-        c.beginPath(); c.moveTo(x-L*.012,y); c.lineTo(x+L*.012,y-H*.005); c.lineTo(x,y+H*.09); c.fill(); }
-      for (let k=0;k<6;k++){ const u=k/6, x=lerp(L*.45,L*.29,u), y=lerp(H*(.15+op*1.4),H*.21,u);
-        c.beginPath(); c.moveTo(x-L*.011,y); c.lineTo(x+L*.011,y); c.lineTo(x,y-H*.08); c.fill(); }
+      // Boca do Megalodon: fenda escura que segue a curva do focinho, gengiva discreta e duas fileiras de dentes
+      const op = o.open ? .07 + Math.abs(Math.sin(t*6))*.06 : .015;
+      const up = u => [lerp(L*.47,L*.27,u), lerp(H*.1,H*.2,u) + Math.sin(u*Math.PI)*H*.025];
+      const lo = u => [lerp(L*.44,L*.27,u), lerp(H*(.13+op*3),H*.2,u) + Math.sin(u*Math.PI)*H*(.02+op*.8)];
+      const mouth = () => { c.beginPath(); let p = up(0); c.moveTo(p[0],p[1]); for (let u=.1; u<=1.001; u+=.1){ p = up(u); c.lineTo(p[0],p[1]); }
+        for (let u=1; u>=-.001; u-=.1){ p = lo(u); c.lineTo(p[0],p[1]); } c.closePath(); };
+      mouth(); c.fillStyle = '#16090c'; c.fill();
+      c.strokeStyle = '#6a2c35'; c.lineWidth = Math.max(1, H*.022); c.stroke();
+      c.fillStyle = '#f4eedb'; c.strokeStyle = 'rgba(60,40,30,.35)'; c.lineWidth = Math.max(.5, H*.008);
+      for (let k=0; k<8; k++){ const u = (k+.5)/8, [x,y] = up(u), s = L*.011*(1 - u*.35), d = H*(.075 - u*.025);
+        c.beginPath(); c.moveTo(x-s,y); c.lineTo(x+s,y); c.lineTo(x,y+d); c.closePath(); c.fill(); c.stroke(); }
+      if (op > .03) for (let k=0; k<7; k++){ const u = (k+.5)/7, [x,y] = lo(u), s = L*.01*(1 - u*.35), d = H*(.06 - u*.02);
+        c.beginPath(); c.moveTo(x-s,y); c.lineTo(x+s,y); c.lineTo(x,y-d); c.closePath(); c.fill(); c.stroke(); }
+    } else if (ex.whale){ // boca larga bem na frente
+      c.strokeStyle='rgba(10,20,30,.7)'; c.lineWidth=Math.max(1.2,H*.04);
+      c.beginPath(); c.moveTo(L*.5,H*.05); c.quadraticCurveTo(L*.46,H*.12,L*.36,H*.1); c.stroke();
+    } else if (ex.armor){ // lâminas de osso no lugar dos dentes
+      c.fillStyle='#efe6cf'; c.strokeStyle='rgba(40,30,20,.5)'; c.lineWidth=Math.max(1,H*.02);
+      c.beginPath(); c.moveTo(L*.5,H*.1); c.lineTo(L*.36,H*.2); c.lineTo(L*.47,H*.22); c.closePath(); c.fill(); c.stroke();
+      c.beginPath(); c.moveTo(L*.5,H*.1); c.lineTo(L*.53,H*.24); c.lineTo(L*.44,H*.25); c.closePath(); c.fill(); c.stroke();
     } else if (!ex.goblin){
       c.strokeStyle='rgba(0,0,0,.45)'; c.lineWidth=Math.max(1,H*.035);
       c.beginPath(); c.moveTo(L*.44,H*.2); c.quadraticCurveTo(L*.36,H*.26,L*.3,H*.22); c.stroke();
@@ -1156,19 +1328,29 @@ function drawEel(c,sp,L,H,t,o){
   const path = dy => { c.beginPath(); c.moveTo(pts[0][0],pts[0][1]+dy); for (let i=1;i<=N;i++) c.lineTo(pts[i][0],pts[i][1]+dy); };
   if (ex.electric){
     c.strokeStyle = sil ? SIL : sp.c2; c.lineWidth = H*.45; path(H*.5); c.stroke();
-  } else { c.strokeStyle=fin; c.lineWidth=H*.6; path(-H*.55); c.stroke(); }
+  } else if (!ex.serpent){ c.strokeStyle=fin; c.lineWidth=H*.6; path(-H*.55); c.stroke(); }
   c.strokeStyle = 'rgba(10,20,35,.4)'; c.lineWidth = H*1.12; path(0); c.stroke();
   c.strokeStyle=sil?SIL:sp.c1; c.lineWidth=H; path(0); c.stroke();
-  if (!sil){
+  if (!sil && ex.serpent){ // Boiúna: losangos amarelos nas costas e barriga clara
+    c.strokeStyle = sp.c2; c.lineWidth = H*.55; c.setLineDash([H*.7, H*1.1]); path(-H*.05); c.stroke(); c.setLineDash([]);
+    c.strokeStyle = 'rgba(230,220,160,.45)'; c.lineWidth = H*.25; path(H*.3); c.stroke();
+  } else if (!sil){
     c.strokeStyle = ex.electric ? hexA(sp.c2,.7) : sp.c2; c.lineWidth=H*.32; path(H*.18); c.stroke();
     c.strokeStyle='rgba(255,255,255,.22)'; c.lineWidth=H*.14; path(-H*.25); c.stroke();
     if (!ex.electric){ c.strokeStyle='rgba(60,70,95,.35)'; c.lineWidth=H*.14; c.setLineDash([H*.4,H*1.1]); path(-H*.12); c.stroke(); c.setLineDash([]); }
   }
-  if (!ex.electric){
+  if (!ex.electric && !ex.serpent){
     c.strokeStyle=fin; c.lineWidth=Math.max(1.5,H*.26);
     for (let k=0;k<5;k++){ c.beginPath(); c.moveTo(L*.47,-H*.4); c.quadraticCurveTo(L*(.46-k*.02),-H*(2+k*.4),L*(.4-k*.03),-H*(2.6+k*.5)+Math.sin(t*2+k)*H*.4); c.stroke(); }
   }
-  eye(c,L*.475,-H*.05,Math.max(1.5,H*(ex.electric?.16:.28)),sil);
+  if (ex.serpent){ // cabeça de cobra com olhos que brilham como lanternas
+    const hx = pts[0][0] + L*.01, hy = pts[0][1];
+    c.fillStyle = sil ? SIL : sp.c1; c.beginPath(); c.ellipse(hx, hy, H*1.1, H*.75, 0, 0, 7); c.fill();
+    if (!sil){ outline(c, L*.3);
+      c.fillStyle = '#ffd84d'; c.beginPath(); c.arc(hx + H*.35, hy - H*.3, Math.max(1.5, H*.2), 0, 7); c.fill();
+      glow(c, hx + H*.35, hy - H*.3, Math.max(12, H*2.5), '#ffd84d');
+      c.strokeStyle = '#d6243a'; c.lineWidth = Math.max(1, H*.08); c.beginPath(); c.moveTo(hx + H*1.05, hy + H*.1); c.lineTo(hx + H*1.6, hy + H*.1 + Math.sin(t*10)*H*.15); c.stroke(); }
+  } else eye(c,L*.475,-H*.05,Math.max(1.5,H*(ex.electric?.16:.28)),sil);
   if (ex.electric && !sil){
     for (const k of [6,13,20,27]){ if (Math.sin(t*9+k*1.7) > .55){ const p = pts[k]; c.fillStyle='#fff7a8'; c.beginPath(); c.arc(p[0],p[1],Math.max(1.5,H*.25),0,7); c.fill(); glow(c,p[0],p[1],Math.max(10,H*2.2),'#ffe94d'); } }
   }
@@ -1223,7 +1405,7 @@ function waterCol(m){
   for (let i=1;i<WATER.length;i++){ if (m <= WATER[i][0]){ const [m0,c0]=WATER[i-1], [m1,c1]=WATER[i], u=(m-m0)/(m1-m0); return c0.map((v,k)=>Math.round(lerp(v,c1[k],u))); } }
   return WATER[WATER.length-1][1];
 }
-function maxDepth(){ return Math.min(RODS[save.rod].depth, LOC.max); }
+function maxDepth(){ return rodDepthIn(LOC, save.rod); }
 const rgb = c => `rgb(${c[0]},${c[1]},${c[2]})`;
 function waveY(x){ return Math.sin(x*.018+T*1.4)*4 + Math.sin(x*.043-T*2.1)*2; }
 function wallW(m, side){
@@ -1371,8 +1553,8 @@ function drawZoneMarks(){
     ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); ctx.setLineDash([]);
     ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.fillText(`${z.icon} ${z.name} · ${z.from} m`, Math.max(14, wallW(z.from+6,0)+10), y-6);
   }
-  const lim = RODS[save.rod].depth;
-  if (lim < LOC.max){
+  const lim = maxDepth();
+  if (save.rod < LOC.zones.length - 1){
     const y = lim*PX - camY;
     if (y > -20 && y < H+20){
       ctx.strokeStyle = 'rgba(255,107,74,.85)'; ctx.setLineDash([10,8]); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); ctx.setLineDash([]);
@@ -1485,8 +1667,12 @@ function drawFish(f){
   const L = fishLen(f), y = f.y - camY;
   if (y < -L || y > H+L || f.x < -L*1.2 || f.x > W+L*1.2) return;
   ctx.save(); ctx.translate(f.x, y); ctx.rotate(f.rot); ctx.scale(f.dir, 1);
-  drawSpecies(ctx, f.sp, L, f.t, {seed:f.seed, fight: f.state==='hooked', open: f.state==='hooked' || f.state==='chase'});
+  drawSpecies(ctx, f.sp, L, f.t, {seed:f.seed, rare: f.rare, fight: f.state==='hooked', open: f.state==='hooked' || f.state==='chase'});
   ctx.restore();
+  if (f.rare && Q){ // brilhinhos em volta do peixe raro dourado
+    for (let k=0;k<3;k++){ const a = f.t*1.7 + k*2.1, tw = Math.sin(f.t*5 + k*1.9); if (tw < .2) continue;
+      ctx.save(); ctx.translate(f.x + Math.cos(a)*L*.45, y + Math.sin(a)*L*.2); glow(ctx, 0, 0, 10 + tw*8, '#ffe27a'); ctx.restore(); }
+  }
 }
 function drawBait(c, id){
   switch (id){
@@ -1547,6 +1733,7 @@ function shake(t, amp){ if (REDUCED) return; shakeT = Math.max(shakeT, t); shake
 function sinkSpeed(){ return (60 + 30*save.rod)*PX*(LOC === RIO ? .6 : 1); }
 function startCast(){
   if (mode !== 'idle') return;
+  checkBaitOut(); if (!hasBait(save.bait)) save.bait = 'minhoca';
   initAudio();
   mode = 'cast'; castT = 0;
   castFrom = rodTip();
@@ -1588,10 +1775,12 @@ function bite(f){
   fight = {fish:f, p:0, tension:.2, thrash:0, nextThrash: rand(1.2,2.2), startY: hook.y, t:0, wx: hook.x, clickT:0, warned:false};
   mode = 'fight';
   SFX.bite(); shake(.25, 4); buzz(60);
-  if (f.sp.legend){ SFX.roar(); shake(1.2, 14); buzz([150,80,150]); say('É o Megalodon! Segura firme! Eu sei que você consegue!', undefined, ['mega_fisgou']); }
+  // cada peixe que morde come uma isca (a minhoca nunca acaba)
+  if (save.bait !== 'minhoca'){ save.baits[save.bait] = Math.max(0, baitCount(save.bait) - 1); if (!save.baits[save.bait]) baitOut = save.bait; persist(); }
+  if (f.sp.legend){ SFX.roar(); shake(1.2, 14); buzz([150,80,150]); say(`É ${theName(f.sp)}! Segura firme! Eu sei que você consegue!`, undefined, [legendClip(f.sp, 'fisgou')]); }
   else if (save.casts <= 2) say('Fisgou! Agora segura o botão pra puxar, e solta quando a linha ficar vermelha!', undefined, ['fisgou_tutorial']);
   else { const bi = pickI(BITES); say(BITES[bi], undefined, [`fisgou_${bi+1}`]); }
-  $('fhName').textContent = f.sp.legend ? '🦈 MEGALODON!!!' : (known(f.sp) ? `Fisgou: ${f.sp.name}!` : 'Fisgou um peixe misterioso!');
+  $('fhName').textContent = f.sp.legend ? `🌟 ${f.sp.name.toUpperCase()}!!!` : f.rare ? '⭐ Fisgou um peixe DOURADO!' : (known(f.sp) ? `Fisgou: ${f.sp.name}!` : 'Fisgou um peixe misterioso!');
   refreshUI();
 }
 function fightUpdate(dt){
@@ -1650,23 +1839,23 @@ function snapLine(){
 function landFish(){
   const f = fight.fish, sp = f.sp; fight = null; holding = false;
   fishes = fishes.filter(x => x !== f);
-  respawns.push({zone: sp.zone, t: sp.legend ? 60 : 1.5, legend: !!sp.legend});
+  respawns.push({zone: sp.zone, t: sp.legend ? 60 : 1.5, legendId: sp.legend ? sp.id : null});
   splash(hook.x, 0, 28); SFX.splash(); buzz([40,40,80]);
-  const cm = sp.real*f.s, value = sp.legend ? sp.value : Math.max(1, Math.round(sp.value*f.s*f.s)) * eventMult();
+  const cm = sp.real*f.s, value = sp.legend ? sp.value : Math.max(1, Math.round(sp.value*f.s*f.s)) * eventMult() * (f.rare ? RARE_MULT : 1);
   const entry = save.album[sp.id] || {count:0, best:0};
   const isNew = entry.count === 0, isRecord = !isNew && cm > entry.best;
-  entry.count++; entry.best = Math.max(entry.best, cm); save.album[sp.id] = entry;
+  entry.count++; entry.best = Math.max(entry.best, cm); if (f.rare) entry.rare = (entry.rare || 0) + 1; save.album[sp.id] = entry;
   save.coins += value;
-  save.stats.caught++; save.stats.earned += value;
+  save.stats.caught++; save.stats.earned += value; if (f.rare) save.stats.rare++; if (sp.legend) save.stats.legends++;
   if (!save.stats.biggest || cm > save.stats.biggest.cm) save.stats.biggest = {id: sp.id, cm};
   const wasTarget = save.target === sp.id;
   if (wasTarget) save.target = null;
-  if (sp.legend) save.mega = true;
+  if (sp.id === 'megalodon') save.mega = true;
   persist(); updateCoins(true);
   floatText(`+${fmt(value)} 🪙`, boatX(), -60, '#ffd84d', 30);
   mode = 'card'; refreshUI();
-  if (sp.legend) showMega(cm);
-  else { SFX.catch(); showCard(sp, cm, value, isNew, isRecord, f.s > 1.3, wasTarget); }
+  if (sp.legend) showLegend(sp, cm, value, isNew);
+  else { SFX.catch(); showCard(sp, cm, value, isNew, isRecord, f.s > 1.3, wasTarget, f.rare); }
 }
 function updateFish(dt){
   const waiting = mode === 'sink' && (hook.stopped || hook.atMax);
@@ -1697,23 +1886,24 @@ function updateFish(dt){
     if ((f.x < -margin && f.dir < 0) || (f.x > W + margin && f.dir > 0)){
       f.dir *= -1; f.tease = false;
       if (!f.sp.legend){ const z = ZONES[f.sp.zone]; f.baseY = clamp(f.baseY + rand(-15,15)*PX, (Math.max(z.from,6)+3)*PX, (z.to-4)*PX); }
-      else f.baseY = rand(720,870)*PX;
+      else f.baseY = fishDepth(f.sp, ZONES[f.sp.zone])*PX;
     }
   }
 }
 function waitLogic(dt){
   const m = hook.y/PX;
   waitT += dt; checkT -= dt;
-  const mega = fishes.find(f => f.sp.legend);
-  if (save.bait !== 'lendaria' && m >= 560 && mega && !megaTold && waitT > 1.2 && mega.state === 'swim'){
-    megaTold = true; megaTeaseT = 2.2;
+  // lendário da zona onde o anzol está: sem a Isca Lendária ele só passa; com ela, vem morder
+  const lz = zoneAt(m).id, mega = fishes.find(f => f.sp.legend && f.sp.zone === lz);
+  if (save.bait !== 'lendaria' && mega && !megaTold && waitT > 1.2 && mega.state === 'swim'){
+    megaTold = true; megaTeaseT = 2.2; teaseSp = mega.sp;
     const L = fishLen(mega); mega.dir = hook.x > W/2 ? 1 : -1;
     mega.x = mega.dir > 0 ? -L*.6 : W + L*.6; mega.y = mega.baseY = hook.y + 70*SC; mega.tease = true;
     SFX.roar(); shake(1, 6);
   }
   if (chaser || checkT > 0) return;
   checkT = .7;
-  if (mega && save.bait === 'lendaria' && m >= 600 && mega.state === 'swim'){
+  if (mega && save.bait === 'lendaria' && mega.state === 'swim'){
     if (waitT > 1 && Math.random() < .5){ startChase(mega); return; }
     if (waitT < 3.5) return;
   }
@@ -1755,9 +1945,11 @@ function update(dt){
   if (shakeT > 0){ shakeT -= dt; if (shakeT <= 0) shakeAmp = 0; }
   if (paused) return;
 
-  for (let i=respawns.length-1;i>=0;i--){ const r = respawns[i]; r.t -= dt; if (r.t <= 0){ fishes.push(makeFish(r.legend ? MEGA : pickSpecies(r.zone), r.zone)); respawns.splice(i,1); } }
+  for (let i=respawns.length-1;i>=0;i--){ const r = respawns[i]; r.t -= dt; if (r.t <= 0){ fishes.push(makeFish(r.legendId ? SP[r.legendId] : pickSpecies(r.zone), r.zone)); respawns.splice(i,1); } }
   updateFish(dt);
-  if (megaTeaseT > 0){ megaTeaseT -= dt; if (megaTeaseT <= 0){ showToast('O MEGALODON passou… e não quis sua isca! 🦈', 'danger', 3800, 'Ele só morde a ISCA LENDÁRIA. Procure na Loja!'); say('Você viu aquilo? Era o Megalodon! Ele só morde a Isca Lendária. Um dia a gente pega ele!', undefined, ['mega_passou']); } }
+  if (megaTeaseT > 0){ megaTeaseT -= dt; if (megaTeaseT <= 0 && teaseSp){ const sp = teaseSp, k = known(sp), nm = k ? sp.name : 'peixe lendário';
+    showToast(`${k ? sp.name.toUpperCase() : 'UM PEIXE LENDÁRIO'} passou… e não quis sua isca! 🌟`, 'danger', 3800, 'Lendários só mordem a ISCA LENDÁRIA. Procure na Loja!');
+    say(k ? `Você viu aquilo? Era ${theName(sp)}! ${ele(sp)} só morde a Isca Lendária. Um dia a gente pega!` : 'Você viu aquilo? Era um peixe lendário! Ele só morde a Isca Lendária. Um dia a gente pega!', undefined, k ? [legendClip(sp, 'passou')] : ['lenda_passou_misterio']); } }
 
   if (mode === 'cast'){
     castT += dt/.6;
@@ -1769,7 +1961,7 @@ function update(dt){
     if (keys.right) hook.tx += 380*dt;
     hook.tx = clamp(hook.tx, 30, W-30);
     hook.x += (hook.tx - hook.x)*Math.min(1, dt*3);
-    const maxY = (maxDepth() - 1)*PX;
+    const maxY = maxDepth()*PX;
     if (!hook.stopped && !hook.atMax){
       hook.y += sinkSpeed()*dt;
       if (Math.random() < dt*14) parts.push({type:'bubble', x: hook.x+rand(-6,6), y: hook.y, vx:0, vy: rand(-90,-40), r: rand(1.5,3.5), life:1.2, max:1.2, g:0});
@@ -1780,7 +1972,7 @@ function update(dt){
           showToast(`🎯 Zona do ${nameOf(tgt)}`, 'zone', 1800, 'O anzol parou sozinho. Agora é esperar!'); }
       }
       if (hook.y >= maxY){ hook.y = maxY; hook.atMax = true; waitT = 0; checkT = .4; refreshUI();
-        if (RODS[save.rod].depth < LOC.max && !limitTold && !curTarget()){ limitTold = true; if ((save.tips.limit||0) < 3){ save.tips.limit = (save.tips.limit||0)+1; persist(); showToast('🔒 Sua vara chegou no limite!', '', 2600, 'Compre uma vara melhor para descer mais fundo.'); say('Sua vara chegou no limite! Vamos esperar um peixe aqui. Depois a gente junta moedas pra comprar uma vara maior!', undefined, ['limite_vara']); } }
+        if (save.rod < LOC.zones.length - 1 && !limitTold && !curTarget()){ limitTold = true; if ((save.tips.limit||0) < 3){ save.tips.limit = (save.tips.limit||0)+1; persist(); showToast('🔒 Sua vara chegou no limite!', '', 2600, 'Compre uma vara melhor para descer mais fundo.'); say('Sua vara chegou no limite! Vamos esperar um peixe aqui. Depois a gente junta moedas pra comprar uma vara maior!', undefined, ['limite_vara']); } }
       }
     }
     const z = zoneAt(hook.y/PX).id;
@@ -1790,7 +1982,7 @@ function update(dt){
   } else if (mode === 'reelEmpty'){
     hook.y -= Math.max(800, hook.y*1.4)*dt;
     hook.x += (clamp(boatX()+150*bs(),40,W-40) - hook.x)*Math.min(1,dt*2);
-    if (hook.y <= 0){ hook.y = 0; mode = 'idle'; splash(hook.x, 0, 8); refreshUI(); }
+    if (hook.y <= 0){ hook.y = 0; mode = 'idle'; splash(hook.x, 0, 8); refreshUI(); checkBaitOut(); }
   } else if (mode === 'fight'){
     fightUpdate(dt);
   }
@@ -1813,6 +2005,7 @@ function render(){
   drawParts();
   drawRuler();
   renderConfetti();
+  if (demo) drawDemo();
 }
 
 /* ================= CONFETE ================= */
@@ -1855,7 +2048,6 @@ function nextUpgrade(){
   if (save.rod < 4) o.push({k:'rod', item:RODS[save.rod+1]});
   if (save.line < 4) o.push({k:'line', item:LINES[save.line+1]});
   if (!save.river) o.push({k:'river', item:TRAVEL[1]});
-  for (const b of BAITS) if (!save.baits[b.id] && (!b.rio || save.river)) o.push({k:'bait', item:b});
   o.sort((a,b) => a.item.cost - b.item.cost);
   return o[0];
 }
@@ -1904,7 +2096,7 @@ function refreshUI(){
   mb.classList.toggle('new', !!save.river && !save.tips.rio);
   // chips de isca e alvo
   $('chips').hidden = mode !== 'idle';
-  const b = BAIT[save.bait]; $('baitChip').textContent = `${b.icon} Isca: ${b.name}`;
+  const b = BAIT[save.bait]; $('baitChip').textContent = `${b.icon} Isca: ${b.name}${b.id === 'minhoca' ? '' : ` ×${baitCount(b.id)}`}`;
   const tgt = save.target && SP[save.target];
   const tc = $('targetChip'); tc.textContent = tgt ? `🎯 Alvo: ${nameOf(tgt)}` : '🎯 Escolher peixe'; tc.classList.toggle('on', !!tgt);
   const h = hintHTML(); $('hint').innerHTML = h; $('hint').hidden = !h;
@@ -1920,56 +2112,70 @@ function fitDraw(c, sp, opts={}){
   const cw = c.canvas.width, ch = c.canvas.height;
   c.setTransform(1,0,0,1,0,0); c.clearRect(0,0,cw,ch);
   const ex = sp.ex || {};
-  const vext = {fish: sp.h*(ex.sail?2.6:ex.longDorsal||ex.rearFins?1.8:ex.barbels?1.9:1.3), puffer:1.05, shark: sp.h*2.3, ray:.6, eel: ex.electric ? .45 : .5, angler:1.5, squid:.75}[sp.type];
-  const hext = {fish: ex.bill?1.5:ex.chinBarbels?1.2:1.12, puffer:1.1, shark:1.2, ray:1.3, eel:1.05, angler:1.1, squid:1.15}[sp.type];
+  const vext = {fish: sp.h*(ex.sail?2.6:ex.longDorsal||ex.rearFins?1.8:ex.barbels?1.9:1.3), catfish: sp.h*(1.6 + (ex.barbels||1)*.8), puffer:1.05, shark: sp.h*2.3, ray:.6, eel: ex.electric ? .45 : ex.serpent ? .42 : .5, angler:1.5, squid:.75}[sp.type];
+  const hext = {fish: ex.bill?1.5:ex.chinBarbels?1.2:1.12, catfish: ex.filament ? 1.3 : 1.15, puffer:1.1, shark:1.2, ray:1.3, eel:1.05, angler:1.1, squid:1.15}[sp.type];
   const L = Math.min(cw*.86/hext, ch*.82/vext);
   let cx = cw/2, cy = ch/2;
   if (sp.type === 'shark') cy = ch*.56;
   if (sp.type === 'fish' && ex.sail) cy = ch*.62;
   if (sp.type === 'fish' && ex.barbels) cy = ch*.42;
+  if (sp.type === 'catfish') cy = ch*.42;
   if (sp.type === 'eel' && !ex.electric) cy = ch*.62;
   if (sp.type === 'angler') cy = ch*.6;
   if (ex.bill) cx -= L*.22;
   if (sp.type === 'ray') cx += L*.18;
   if (sp.type === 'squid') cx += L*.06;
-  c.save(); c.translate(cx, cy); drawSpecies(c, sp, L, opts.t ?? 1.3, {sil: opts.sil, seed:0, open: sp.legend}); c.restore();
+  c.save(); c.translate(cx, cy); drawSpecies(c, sp, L, opts.t ?? 1.3, {sil: opts.sil, rare: opts.rare, seed:0, open: sp.legend}); c.restore();
 }
 let cardSpeech = {text:'', clips:[]};
-function showCard(sp, cm, value, isNew, isRecord, giant, wasTarget){
+function showCard(sp, cm, value, isNew, isRecord, giant, wasTarget, rare){
   const b = $('cardBadges'); b.innerHTML = '';
   const add = (t, cls) => { const s = document.createElement('span'); s.className = 'badge' + (cls ? ' ' + cls : ''); s.textContent = t; b.append(s); };
+  if (rare) add(`⭐ RARO DOURADO · x${RARE_MULT}`, 'gold');
   if (wasTarget) add('🎯 ALVO!', 'kelp');
   if (isNew) add('NOVO NO ÁLBUM!', 'gold');
   if (giant) add('GIGANTE!');
   if (isRecord) add('RECORDE!');
   if (eventMult() > 1) add(`🎉 MOEDAS x${eventMult()}`, 'gold');
-  fitDraw($('cardCv').getContext('2d'), sp);
-  $('cardName').textContent = sp.name;
+  fitDraw($('cardCv').getContext('2d'), sp, {rare});
+  $('cardName').textContent = rare ? `${sp.name} ${sp.art === 'a' ? 'dourada' : 'dourado'}` : sp.name;
   $('cardSize').textContent = `📏 ${fmtSize(cm)}`;
   $('cardValue').textContent = `🪙 +${fmt(value)}`;
   const cz = zonesOf(sp)[sp.zone];
   $('cardZone').textContent = `${cz.icon} ${cz.name}`;
   $('cardFact').textContent = sp.fact;
   $('cardFood').textContent = `🍽️ ${ele(sp)} come: ${sp.food}. Isca favorita: ${BAIT[sp.likes[0]].icon} ${BAIT[sp.likes[0]].name}.`;
-  cardSpeech = fishSpeech(sp, isNew, giant, isRecord, wasTarget);
+  cardSpeech = fishSpeech(sp, isNew, giant, isRecord, wasTarget, rare);
   $('cardSay').hidden = !HAS_TTS;
   openModal('cardOv');
   setTimeout(() => say(cardSpeech.text, false, cardSpeech.clips), 650);
 }
-function showMega(cm){
+function showLegend(sp, cm, value, isNew){
   SFX.fanfare(); setTimeout(() => SFX.roar(), 500);
-  fitDraw($('megaCv').getContext('2d'), MEGA);
+  fitDraw($('megaCv').getContext('2d'), sp);
+  $('megaTitle').textContent = `VOCÊ PESCOU ${theName(sp).toUpperCase()}!`;
   $('megaSize').textContent = `📏 ${fmtSize(cm)}`;
-  $('megaFact').textContent = MEGA.fact;
-  $('megaFood').textContent = `🍽️ Ele comia: ${MEGA.food}.`;
-  cardSpeech = fishSpeech(MEGA, true);
+  $('megaValue').textContent = `🪙 +${fmt(value)}`;
+  $('megaFact').textContent = sp.fact;
+  $('megaFood').textContent = `🍽️ ${ele(sp)} ${comeVerb(sp)}: ${sp.food}.`;
+  cardSpeech = fishSpeech(sp, isNew);
   $('megaSay').hidden = !HAS_TTS;
   setTimeout(() => say(cardSpeech.text, false, cardSpeech.clips), 2600);
   openModal('megaOv'); burstConfetti(); setTimeout(burstConfetti, 700);
 }
+// A isca acabou no último peixe: volta para a minhoca e a Iara avisa
+function checkBaitOut(){
+  if (!baitOut) return;
+  const b = BAIT[baitOut]; baitOut = null;
+  if (hasBait(b.id)) return;
+  save.bait = 'minhoca'; persist(); uiKey = ''; refreshUI();
+  showToast(`${b.icon} Acabou a isca de ${b.name}!`, '', 2600, 'Coloquei minhoca no anzol. Compre mais na Loja.');
+  say(`Acabou a isca de ${b.name}! Coloquei minhoca no anzol. Dá pra comprar mais na loja!`, undefined, [`isca_acabou_${b.id}`]);
+}
 function closeCard(){
   closeModal('cardOv'); closeModal('megaOv');
   mode = 'idle'; uiKey = ''; refreshUI();
+  setTimeout(checkBaitOut, 400);
 }
 
 /* ----- Loja ----- */
@@ -1982,9 +2188,9 @@ function likesText(baitId){
 function renderShop(){
   $('shopWallet').textContent = `🪙 ${fmt(save.coins)} moedas`;
   const rows = [
-    {k:'rod',  icon:'🎣', title:'Vara',  list:RODS,  lv:save.rod,  eff: it => { const z = zoneIn(ZONES_SEA, it.depth-1); return `Desce até ${it.depth} m · ${z.icon} ${z.name}`; }},
+    {k:'rod',  icon:'🎣', title:'Vara',  list:RODS,  lv:save.rod,  eff: it => { const i = RODS.indexOf(it), z = ZONES_SEA[i], zr = ZONES_RIO[Math.min(i, ZONES_RIO.length-1)]; return `Chega no meio de: ${z.icon} ${z.name} (${it.depth} m) · no rio: ${zr.name} (${zoneMid(zr)} m)`; }},
     {k:'line', icon:'🧵', title:'Linha', list:LINES, lv:save.line, eff: it => `Aguenta peixes mais fortes (força ${String(it.str).replace('.',',')})`},
-    {k:'river', icon:'🛶', title:'Viagem', list:TRAVEL, lv:save.river, eff: () => 'Pesque no Rio Amazonas: 14 peixes brasileiros!'},
+    {k:'river', icon:'🛶', title:'Viagem', list:TRAVEL, lv:save.river, eff: () => `Pesque no Rio Amazonas: ${SPECIES.filter(s => s.loc === 'rio').length} peixes brasileiros!`},
   ];
   const wrap = $('shopRows'); wrap.innerHTML = '';
   for (const r of rows){
@@ -2005,21 +2211,35 @@ function renderShop(){
     wrap.append(row);
   }
   const t = document.createElement('div'); t.className = 'sec-title'; t.textContent = '🪱 Iscas'; wrap.append(t);
-  const note = document.createElement('p'); note.className = 'note'; note.textContent = 'Cada peixe tem sua isca favorita. Alguns só mordem uma isca especial!'; wrap.append(note);
+  const note = document.createElement('p'); note.className = 'note'; note.textContent = 'Iscas são vendidas por unidade: cada peixe que morde come uma. A minhoca é de graça e nunca acaba.'; wrap.append(note);
   const grid = document.createElement('div'); grid.className = 'bait-grid'; wrap.append(grid);
   for (const b of BAITS){
-    const owned = !!save.baits[b.id];
+    const n = baitCount(b.id);
     const card = document.createElement('div'); card.className = 'bait-card' + (save.bait === b.id ? ' on' : '');
     card.innerHTML = `<div class="bait-head"><span class="ic">${b.icon}</span><span>${esc(b.name)}</span>${b.rio ? '<span class="tag">Rio</span>' : ''}</div>
-      <p>${esc(b.desc)}</p><div class="likes">Favorita de: ${esc(likesText(b.id))}</div>`;
-    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn small';
-    if (owned){ btn.textContent = save.bait === b.id ? '✓ No anzol' : 'Usar'; btn.classList.add('alt'); btn.disabled = save.bait === b.id; btn.addEventListener('click', () => { equipBait(b.id); renderShop(); }); }
-    else { btn.textContent = `🪙 ${fmt(b.cost)}`; btn.disabled = save.coins < b.cost; if (!btn.disabled) btn.classList.add('kelp'); btn.addEventListener('click', () => buy('bait', b)); }
-    card.append(btn); grid.append(card);
+      <p>${esc(b.desc)}</p><div class="likes">Favorita de: ${esc(likesText(b.id))}</div>
+      <div class="likes">${b.id === 'minhoca' ? 'Você tem: ∞ (grátis)' : `Você tem: <b>${n}</b> · 🪙 ${fmt(b.cost)} cada`}</div>`;
+    const acts = document.createElement('div'); acts.className = 'pack-row';
+    if (b.id !== 'minhoca') for (const q of BAIT_PACKS){
+      const price = b.cost*q, pb = document.createElement('button'); pb.type = 'button'; pb.className = 'btn small' + (save.coins >= price ? ' kelp' : '');
+      pb.textContent = `+${q} · 🪙 ${fmt(price)}`; pb.disabled = save.coins < price; pb.addEventListener('click', () => buyBait(b, q)); acts.append(pb);
+    }
+    if (n > 0){ const ub = document.createElement('button'); ub.type = 'button'; ub.className = 'btn small alt'; ub.textContent = save.bait === b.id ? '✓ No anzol' : 'Usar'; ub.disabled = save.bait === b.id;
+      ub.addEventListener('click', () => { equipBait(b.id); renderShop(); }); acts.append(ub); }
+    card.append(acts); grid.append(card);
   }
 }
+function buyBait(b, qty){
+  const price = b.cost*qty; if (save.coins < price) return;
+  save.coins -= price; save.baits[b.id] = baitCount(b.id) + qty; save.bait = b.id;
+  persist(); SFX.coin(); updateCoins(true);
+  showToast(`${b.icon} +${qty} ${b.name}!`, '', 1800, `Agora você tem ${baitCount(b.id)}.`);
+  if (b.id === 'lendaria') say('A Isca Lendária! Agora os peixes lendários vão querer morder!', undefined, ['compra_isca_lendaria']);
+  else say(`Uhuul! ${b.name} no anzol! Os peixes que adoram ${b.name.toLowerCase()} vão vir correndo!`, undefined, [`compra_isca_${b.id}`]);
+  renderShop(); uiKey = ''; refreshUI();
+}
 function equipBait(id, quiet){
-  if (!save.baits[id]) return;
+  if (!hasBait(id)) return;
   save.bait = id; persist(); SFX.pop();
   if (!quiet) say(`${BAIT[id].name} no anzol!`, undefined, [`isca_${id}`]);
   uiKey = ''; refreshUI();
@@ -2027,14 +2247,12 @@ function equipBait(id, quiet){
 function buy(k, item){
   if (save.coins < item.cost) return;
   save.coins -= item.cost;
-  if (k === 'bait'){ save.baits[item.id] = 1; save.bait = item.id; } else save[k]++;
+  save[k]++;
   persist(); SFX.coin(); updateCoins(true);
   if (k === 'river'){ showToast('🛶 Rio Amazonas liberado!', 'zone', 3200, 'Feche a loja e toque no botão 🛶 lá em cima para viajar.'); say('Eba! Agora a gente pode viajar pro Rio Amazonas! Toca no botão do barquinho lá em cima!', undefined, ['compra_rio']); }
   else {
     showToast(`Comprou: ${item.name}! 🎉`, '', 1800);
-    if (k === 'bait' && item.id === 'lendaria') say('A Isca Lendária! Agora o Megalodon vai querer morder. Vamos lá pro Abismo!', undefined, ['compra_isca_lendaria']);
-    else if (k === 'bait') say(`Uhuul! ${item.name} no anzol! Os peixes que adoram ${item.name.toLowerCase()} vão vir correndo!`, undefined, [`compra_isca_${item.id}`]);
-    else if (k === 'rod') say(`Uhuul! Com a ${item.name} dá pra descer até ${item.depth} metros! Vamos descobrir peixes novos!`, undefined, [`compra_vara_${save.rod}`]);
+    if (k === 'rod') say(`Uhuul! Com a ${item.name} dá pra descer até ${item.depth} metros! Vamos descobrir peixes novos!`, undefined, [`compra_vara_${save.rod}`]);
     else say(`Que legal! Você comprou: ${item.name}!`, undefined, [`compra_linha_${save.line}`]);
   }
   renderShop();
@@ -2053,6 +2271,7 @@ function fishCell(sp, onClick, opts={}){
   const zn = document.createElement('div'); zn.className = 'zn'; zn.textContent = `${zz.icon} ${zz.name}`;
   b.append(c, nm, zn);
   if (save.target === sp.id){ const t = document.createElement('span'); t.className = 'tgt'; t.textContent = '🎯'; b.append(t); }
+  if (got && save.album[sp.id].rare){ const r = document.createElement('span'); r.className = 'rare'; r.title = 'Já pescou o raro dourado'; r.textContent = '⭐'; b.append(r); }
   fitDraw(c.getContext('2d'), sp, {sil: !got});
   b.addEventListener('click', onClick);
   return b;
@@ -2074,16 +2293,16 @@ function renderAlbum(){
   const h = document.createElement('h3'), p = document.createElement('p'), meta = document.createElement('div'); meta.className = 'meta';
   const z = zonesOf(sp)[sp.zone], place = sp.loc === 'rio' ? ' no Rio Amazonas' : '';
   if (got){
-    h.textContent = sp.name; p.textContent = `${sp.fact} 🍽️ ${ele(sp)} ${sp.legend ? 'comia' : 'come'}: ${sp.food}.`;
-    meta.textContent = `Pescado ${got.count}× · Maior: ${fmtSize(got.best)} · Isca favorita: ${BAIT[sp.likes[0]].icon} ${BAIT[sp.likes[0]].name}`;
+    h.textContent = sp.name; p.textContent = `${sp.fact} 🍽️ ${ele(sp)} ${comeVerb(sp)}: ${sp.food}.`;
+    meta.textContent = `Pescado ${got.count}×${got.rare ? ` (⭐ ${got.rare} dourado${got.rare > 1 ? 's' : ''})` : ''} · Maior: ${fmtSize(got.best)} · Isca favorita: ${BAIT[sp.likes[0]].icon} ${BAIT[sp.likes[0]].name}`;
   } else {
     h.textContent = sp.legend ? '??? · O peixe lendário' : '??? · Peixe desconhecido';
     p.textContent = `Vive ${z.at}${place} (${z.from}–${z.to} m). ${sp.only ? 'Só morde' : 'Adora'}: ${BAIT[sp.likes[0]].icon} ${BAIT[sp.likes[0]].name}.`;
-    meta.textContent = sp.legend ? 'Dizem que mora no fundo do Abismo…' : 'Continue pescando para descobrir!';
+    meta.textContent = sp.legend ? `É um peixe LENDÁRIO: só morde a ✨ Isca Lendária. Mora ${z.at}…` : 'Continue pescando para descobrir! Às vezes aparece um raro todo dourado ⭐';
   }
   const acts = document.createElement('div'); acts.className = 'acts';
   if (got && HAS_TTS){ const sb = document.createElement('button'); sb.type = 'button'; sb.className = 'say'; sb.textContent = '🔊 Ouvir';
-    sb.addEventListener('click', () => say(`${sp.name}! ${sabia(sp.fact)} ${ele(sp)} ${sp.legend ? 'comia' : 'come'} ${sp.food}.`, false, [`nome_${sp.id}`, `sabia_${sp.id}`, `come_${sp.id}`])); acts.append(sb); }
+    sb.addEventListener('click', () => say(`${sp.name}! ${sabia(sp.fact)} ${ele(sp)} ${comeVerb(sp)} ${sp.food}.`, false, [`nome_${sp.id}`, `sabia_${sp.id}`, `come_${sp.id}`])); acts.append(sb); }
   const tb = document.createElement('button'); tb.type = 'button'; tb.className = 'say'; tb.textContent = '🎯 Quero pescar este';
   tb.addEventListener('click', () => { closeModal('albumOv'); openBag('alvo', sp.id); }); acts.append(tb);
   box.append(h, p, meta, acts); det.append(box);
@@ -2094,10 +2313,9 @@ let bagTab = 'alvo', bagSel = null;
 function reqs(sp){
   const z = zonesOf(sp)[sp.zone];
   const locOk = sp.loc === 'mar' || !!save.river;
-  const needDepth = sp.legend ? 900 : z.from + 4;
-  const rodIdx = RODS.findIndex(r => r.depth >= needDepth);
+  const rodIdx = sp.zone; // a vara N alcança o meio da zona N
   const rodOk = save.rod >= rodIdx;
-  let bait = sp.likes.find(b => save.baits[b]);
+  let bait = sp.likes.find(b => hasBait(b));
   if (!bait && !sp.only) bait = 'minhoca';
   const baitOk = !!bait;
   let lineIdx = LINES.findIndex(l => l.str >= sp.power*.8); if (lineIdx < 0) lineIdx = LINES.length - 1;
@@ -2130,10 +2348,10 @@ function renderTargetTab(body){
     const li = (ok, txt, warn) => { const e = document.createElement('li'); e.className = ok ? '' : (warn ? 'warn' : 'no'); e.textContent = (ok ? '✅ ' : warn ? '⚠️ ' : '❌ ') + txt; ul.append(e); };
     li(r.locOk, sp.loc === 'rio' ? (r.locOk ? 'Lugar: Rio Amazonas' : 'Lugar: Rio Amazonas · compre a viagem na Loja') : 'Lugar: Mar');
     li(true, `Mora ${r.z.at} (${r.z.from}–${r.z.to} m)`);
-    li(r.rodOk, r.rodOk ? `Vara: ${RODS[save.rod].name} alcança` : `Vara: precisa da ${RODS[r.rodIdx].name} (${RODS[r.rodIdx].depth} m)`);
+    li(r.rodOk, r.rodOk ? `Vara: ${RODS[save.rod].name} alcança` : `Vara: precisa da ${RODS[r.rodIdx].name} (chega no meio ${r.z.at})`);
     const fav = BAIT[sp.likes[0]];
     if (r.baitOk) li(true, `Isca: ${BAIT[r.bait].icon} ${BAIT[r.bait].name}${r.bait !== fav.id ? ` (melhor ainda com ${fav.icon} ${fav.name})` : ' (a favorita!)'}`);
-    else li(false, `Isca: ${sp.only ? 'só morde' : 'precisa de'} ${fav.icon} ${fav.name} · compre na Loja`);
+    else li(false, `Isca: ${sp.only ? 'só morde' : 'precisa de'} ${fav.icon} ${fav.name} · acabou ou ainda não comprou (Loja, 🪙 ${fmt(fav.cost)} cada)`);
     li(r.lineOk, r.lineOk ? `Linha: ${LINES[save.line].name} aguenta` : `Linha: recomendada ${LINES[r.lineIdx].name} (dá pra tentar, mas é difícil!)`, true);
     const acts = document.createElement('div'); acts.className = 'acts';
     if (r.ready){
@@ -2147,8 +2365,12 @@ function renderTargetTab(body){
       clr.addEventListener('click', () => { save.target = null; persist(); uiKey = ''; refreshUI(); renderBag(); say('Tudo bem! Vamos pescar o que aparecer!', undefined, ['alvo_nenhum']); }); acts.append(clr); }
     box.append(h, ul, acts); body.append(box);
   }
-  for (const [loc, title] of [['mar','🌊 Mar'], ['rio','🌿 Rio Amazonas']]){
+  // só os peixes do lugar onde o barco está
+  for (const [loc, title] of [[LOC.id, LOC === RIO ? '🌿 Peixes do Rio Amazonas' : '🌊 Peixes do Mar']]){
     const t = document.createElement('div'); t.className = 'sec-title'; t.textContent = title; body.append(t);
+    const other = document.createElement('p'); other.className = 'note';
+    other.textContent = LOC === RIO ? 'Para escolher peixes do mar, viaje de volta para o mar (botão ⛵).' : (save.river ? 'Para escolher peixes do rio, viaje para o Rio Amazonas (botão 🛶).' : 'Os peixes do Rio Amazonas aparecem aqui depois que você comprar a viagem na Loja.');
+    body.append(other);
     const g = document.createElement('div'); g.className = 'album-grid'; body.append(g);
     for (const sp of SPECIES.filter(s => s.loc === loc)) g.append(fishCell(sp, () => { bagSel = sp.id; renderBag(); $('bagOv').querySelector('.panel').scrollTo({top:0, behavior: REDUCED ? 'auto' : 'smooth'}); }, {sel: bagSel === sp.id}));
   }
@@ -2169,12 +2391,12 @@ function renderBaitTab(body){
   const p = document.createElement('p'); p.className = 'note'; p.style.fontSize = '14px'; p.textContent = 'Toque numa isca para colocar no anzol. Iscas novas são compradas na Loja.'; body.append(p);
   const grid = document.createElement('div'); grid.className = 'bait-grid'; body.append(grid);
   for (const b of BAITS){
-    const owned = !!save.baits[b.id];
+    const owned = hasBait(b.id), n = baitCount(b.id);
     const card = document.createElement('div'); card.className = 'bait-card' + (save.bait === b.id ? ' on' : '');
-    card.innerHTML = `<div class="bait-head"><span class="ic">${b.icon}</span><span>${esc(b.name)}</span>${b.rio ? '<span class="tag">Rio</span>' : ''}</div><div class="likes">Favorita de: ${esc(likesText(b.id))}</div>`;
+    card.innerHTML = `<div class="bait-head"><span class="ic">${b.icon}</span><span>${esc(b.name)}</span>${b.rio ? '<span class="tag">Rio</span>' : ''}<span class="tag" style="background:var(--paper)">${b.id === 'minhoca' ? '∞' : '×' + n}</span></div><div class="likes">Favorita de: ${esc(likesText(b.id))}</div>`;
     const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn small alt';
     if (owned){ btn.textContent = save.bait === b.id ? '✓ No anzol' : 'Usar esta'; btn.disabled = save.bait === b.id; btn.addEventListener('click', () => { equipBait(b.id); renderBag(); }); }
-    else { btn.textContent = `🔒 Loja · ${fmt(b.cost)} 🪙`; btn.addEventListener('click', () => { closeModal('bagOv'); renderShop(); openModal('shopOv'); }); }
+    else { btn.textContent = `🛒 Comprar · ${fmt(b.cost)} 🪙 cada`; btn.addEventListener('click', () => { closeModal('bagOv'); renderShop(); openModal('shopOv'); }); }
     card.append(btn); grid.append(card);
   }
 }
@@ -2260,7 +2482,7 @@ function renderPlayer(){
     ['Moedas', `🪙 ${fmt(save.coins)}`], ['Álbum', `📖 ${n}/${SPECIES.length}`], ['Peixes pescados', `🎣 ${fmt(st.caught)}`],
     ['Moedas ganhas', `💰 ${fmt(st.earned)}`], ['Linhas arrebentadas', `😵 ${fmt(st.lost)}`],
     ['Maior peixe', big ? `${big.name} · ${fmtSize(st.biggest.cm)}` : '—'],
-    ['Equipamento', `${RODS[save.rod].name} · ${LINES[save.line].name}`], ['Megalodon', save.mega ? '🏆 Pescado!' : '🦈 Ainda não…'],
+    ['Equipamento', `${RODS[save.rod].name} · ${LINES[save.line].name}`], ['Lendários', `🌟 ${LEGENDS.filter(known).length}/${LEGENDS.length}`], ['Raros dourados', `⭐ ${fmt(save.stats.rare || 0)}`],
   ];
   const grid = document.createElement('div'); grid.className = 'pstats';
   for (const [k,v] of items){ const d = document.createElement('div'); d.className = 'pstat'; d.innerHTML = `<small>${esc(k)}</small><b>${esc(v)}</b>`; grid.append(d); }
@@ -2273,6 +2495,12 @@ function renderPlayer(){
     tg.append(b);
   }
   body.append(tg);
+  if (user){ // aparecer ou não no ranking
+    const rb = document.createElement('button'); rb.type = 'button'; rb.className = 'tg'; rb.setAttribute('aria-pressed', String(!save.hideRank));
+    rb.innerHTML = '<span>🏆 Aparecer no ranking</span><span class="sw2"></span>';
+    rb.addEventListener('click', () => { save.hideRank = !save.hideRank; persist(); pushCloud(); renderPlayer(); });
+    tg.append(rb);
+  }
   const foot = document.createElement('div'); foot.className = 'album-foot';
   const rb = document.createElement('button'); rb.type = 'button'; rb.className = 'linkbtn'; rb.textContent = 'Começar um jogo novo';
   let armed = false;
@@ -2288,16 +2516,29 @@ function renderPlayer(){
     body.append(legal);
   }
   const credit = document.createElement('p'); credit.className = 'panel-credit';
-  credit.innerHTML = 'Site desenvolvido por <a href="https://housemedia.app" target="_blank" rel="noopener">House Media</a>';
+  credit.innerHTML = 'Jogo desenvolvido por <a href="https://housemedia.app" target="_blank" rel="noopener">House Media</a>';
   body.append(credit);
+}
+// No site com login ligado, só dá para jogar depois de entrar com o Google.
+let accountChecked = false;
+const loginRequired = () => !!(ACCOUNTS_API && acctCfg && acctCfg.enabled);
+function updatePlayGate(){
+  const waiting = ACCOUNTS_API && !accountChecked, need = loginRequired() && !user;
+  $('playBtn').hidden = waiting || need;
+  const lt = $('loginTip'); lt.hidden = !(waiting || need);
+  lt.textContent = waiting ? 'Carregando…' : 'Para jogar, entre com sua conta Google. Assim seu progresso fica salvo! 🎣';
 }
 function renderTitleLogin(){
   const box = $('titleLogin'); box.innerHTML = '';
   if (user){ const d = document.createElement('div'); d.className = 'resume'; d.textContent = `Olá, ${(user.name || 'pescador').split(' ')[0]}! ☁️ Progresso salvo na sua conta.`; box.append(d); }
   else if (accountsOn()) box.append(googleBtn());
+  updatePlayGate();
 }
 function loadScript(src){ return new Promise((ok, fail) => { const s = document.createElement('script'); s.src = src; s.async = true; s.onload = ok; s.onerror = fail; document.head.append(s); }); }
 async function initAccount(){
+  try { await initAccountInner(); } finally { accountChecked = true; renderTitleLogin(); }
+}
+async function initAccountInner(){
   renderTitleLogin();
   if (!ACCOUNTS_API) return;
   try { const r = await fetch('/api/config', {cache:'no-store'}); if (!r.ok) return; acctCfg = await r.json(); } catch(e){ return; }
@@ -2327,6 +2568,11 @@ async function signOut(){
   try { google.accounts.id.disableAutoSelect(); } catch(e){}
   user = null; cloudState = '';
   saveKey = KEY; loadSave(); applySave();
+  if (loginRequired()){ // sem conta não se joga: volta para a tela inicial
+    for (const id of ['playerOv','shopOv','albumOv','bagOv','rankOv']) closeModal(id);
+    stopVoice(); mode = 'title'; camY = 770*PX; $('titleOv').hidden = false; uiKey = ''; refreshUI();
+    renderTitleLogin(); return;
+  }
   renderTitleLogin(); if (!$('playerOv').hidden) renderPlayer();
   say('Até logo! Agora você está jogando como convidado.', undefined, ['conta_saiu']);
 }
@@ -2373,6 +2619,40 @@ async function pushCloud(keepalive){
 }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') pushCloud(true); });
 
+/* ----- Ranking ----- */
+let rankPor = 'album';
+const RANK_UNIT = {album: v => `${v}/${SPECIES.length}`, lendarios: v => `🌟 ${v}`, moedas: v => `🪙 ${fmt(v)}`, pescados: v => `🎣 ${fmt(v)}`};
+const RANK_SUB = {album:'Quem descobriu mais peixes', lendarios:'Quem pescou mais lendários', moedas:'Quem ganhou mais moedas pescando', pescados:'Quem pescou mais peixes'};
+function rankNote(text){ const e = document.createElement('p'); e.className = 'note'; e.style.cssText = 'text-align:center;font-size:15px'; e.textContent = text; return e; }
+async function openRanking(por){
+  if (por) rankPor = por;
+  document.querySelectorAll('#rankTabs .tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.por === rankPor)));
+  const body = $('rankBody');
+  if ($('rankOv').hidden) openModal('rankOv');
+  if (!ACCOUNTS_API){ body.replaceChildren(rankNote('O ranking funciona no site pescarialendaria.housemedia.app, com login do Google.')); return; }
+  body.replaceChildren(rankNote('Carregando…'));
+  let d;
+  try { const r = await fetch(`/api/ranking?por=${rankPor}`, {credentials:'same-origin', cache:'no-store'}); d = await r.json(); if (!r.ok) throw new Error(d.error); }
+  catch(e){ body.replaceChildren(rankNote('Não consegui carregar o ranking agora. Tente de novo daqui a pouco.')); return; }
+  body.replaceChildren(rankNote(`${RANK_SUB[rankPor]} · ${d.total} jogador${d.total === 1 ? '' : 'es'}`));
+  const ol = document.createElement('ol'); ol.className = 'rank-list';
+  let prev = 0;
+  for (const r of d.top){
+    if (prev >= 20 && r.pos > prev + 1){ const gap = document.createElement('li'); gap.className = 'rank-gap'; gap.textContent = '…'; ol.append(gap); }
+    prev = Math.max(prev, r.pos);
+    const li = document.createElement('li'); li.className = 'rank-row' + (r.me ? ' me' : '');
+    const pos = document.createElement('span'); pos.className = 'pos'; pos.textContent = r.pos <= 3 ? ['🥇','🥈','🥉'][r.pos-1] : `${r.pos}º`;
+    const ini = document.createElement('span'); ini.className = 'ini'; ini.textContent = (r.name[0] || '?').toUpperCase();
+    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.name + (r.me ? ' (você)' : '');
+    const val = document.createElement('span'); val.className = 'val'; val.textContent = RANK_UNIT[rankPor](r.value);
+    li.append(pos, ini, nm, val); ol.append(li);
+  }
+  if (!d.top.length) body.append(rankNote('Ninguém no ranking ainda. Seja o primeiro!'));
+  body.append(ol);
+  if (!d.logged) body.append(rankNote('Entre com o Google para aparecer no ranking.'));
+  else if (save.hideRank) body.append(rankNote('Você escolheu não aparecer no ranking (dá para mudar no 👤 Painel do Jogador).'));
+}
+
 /* ================= ENTRADA ================= */
 function setHold(v){ if (mode !== 'fight' || paused) v = false; holding = v; $('reelBtn').classList.toggle('pressed', v); }
 cv.addEventListener('pointerdown', e => {
@@ -2408,11 +2688,20 @@ $('albumBtn').addEventListener('click', () => { initAudio(); renderAlbum(); open
 $('albumClose').addEventListener('click', () => closeModal('albumOv'));
 $('playerBtn').addEventListener('click', () => { initAudio(); renderPlayer(); openModal('playerOv'); });
 $('playerClose').addEventListener('click', () => closeModal('playerOv'));
-for (const id of ['shopOv','albumOv','bagOv','playerOv']) $(id).addEventListener('pointerdown', e => { if (e.target.id === id){ closeModal(id); uiKey = ''; refreshUI(); } });
+$('howBtn').hidden = true; // aparece só se o vídeo existir no site
+if (CAN_CLIPS) fetch('/video/como-jogar.mp4', {method:'HEAD', cache:'no-cache'}).then(r => { $('howBtn').hidden = !r.ok; }).catch(() => {});
+$('howBtn').addEventListener('click', () => { openModal('videoOv'); const v = $('howVideo'); try { v.currentTime = 0; } catch(e){} const p = v.play(); if (p && p.catch) p.catch(() => {}); });
+$('videoClose').addEventListener('click', () => { $('howVideo').pause(); closeModal('videoOv'); });
+$('videoOv').addEventListener('pointerdown', e => { if (e.target.id === 'videoOv'){ $('howVideo').pause(); closeModal('videoOv'); } });
+$('rankBtn').addEventListener('click', () => openRanking());
+$('rankClose').addEventListener('click', () => closeModal('rankOv'));
+document.querySelectorAll('#rankTabs .tab').forEach(t => t.addEventListener('click', () => openRanking(t.dataset.por)));
+for (const id of ['shopOv','albumOv','bagOv','playerOv','rankOv']) $(id).addEventListener('pointerdown', e => { if (e.target.id === id){ closeModal(id); uiKey = ''; refreshUI(); } });
 $('playBtn').addEventListener('click', () => {
+  if ((loginRequired() && !user) || (ACCOUNTS_API && !accountChecked)) return;
   initAudio();
   $('titleOv').hidden = true;
-  const mega = fishes.find(f => f.sp.legend); if (mega) mega.baseY = rand(720,870)*PX;
+  const mega = fishes.find(f => f.sp.id === 'megalodon'); if (mega) mega.baseY = fishDepth(MEGA, ZONES_SEA[4])*PX;
   if (save.loc === 'rio' && save.river){ setLoc(RIO); camY = 60*PX; }
   mode = 'idle'; uiKey = ''; refreshUI();
   sayAnnouncement();
@@ -2426,7 +2715,7 @@ window.addEventListener('keydown', e => {
   if (e.repeat && e.code !== 'Space') return;
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = true;
   if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = true;
-  if (e.code === 'Escape'){ for (const id of ['shopOv','albumOv','bagOv','playerOv']) if (!$(id).hidden){ closeModal(id); uiKey = ''; refreshUI(); } return; }
+  if (e.code === 'Escape'){ for (const id of ['shopOv','albumOv','bagOv','playerOv','rankOv']) if (!$(id).hidden){ closeModal(id); uiKey = ''; refreshUI(); } return; }
   if (paused || mode === 'title') return;
   if (e.code === 'Space'){
     e.preventDefault();
@@ -2447,6 +2736,117 @@ window.addEventListener('keyup', e => {
 window.addEventListener('resize', resize);
 window.addEventListener('orientationchange', () => setTimeout(resize, 200));
 
+/* ================= DEMONSTRAÇÃO (gravação do vídeo "Como jogar") ================= */
+// Só existe com #demo na URL. O jogo joga sozinho e desenha legendas, botões e o card no próprio canvas,
+// para o vídeo gravado (canvas.captureStream) mostrar tudo.
+let demo = null;
+const DEMO_ON = location.hash === '#demo';
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function waitFor(fn, maxMs = 20000){ const t0 = performance.now(); while (!fn() && performance.now() - t0 < maxMs) await sleep(50); }
+function rrect(c, x, y, w, h, r){ c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); }
+function wrapText(c, text, x, y, maxW, lh){ const words = text.split(' '); let line = ''; for (const w of words){ const t = line ? line + ' ' + w : w; if (c.measureText(t).width > maxW && line){ c.fillText(line, x, y); y += lh; line = w; } else line = t; } if (line) c.fillText(line, x, y); return y; }
+function demoButtons(){ // posições dos botões de baixo
+  const bw = 230, bh = 64, gap = 18, y = H - bh - 28, list = demo.buttons || [];
+  const total = list.length*bw + (list.length-1)*gap; let x = (W - total)/2;
+  return list.map(b => { const r = {...b, x, y, w: bw, h: bh}; x += bw + gap; return r; });
+}
+function drawDemo(){
+  const d = demo, c = ctx;
+  c.save(); c.setTransform(DPR,0,0,DPR,0,0); c.textAlign = 'center'; c.textBaseline = 'middle';
+  if (d.title){
+    c.fillStyle = 'rgba(6,20,43,.72)'; c.fillRect(0,0,W,H);
+    c.font = `${Math.round(Math.min(96, W*.09))}px "Lilita One", sans-serif`; c.lineWidth = 8; c.strokeStyle = '#0b1d33'; c.fillStyle = '#ffd84d';
+    c.strokeText(d.title, W/2, H*.42); c.fillText(d.title, W/2, H*.42);
+    if (d.sub){ c.font = `800 ${Math.round(Math.min(34, W*.032))}px Nunito, sans-serif`; c.fillStyle = '#fff'; c.fillText(d.sub, W/2, H*.42 + Math.min(90, W*.085)); }
+    c.font = '800 18px Nunito, sans-serif'; c.fillStyle = 'rgba(255,255,255,.8)'; c.fillText('Jogo desenvolvido por House Media', W/2, H - 34);
+  }
+  if (d.caption){
+    const w = Math.min(W - 40, 820), h = d.capSub ? 96 : 70, x = (W - w)/2, y = 22;
+    rrect(c, x, y, w, h, 18); c.fillStyle = 'rgba(255,244,223,.97)'; c.fill(); c.lineWidth = 4; c.strokeStyle = '#0b1d33'; c.stroke();
+    if (d.step){ c.fillStyle = '#ff6b4a'; c.beginPath(); c.arc(x + 44, y + h/2, 26, 0, 7); c.fill(); c.stroke(); c.fillStyle = '#fff'; c.font = '30px "Lilita One", sans-serif'; c.fillText(String(d.step), x + 44, y + h/2 + 1); }
+    c.fillStyle = '#0b1d33'; c.font = `${Math.round(Math.min(30, W*.03))}px "Lilita One", sans-serif`; c.fillText(d.caption, x + w/2 + (d.step ? 26 : 0), y + (d.capSub ? 32 : h/2));
+    if (d.capSub){ c.font = '800 19px Nunito, sans-serif'; c.fillStyle = '#46566a'; c.fillText(d.capSub, x + w/2 + (d.step ? 26 : 0), y + 68); }
+  }
+  for (const b of demoButtons()){
+    const off = b.pressed ? 4 : 0;
+    rrect(c, b.x, b.y + 5, b.w, b.h, 16); c.fillStyle = '#0b1d33'; c.fill();
+    rrect(c, b.x, b.y + off, b.w, b.h, 16); c.fillStyle = b.color || '#ffc93c'; c.fill(); c.lineWidth = 3; c.strokeStyle = '#0b1d33'; c.stroke();
+    c.fillStyle = b.ink || '#0b1d33'; c.font = '26px "Lilita One", sans-serif'; c.fillText(b.label, b.x + b.w/2, b.y + b.h/2 + off + 1);
+    if (b.pressed || b.tap){ const k = (performance.now()/600) % 1; c.strokeStyle = `rgba(255,255,255,${1-k})`; c.lineWidth = 4; c.beginPath(); c.arc(b.x + b.w*.72, b.y + b.h*.62, 14 + k*30, 0, 7); c.stroke();
+      c.font = '40px sans-serif'; c.fillText('👆', b.x + b.w*.72 + 6, b.y + b.h*.62 + 26); }
+  }
+  if (d.bars && fight){
+    const w = Math.min(460, W - 40), x = (W - w)/2, y = 110;
+    rrect(c, x, y, w, 96, 16); c.fillStyle = 'rgba(6,20,43,.8)'; c.fill(); c.lineWidth = 3; c.strokeStyle = 'rgba(255,255,255,.6)'; c.stroke();
+    const bar = (label, yy, val, grad) => { c.textAlign = 'left'; c.fillStyle = '#fff'; c.font = '900 14px Nunito, sans-serif'; c.fillText(label, x + 16, yy);
+      const bx = x + 88, bw = w - 108; rrect(c, bx, yy - 9, bw, 18, 9);
+      if (grad){ const g = c.createLinearGradient(bx,0,bx+bw,0); g.addColorStop(0,'#3ddc84'); g.addColorStop(.45,'#3ddc84'); g.addColorStop(.65,'#ffd23f'); g.addColorStop(.82,'#ff7a3d'); g.addColorStop(1,'#ff3b3b'); c.fillStyle = g; c.fill();
+        c.fillStyle = '#fff'; c.fillRect(bx + bw*clamp(val,0,1) - 4, yy - 13, 8, 26); c.strokeStyle = '#0b1d33'; c.lineWidth = 2; c.strokeRect(bx + bw*clamp(val,0,1) - 4, yy - 13, 8, 26); }
+      else { c.fillStyle = 'rgba(255,255,255,.15)'; c.fill(); rrect(c, bx, yy - 9, Math.max(18, bw*val), 18, 9); c.fillStyle = '#7fd3ff'; c.fill(); }
+      c.textAlign = 'center'; };
+    bar('LINHA', y + 30, fight.tension, true); bar('BARCO', y + 66, fight.p, false);
+  }
+  if (d.card){
+    const k = d.card, w = Math.min(560, W - 40), h = 400, x = (W - w)/2, y = (H - h)/2 + 20;
+    c.fillStyle = 'rgba(4,12,28,.55)'; c.fillRect(0,0,W,H);
+    rrect(c, x, y + 8, w, h, 22); c.fillStyle = '#0b1d33'; c.fill();
+    rrect(c, x, y, w, h, 22); c.fillStyle = '#fff4df'; c.fill(); c.lineWidth = 4; c.strokeStyle = '#0b1d33'; c.stroke();
+    rrect(c, x + 24, y + 24, w - 48, 170, 14); const g = c.createRadialGradient(W/2, y + 120, 10, W/2, y + 120, w*.5); g.addColorStop(0,'#d8f3ff'); g.addColorStop(1,'#7cc4ea'); c.fillStyle = g; c.fill(); c.lineWidth = 3; c.stroke();
+    c.save(); c.translate(W/2, y + 112); const L = Math.min(w*.62, 300); drawSpecies(c, k.sp, L, performance.now()/1000, {seed:0, rare:k.rare}); c.restore();
+    c.fillStyle = '#0b1d33'; c.font = '34px "Lilita One", sans-serif'; c.fillText(k.sp.name, W/2, y + 228);
+    c.font = '900 20px Nunito, sans-serif'; c.fillStyle = '#13804f'; c.fillText(`🪙 +${fmt(k.value)} moedas · novo no álbum!`, W/2, y + 266);
+    c.font = '700 17px Nunito, sans-serif'; c.fillStyle = '#24364f'; wrapText(c, k.sp.fact, W/2, y + 304, w - 70, 24);
+  }
+  c.restore();
+}
+async function runDemo(){
+  prefs.voice = false; prefs.sfx = false;
+  save = defaultSave(); save.casts = 5; save.rod = 2; save.line = 2; save.baits = {camarao: 20}; save.bait = 'camarao'; save.tips = {z_mar_1:1, z_mar_2:1, limit:3, bagHint:1};
+  setLoc(SEA); $('titleOv').hidden = true; for (const id of ['hud','controls','depthPill','fightHud','buddy']) $(id).hidden = true;
+  const keepHidden = setInterval(() => { for (const id of ['hud','controls','depthPill','fightHud','buddy','toast']) { const e = $(id); if (e) { e.hidden = true; e.classList && e.classList.remove('show'); } } }, 100);
+  mode = 'idle'; camY = -H*.42;
+  demo = {title:'Pescaria Lendária', sub:'Como jogar'}; await sleep(3200);
+  demo = {step:1, caption:'Toque em LANÇAR para jogar o anzol', buttons:[{label:'🎣 LANÇAR'}]}; await sleep(1600);
+  demo.buttons[0].pressed = true; await sleep(250); startCast(); demo.buttons[0].pressed = false; await sleep(900);
+  demo = {step:2, caption:'O anzol desce… toque em PARAR', capSub:'Pare na profundidade que quiser: cada faixa tem peixes diferentes', buttons:[{label:'✋ PARAR'}, {label:'⬆ RECOLHER', color:'#eaf7ff'}]};
+  await waitFor(() => hook.y >= 80*PX, 8000);
+  demo.buttons[0].pressed = true; await sleep(250); if (!hook.stopped) toggleStop(); demo.buttons[0].pressed = false;
+  demo = {step:3, caption:'Espere um peixe morder a isca', capSub:'Cada peixe tem a isca favorita dele', buttons:[{label:'⬇ DESCER'}, {label:'⬆ RECOLHER', color:'#eaf7ff'}]};
+  await sleep(700);
+  const z = zoneAt(hook.y/PX).id, cand = fishes.filter(f => f.state === 'swim' && !f.sp.legend && f.sp.zone === z && canBite(f.sp));
+  const pref = cand.find(f => f.sp.id === 'papagaio') || cand.find(f => f.sp.id === 'garoupa') || cand[0];
+  if (pref){ pref.rare = false; pref.x = hook.x + (Math.random() < .5 ? -1 : 1)*W*.3; pref.y = hook.y + 20; startChase(pref); }
+  await waitFor(() => mode === 'fight', 15000);
+  demo = {step:4, caption:'SEGURE para puxar · SOLTE se ficar vermelho', capSub:'Não deixe a linha arrebentar!', bars:true, buttons:[{label:'💪 SEGURE', color:'#ff6b4a', ink:'#fff'}]};
+  while (mode === 'fight'){ const hold = fight && fight.tension < .68; holding = hold; demo.buttons[0].pressed = hold; await sleep(60); }
+  holding = false;
+  await waitFor(() => !$('cardOv').hidden || mode === 'card', 3000);
+  const caught = SP[Object.keys(save.album)[0]];
+  closeModal('cardOv'); try { speechSynthesis.cancel(); } catch(e){}
+  demo = {card:{sp: caught, value: save.coins, rare:false}}; await sleep(4200);
+  mode = 'idle';
+  demo = {step:5, caption:'Venda os peixes e compre na Loja 🛒', capSub:'Varas descem mais fundo, linhas aguentam peixes mais fortes, iscas atraem raros'}; await sleep(3600);
+  demo = {step:6, caption:'Na Mochila 🎒 escolha o peixe que quer pescar', capSub:'O jogo coloca a isca certa e para o anzol na faixa dele'}; await sleep(3600);
+  demo = {step:7, caption:'Desça até o fundo e encontre os LENDÁRIOS!', capSub:'Eles só mordem a Isca Lendária ✨'};
+  const mega = fishes.find(f => f.sp.id === 'megalodon'); if (mega){ mega.baseY = mega.y = 775*PX; mega.x = -fishLen(mega)*.6; mega.dir = 1; }
+  mode = 'title'; await sleep(6500);
+  demo = {title:'Bora pescar?', sub:'Entre com o Google e toque em JOGAR! 🎣'}; await sleep(3500);
+  clearInterval(keepHidden);
+}
+async function recordDemo(){
+  const types = ['video/mp4;codecs=avc1.42E01F', 'video/mp4', 'video/webm;codecs=vp9', 'video/webm'];
+  const type = types.find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t));
+  if (!type) throw new Error('Este navegador não grava vídeo do canvas.');
+  const stream = cv.captureStream(30), rec = new MediaRecorder(stream, {mimeType: type, videoBitsPerSecond: 3_500_000}), chunks = [];
+  rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+  const done = new Promise(r => rec.onstop = r);
+  rec.start(500); await runDemo(); await sleep(300); rec.stop(); await done;
+  const blob = new Blob(chunks, {type}); const ext = type.includes('mp4') ? 'mp4' : 'webm';
+  const r = await fetch(`/__upload?name=como-jogar.${ext}`, {method:'PUT', body: blob});
+  return {type, size: blob.size, upload: r.status, ext};
+}
+if (DEMO_ON){ window.__demo = runDemo; window.__recordDemo = recordDemo; }
+
 /* ================= INÍCIO ================= */
 let last = performance.now(), ftAcc = 0, ftN = 0;
 function frame(now){
@@ -2465,7 +2865,7 @@ function start(data){
   if (data && data.save){ save = Object.assign(defaultSave(), data.save); migrate(); }
   resize(); initScenery(); spawnAll();
   hook.tx = W*.6;
-  const mega = fishes.find(f => f.sp.legend); if (mega){ mega.baseY = mega.y = 775*PX; mega.x = -100; mega.dir = 1; }
+  const mega = fishes.find(f => f.sp.id === 'megalodon'); if (mega){ mega.baseY = mega.y = 775*PX; mega.x = -100; mega.dir = 1; }
   const n = Object.keys(save.album).length;
   if (save.casts > 0){ const r = $('resumeTxt'); r.hidden = false; r.textContent = `Seu progresso está salvo: 🪙 ${fmt(save.coins)} · ${n}/${SPECIES.length} peixes no álbum`; }
   updateCoins(false);
@@ -2473,8 +2873,8 @@ function start(data){
   requestAnimationFrame(t => { last = t; requestAnimationFrame(frame); });
 }
 if (DEBUG) window.__dbg = {step(n){ for (let i=0;i<n;i++) update(1/60); render(); }, get mode(){return mode;}, get fight(){return fight;}, get hook(){return hook;}, get save(){return save;}, set hold(v){holding=v;}, fishes:()=>fishes, get loc(){return LOC.id;}, speech:()=>cardSpeech, get Q(){return Q;},
-  sheet(){ document.body.innerHTML = ''; document.body.style.cssText = 'overflow:auto;background:#cfeefc;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:4px';
-    for (const sp of SPECIES){ const c = document.createElement('canvas'); c.width = 300; c.height = 168; c.style.width = '100%'; c.style.background = sp.loc === 'rio' ? '#dfe9c8' : '#bfe6fa'; fitDraw(c.getContext('2d'), sp); document.body.append(c); } }};
+  sheet(ids, rare){ document.body.innerHTML = ''; document.body.style.cssText = `overflow:auto;background:#cfeefc;display:grid;grid-template-columns:repeat(${ids ? 3 : 5},1fr);gap:4px;padding:4px`;
+    for (const sp of (ids ? ids.map(id => SP[id]) : SPECIES)){ const c = document.createElement('canvas'); c.width = 300; c.height = 168; c.style.width = '100%'; c.style.background = sp.loc === 'rio' ? '#dfe9c8' : '#bfe6fa'; fitDraw(c.getContext('2d'), sp, {rare}); document.body.append(c); } }};
 try { window.claude?.hot?.snapshot?.(() => ({save})); } catch(e){}
 const hot = window.claude?.hot;
 if (hot?.ready) hot.ready(start); else start(hot?.data ?? {});

@@ -1,6 +1,6 @@
 # Roteiro de narração: Iara, a ajudante da Pescaria Lendária
 
-Gerado automaticamente a partir do código do jogo em 06/11/2026. **285 falas**, 14.252 caracteres no total.
+Gerado automaticamente a partir do código do jogo em 06/11/2026. **321 falas**, 16.801 caracteres no total.
 
 ## A personagem
 
@@ -22,7 +22,7 @@ Nomes que merecem atenção (sílaba forte em **negrito**):
 
 - Tucuna**ré**, Pira**í**ba, Pira**ru**cu, Arua**nã**, Jara**qui**, Pora**quê**, Tamba**qui**, Lamba**ri**, Pa**cu**, Ja**ú**
 - Cela**can**to, Megalo**don**, Espa**dar**te, Ga**rou**pa, Baia**cu**
-- Todos os peixes: Sardinha, Tainha, Baiacu, Peixe-palhaço, Peixe-cirurgião, Peixe-papagaio, Garoupa, Arraia, Atum, Dourado-do-mar, Tubarão-martelo, Espadarte, Peixe-lanterna, Peixe-víbora, Peixe-diabo-negro, Celacanto, Peixe-remo, Tubarão-duende, Lula-colossal, Tubarão-da-Groenlândia, Megalodon, Lambari, Piranha, Pacu, Aruanã, Jaraqui, Tucunaré, Tambaqui, Pirarucu, Arraia-de-fogo, Poraquê, Pintado, Dourada, Jaú, Piraíba.
+- Todos os peixes: Sardinha, Tainha, Baiacu, Peixe-palhaço, Peixe-cirurgião, Peixe-papagaio, Garoupa, Arraia, Atum, Dourado-do-mar, Tubarão-martelo, Espadarte, Peixe-lanterna, Peixe-víbora, Peixe-diabo-negro, Celacanto, Peixe-remo, Tubarão-duende, Lula-colossal, Tubarão-da-Groenlândia, Tubarão-baleia, Dunkleosteus, Megalodon, Lambari, Piranha, Pacu, Aruanã, Jaraqui, Tucunaré, Tambaqui, Pirarucu, Arraia-de-fogo, Poraquê, Pintado, Dourada, Jaú, Piraíba, Megapiranha, Boiúna.
 
 ## Abertura e conta
 
@@ -117,6 +117,7 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `peixe_novo` | Quando é a primeira vez daquele peixe | Peixe novo pro álbum! |
 | `peixe_gigante` | Quando o peixe veio gigante | E que peixe gigante! |
 | `peixe_recorde` | Quando é o maior daquela espécie | É o seu maior até agora! |
+| `peixe_raro` | Quando o peixe pescado é o raro dourado (logo depois de "Você pescou…") | Uau, é um peixe raro, todo dourado! Ele vale muito mais!<br><small>*Surpresa e alegria!*</small> |
 | `sabia_sardinha` | Curiosidade: Sardinha | Sabia que sardinhas nadam em cardumes gigantes, com milhares de peixinhos juntos!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_tainha` | Curiosidade: Tainha | Sabia que a tainha é famosa por dar pulos para fora da água!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_baiacu` | Curiosidade: Baiacu | Sabia que quando leva um susto, o baiacu se enche de água e vira uma bola cheia de espinhos!<br><small>*Tom de quem conta um segredo legal.*</small> |
@@ -137,6 +138,8 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `sabia_duende` | Curiosidade: Tubarão-duende | Sabia que quando vai morder, a boca do tubarão-duende pula para fora, como um estilingue!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_lula` | Curiosidade: Lula-colossal | Sabia que a lula-colossal tem os maiores olhos de todos os animais: do tamanho de uma bola de futebol!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_groenlandia` | Curiosidade: Tubarão-da-Groenlândia | Sabia que ele pode viver mais de 250 anos! Nenhum outro animal com coluna vive tanto tempo.<br><small>*Tom de quem conta um segredo legal.*</small> |
+| `sabia_tubaraobaleia` | Curiosidade: Tubarão-baleia | Sabia que o tubarão-baleia é o maior peixe do mundo, maior que um ônibus! Mesmo gigante, ele é calmo e come bichinhos minúsculos.<br><small>*Tom de quem conta um segredo legal.*</small> |
+| `sabia_dunkleosteus` | Curiosidade: Dunkleosteus | Sabia que o Dunkleosteus viveu há 360 milhões de anos e tinha uma armadura de osso na cabeça. Em vez de dentes, cortava a comida com lâminas na boca!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_megalodon` | Curiosidade: Megalodon | Sabia que o megalodon viveu há milhões de anos e foi o maior tubarão que já existiu! Cada dente era maior que a mão de um adulto.<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_lambari` | Curiosidade: Lambari | Sabia que o lambari é pequenininho e vive em cardumes. Muitos peixes grandes do rio adoram comer lambari!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_piranha` | Curiosidade: Piranha | Sabia que a piranha tem dentes afiados que se encaixam como uma tesoura! Ela vive em grupos nos rios da Amazônia.<br><small>*Tom de quem conta um segredo legal.*</small> |
@@ -152,6 +155,8 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `sabia_dourada` | Curiosidade: Dourada | Sabia que a dourada faz a maior viagem de todos os peixes de rio: nada mais de 11 mil quilômetros, das montanhas dos Andes até o mar e de volta!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_jau` | Curiosidade: Jaú | Sabia que o jaú é um bagre enorme e muito forte que mora nos poços mais fundos e nas corredeiras do rio!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_piraiba` | Curiosidade: Piraíba | Sabia que a piraíba é o maior bagre da Amazônia: pode passar de 2 metros e meio e tem bigodes compridos para sentir a comida!<br><small>*Tom de quem conta um segredo legal.*</small> |
+| `sabia_megapiranha` | Curiosidade: Megapiranha | Sabia que a megapiranha viveu há uns 8 milhões de anos nos rios da América do Sul e era bem maior que as piranhas de hoje, com dentes em zigue-zague!<br><small>*Tom de quem conta um segredo legal.*</small> |
+| `sabia_boiuna` | Curiosidade: Boiúna | Sabia que a Boiúna, ou Cobra-Grande, é uma lenda da Amazônia: dizem que é uma cobra enorme com olhos que brilham como lanternas no rio!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `come_sardinha` | O que come: Sardinha | Ela come plâncton, que são bichinhos minúsculos que flutuam na água. |
 | `come_tainha` | O que come: Tainha | Ela come algas e restinhos de plantas do fundo. |
 | `come_baiacu` | O que come: Baiacu | Ele come mariscos, caranguejos e ouriços. |
@@ -172,6 +177,8 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `come_duende` | O que come: Tubarão-duende | Ele come peixes, lulas e camarões. |
 | `come_lula` | O que come: Lula-colossal | Ela come peixes do fundo do mar. |
 | `come_groenlandia` | O que come: Tubarão-da-Groenlândia | Ele come peixes, focas e quase tudo o que encontra. |
+| `come_tubaraobaleia` | O que come: Tubarão-baleia | Ele come plâncton e peixinhos bem pequenos. |
+| `come_dunkleosteus` | O que come: Dunkleosteus | Ele comia outros peixes grandes da sua época. |
 | `come_megalodon` | O que come: Megalodon | Ele comia baleias e outros animais grandes do mar. |
 | `come_lambari` | O que come: Lambari | Ele come sementes, insetos e bichinhos. |
 | `come_piranha` | O que come: Piranha | Ela come peixes, sementes e frutas que caem na água. |
@@ -187,6 +194,8 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `come_dourada` | O que come: Dourada | Ela come peixes. |
 | `come_jau` | O que come: Jaú | Ele come peixes. |
 | `come_piraiba` | O que come: Piraíba | Ela come peixes. |
+| `come_megapiranha` | O que come: Megapiranha | Ela comia peixes grandes. |
+| `come_boiuna` | O que come: Boiúna | Ela come peixes e tudo o que cai no rio, segundo a lenda. |
 | `final_loja` | Fim da fala quando já dá para comprar algo | E você já pode comprar coisa nova na loja! |
 | `final_1` | Fim da fala (às vezes, sorteia 1 de 5) | Continua assim! |
 | `final_2` | Fim da fala (às vezes, sorteia 1 de 5) | Você está ficando craque! |
@@ -213,6 +222,8 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `nome_duende` | Botão Ouvir do álbum: começa pelo nome (Tubarão-duende) | Tubarão-duende! |
 | `nome_lula` | Botão Ouvir do álbum: começa pelo nome (Lula-colossal) | Lula-colossal! |
 | `nome_groenlandia` | Botão Ouvir do álbum: começa pelo nome (Tubarão-da-Groenlândia) | Tubarão-da-Groenlândia! |
+| `nome_tubaraobaleia` | Botão Ouvir do álbum: começa pelo nome (Tubarão-baleia) | Tubarão-baleia! |
+| `nome_dunkleosteus` | Botão Ouvir do álbum: começa pelo nome (Dunkleosteus) | Dunkleosteus! |
 | `nome_megalodon` | Botão Ouvir do álbum: começa pelo nome (Megalodon) | Megalodon! |
 | `nome_lambari` | Botão Ouvir do álbum: começa pelo nome (Lambari) | Lambari! |
 | `nome_piranha` | Botão Ouvir do álbum: começa pelo nome (Piranha) | Piranha! |
@@ -228,6 +239,8 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `nome_dourada` | Botão Ouvir do álbum: começa pelo nome (Dourada) | Dourada! |
 | `nome_jau` | Botão Ouvir do álbum: começa pelo nome (Jaú) | Jaú! |
 | `nome_piraiba` | Botão Ouvir do álbum: começa pelo nome (Piraíba) | Piraíba! |
+| `nome_megapiranha` | Botão Ouvir do álbum: começa pelo nome (Megapiranha) | Megapiranha! |
+| `nome_boiuna` | Botão Ouvir do álbum: começa pelo nome (Boiúna) | Boiúna! |
 ## Megalodon
 
 Momentos especiais do tubarão lendário.
@@ -238,7 +251,20 @@ Momentos especiais do tubarão lendário.
 | `mega_fisgou` | O Megalodon mordeu a isca | É o Megalodon! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
 | `mega_passou` | O Megalodon passou sem a Isca Lendária | Você viu aquilo? Era o Megalodon! Ele só morde a Isca Lendária. Um dia a gente pega ele! |
 | `mega_pescou` | Pescou o Megalodon (antes de sabia_megalodon e come_megalodon) | Você conseguiu! Você pescou o Megalodon! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
-| `mega_orgulho` | Fim da fala do Megalodon | Eu tô muito orgulhosa de você! |
+| `mega_orgulho` | Fim da fala de qualquer lendário pescado | Eu tô muito orgulhosa de você! |
+| `lenda_fisgou_tubaraobaleia` | Lendário mordeu a isca: Tubarão-baleia | É o Tubarão-baleia! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
+| `lenda_passou_tubaraobaleia` | Tubarão-baleia passou sem a Isca Lendária | Você viu aquilo? Era o Tubarão-baleia! Ele só morde a Isca Lendária. Um dia a gente pega! |
+| `lenda_pescou_tubaraobaleia` | Pescou: Tubarão-baleia (antes de sabia_ e come_) | Você conseguiu! Você pescou o Tubarão-baleia! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
+| `lenda_fisgou_dunkleosteus` | Lendário mordeu a isca: Dunkleosteus | É o Dunkleosteus! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
+| `lenda_passou_dunkleosteus` | Dunkleosteus passou sem a Isca Lendária | Você viu aquilo? Era o Dunkleosteus! Ele só morde a Isca Lendária. Um dia a gente pega! |
+| `lenda_pescou_dunkleosteus` | Pescou: Dunkleosteus (antes de sabia_ e come_) | Você conseguiu! Você pescou o Dunkleosteus! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
+| `lenda_fisgou_megapiranha` | Lendário mordeu a isca: Megapiranha | É a Megapiranha! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
+| `lenda_passou_megapiranha` | Megapiranha passou sem a Isca Lendária | Você viu aquilo? Era a Megapiranha! Ela só morde a Isca Lendária. Um dia a gente pega! |
+| `lenda_pescou_megapiranha` | Pescou: Megapiranha (antes de sabia_ e come_) | Você conseguiu! Você pescou a Megapiranha! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
+| `lenda_fisgou_boiuna` | Lendário mordeu a isca: Boiúna | É a Boiúna! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
+| `lenda_passou_boiuna` | Boiúna passou sem a Isca Lendária | Você viu aquilo? Era a Boiúna! Ela só morde a Isca Lendária. Um dia a gente pega! |
+| `lenda_pescou_boiuna` | Pescou: Boiúna (antes de sabia_ e come_) | Você conseguiu! Você pescou a Boiúna! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
+| `lenda_passou_misterio` | Um lendário ainda desconhecido passou sem a Isca Lendária | Você viu aquilo? Era um peixe lendário! Ele só morde a Isca Lendária. Um dia a gente pega! |
 ## Mochila: escolher peixe e iscas
 
 Falas da aba Escolher peixe, da troca de isca e das cores.
@@ -265,6 +291,8 @@ Falas da aba Escolher peixe, da troca de isca e das cores.
 | `alvo_duende` | Escolheu o alvo: Tubarão-duende | Bora pescar o Tubarão-duende! Ele mora no Abismo, entre 550 e 900 metros. |
 | `alvo_lula` | Escolheu o alvo: Lula-colossal | Bora pescar a Lula-colossal! Ela mora no Abismo, entre 550 e 900 metros. |
 | `alvo_groenlandia` | Escolheu o alvo: Tubarão-da-Groenlândia | Bora pescar o Tubarão-da-Groenlândia! Ele mora no Abismo, entre 550 e 900 metros. |
+| `alvo_tubaraobaleia` | Escolheu o alvo: Tubarão-baleia | Bora pescar o Tubarão-baleia! Ele mora no Mar Aberto, entre 150 e 300 metros. |
+| `alvo_dunkleosteus` | Escolheu o alvo: Dunkleosteus | Bora pescar o Dunkleosteus! Ele mora nas Profundezas, entre 300 e 550 metros. |
 | `alvo_megalodon` | Escolheu o alvo: Megalodon | Bora pescar o Megalodon! Ele mora no Abismo, entre 550 e 900 metros. |
 | `alvo_lambari` | Escolheu o alvo: Lambari | Bora pescar o Lambari! Ele mora na Margem do Rio, entre 0 e 20 metros. |
 | `alvo_piranha` | Escolheu o alvo: Piranha | Bora pescar a Piranha! Ela mora na Margem do Rio, entre 0 e 20 metros. |
@@ -280,6 +308,8 @@ Falas da aba Escolher peixe, da troca de isca e das cores.
 | `alvo_dourada` | Escolheu o alvo: Dourada | Bora pescar a Dourada! Ela mora no Poço do Rio, entre 90 e 120 metros. |
 | `alvo_jau` | Escolheu o alvo: Jaú | Bora pescar o Jaú! Ele mora no Poço do Rio, entre 90 e 120 metros. |
 | `alvo_piraiba` | Escolheu o alvo: Piraíba | Bora pescar a Piraíba! Ela mora no Poço do Rio, entre 90 e 120 metros. |
+| `alvo_megapiranha` | Escolheu o alvo: Megapiranha | Bora pescar a Megapiranha! Ela mora no Canal Profundo, entre 50 e 90 metros. |
+| `alvo_boiuna` | Escolheu o alvo: Boiúna | Bora pescar a Boiúna! Ela mora no Poço do Rio, entre 90 e 120 metros. |
 | `alvo_misterio_mar_0` | Escolheu um peixe ainda desconhecido de: Águas Rasas | Bora pescar esse peixe misterioso! Ele mora nas Águas Rasas, entre 0 e 50 metros. |
 | `alvo_misterio_mar_1` | Escolheu um peixe ainda desconhecido de: Recife de Coral | Bora pescar esse peixe misterioso! Ele mora no Recife de Coral, entre 50 e 150 metros. |
 | `alvo_misterio_mar_2` | Escolheu um peixe ainda desconhecido de: Mar Aberto | Bora pescar esse peixe misterioso! Ele mora no Mar Aberto, entre 150 e 300 metros. |
@@ -305,6 +335,12 @@ Falas da aba Escolher peixe, da troca de isca e das cores.
 | `isca_peixinho` | Trocou a isca para: Peixinho | Peixinho no anzol! |
 | `isca_lula` | Trocou a isca para: Lula | Lula no anzol! |
 | `isca_lendaria` | Trocou a isca para: Isca Lendária | Isca Lendária no anzol! |
+| `isca_acabou_grilo` | A isca de Grilo acabou | Acabou a isca de Grilo! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_camarao` | A isca de Camarão acabou | Acabou a isca de Camarão! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_fruta` | A isca de Frutinha acabou | Acabou a isca de Frutinha! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_peixinho` | A isca de Peixinho acabou | Acabou a isca de Peixinho! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_lula` | A isca de Lula acabou | Acabou a isca de Lula! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_lendaria` | A isca de Isca Lendária acabou | Acabou a isca de Isca Lendária! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
 | `recusou_palhaco` | Peixe-palhaço chegou perto e recusou a isca | O Peixe-palhaço chegou pertinho, mas não quis essa isca. Ele prefere Camarão!<br><small>*No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".*</small> |
 | `recusou_arraia` | Arraia chegou perto e recusou a isca | A Arraia chegou pertinho, mas não quis essa isca. Ela prefere Camarão!<br><small>*No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".*</small> |
 | `recusou_espadarte` | Espadarte chegou perto e recusou a isca | O Espadarte chegou pertinho, mas não quis essa isca. Ele prefere Lula!<br><small>*No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".*</small> |
@@ -333,11 +369,11 @@ Falas ao comprar e ao viajar entre o mar e o rio.
 | `compra_isca_fruta` | Comprou a isca: Frutinha | Uhuul! Frutinha no anzol! Os peixes que adoram frutinha vão vir correndo! |
 | `compra_isca_peixinho` | Comprou a isca: Peixinho | Uhuul! Peixinho no anzol! Os peixes que adoram peixinho vão vir correndo! |
 | `compra_isca_lula` | Comprou a isca: Lula | Uhuul! Lula no anzol! Os peixes que adoram lula vão vir correndo! |
-| `compra_isca_lendaria` | Comprou a Isca Lendária | A Isca Lendária! Agora o Megalodon vai querer morder. Vamos lá pro Abismo!<br><small>*Empolgação máxima.*</small> |
-| `compra_vara_1` | Comprou: Vara de Fibra | Uhuul! Com a Vara de Fibra dá pra descer até 150 metros! Vamos descobrir peixes novos! |
-| `compra_vara_2` | Comprou: Vara de Carbono | Uhuul! Com a Vara de Carbono dá pra descer até 300 metros! Vamos descobrir peixes novos! |
-| `compra_vara_3` | Comprou: Vara Profissional | Uhuul! Com a Vara Profissional dá pra descer até 550 metros! Vamos descobrir peixes novos! |
-| `compra_vara_4` | Comprou: Vara Abissal | Uhuul! Com a Vara Abissal dá pra descer até 900 metros! Vamos descobrir peixes novos! |
+| `compra_isca_lendaria` | Comprou a Isca Lendária | A Isca Lendária! Agora os peixes lendários vão querer morder!<br><small>*Empolgação máxima.*</small> |
+| `compra_vara_1` | Comprou: Vara de Fibra | Uhuul! Com a Vara de Fibra dá pra descer até 100 metros! Vamos descobrir peixes novos! |
+| `compra_vara_2` | Comprou: Vara de Carbono | Uhuul! Com a Vara de Carbono dá pra descer até 225 metros! Vamos descobrir peixes novos! |
+| `compra_vara_3` | Comprou: Vara Profissional | Uhuul! Com a Vara Profissional dá pra descer até 425 metros! Vamos descobrir peixes novos! |
+| `compra_vara_4` | Comprou: Vara Abissal | Uhuul! Com a Vara Abissal dá pra descer até 725 metros! Vamos descobrir peixes novos! |
 | `compra_linha_1` | Comprou: Linha Forte | Que legal! Você comprou: Linha Forte!<br><small>*No jogo atual a frase é sorteada entre 3 jeitos; a versão gravada usa este.*</small> |
 | `compra_linha_2` | Comprou: Linha de Aço | Que legal! Você comprou: Linha de Aço!<br><small>*No jogo atual a frase é sorteada entre 3 jeitos; a versão gravada usa este.*</small> |
 | `compra_linha_3` | Comprou: Linha de Kevlar | Que legal! Você comprou: Linha de Kevlar!<br><small>*No jogo atual a frase é sorteada entre 3 jeitos; a versão gravada usa este.*</small> |

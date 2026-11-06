@@ -120,6 +120,18 @@
   "zone": 4
  },
  {
+  "id": "tubaraobaleia",
+  "name": "Tubarão-baleia",
+  "loc": "mar",
+  "zone": 2
+ },
+ {
+  "id": "dunkleosteus",
+  "name": "Dunkleosteus",
+  "loc": "mar",
+  "zone": 3
+ },
+ {
   "id": "megalodon",
   "name": "Megalodon",
   "loc": "mar",
@@ -206,6 +218,18 @@
  {
   "id": "piraiba",
   "name": "Piraíba",
+  "loc": "rio",
+  "zone": 3
+ },
+ {
+  "id": "megapiranha",
+  "name": "Megapiranha",
+  "loc": "rio",
+  "zone": 2
+ },
+ {
+  "id": "boiuna",
+  "name": "Boiúna",
   "loc": "rio",
   "zone": 3
  }

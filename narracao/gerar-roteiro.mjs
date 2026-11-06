@@ -34,6 +34,8 @@ const RODS = grab('RODS'), LINES = grab('LINES'), BAITS = grab('BAITS');
 const SPECIES = grab('SPECIES'), FOOD = grab('FOOD'), LIKES = grab('LIKES');
 const CHEERS = grab('CHEERS'), ENDS = grab('ENDS'), BITES = grab('BITES'), SNAPS = grab('SNAPS');
 const BAIT = Object.fromEntries(BAITS.map((b) => [b.id, b]));
+// no jogo, cada vara chega no meio de uma zona do mar
+RODS.forEach((r, i) => { r.depth = (ZONES_SEA[i].from + ZONES_SEA[i].to) / 2; });
 for (const s of SPECIES) {
   s.loc = s.loc || 'mar'; s.art = FOOD[s.id][0]; s.food = FOOD[s.id][1];
   const l = LIKES[s.id]; s.only = l.startsWith('!'); s.likes = l.replace('!', '').split(' ');
@@ -80,8 +82,9 @@ add('alvo_cumprido', 'Quando o peixe pescado era o alvo escolhido', 'Missão cum
 add('peixe_novo', 'Quando é a primeira vez daquele peixe', 'Peixe novo pro álbum!');
 add('peixe_gigante', 'Quando o peixe veio gigante', 'E que peixe gigante!');
 add('peixe_recorde', 'Quando é o maior daquela espécie', 'É o seu maior até agora!');
+add('peixe_raro', 'Quando o peixe pescado é o raro dourado (logo depois de "Você pescou…")', 'Uau, é um peixe raro, todo dourado! Ele vale muito mais!', 'Surpresa e alegria!');
 for (const sp of SPECIES) add(`sabia_${sp.id}`, `Curiosidade: ${sp.name}`, sabia(sp.fact), 'Tom de quem conta um segredo legal.');
-for (const sp of SPECIES) add(`come_${sp.id}`, `O que come: ${sp.name}`, `${ele(sp)} ${sp.legend ? 'comia' : 'come'} ${sp.food}.`);
+for (const sp of SPECIES) add(`come_${sp.id}`, `O que come: ${sp.name}`, `${ele(sp)} ${sp.extinct ? 'comia' : 'come'} ${sp.food}.`);
 add('final_loja', 'Fim da fala quando já dá para comprar algo', 'E você já pode comprar coisa nova na loja!');
 ENDS.forEach((t, i) => add(`final_${i + 1}`, `Fim da fala (às vezes, sorteia 1 de ${ENDS.length})`, t));
 for (const sp of SPECIES) add(`nome_${sp.id}`, `Botão Ouvir do álbum: começa pelo nome (${sp.name})`, `${sp.name}!`);
@@ -91,7 +94,14 @@ add('mega_chegando', 'O Megalodon vem na direção do anzol', 'Nossa! Tem alguma
 add('mega_fisgou', 'O Megalodon mordeu a isca', 'É o Megalodon! Segura firme! Eu sei que você consegue!', 'Muita energia.');
 add('mega_passou', 'O Megalodon passou sem a Isca Lendária', 'Você viu aquilo? Era o Megalodon! Ele só morde a Isca Lendária. Um dia a gente pega ele!');
 add('mega_pescou', 'Pescou o Megalodon (antes de sabia_megalodon e come_megalodon)', 'Você conseguiu! Você pescou o Megalodon! Você é um pescador lendário!', 'O momento mais feliz do jogo!');
-add('mega_orgulho', 'Fim da fala do Megalodon', 'Eu tô muito orgulhosa de você!');
+add('mega_orgulho', 'Fim da fala de qualquer lendário pescado', 'Eu tô muito orgulhosa de você!');
+const theName = (sp) => `${sp.art === 'a' ? 'a' : 'o'} ${sp.name}`;
+for (const sp of SPECIES.filter((s) => s.legend && s.id !== 'megalodon')) {
+  add(`lenda_fisgou_${sp.id}`, `Lendário mordeu a isca: ${sp.name}`, `É ${theName(sp)}! Segura firme! Eu sei que você consegue!`, 'Muita energia.');
+  add(`lenda_passou_${sp.id}`, `${sp.name} passou sem a Isca Lendária`, `Você viu aquilo? Era ${theName(sp)}! ${ele(sp)} só morde a Isca Lendária. Um dia a gente pega!`);
+  add(`lenda_pescou_${sp.id}`, `Pescou: ${sp.name} (antes de sabia_ e come_)`, `Você conseguiu! Você pescou ${theName(sp)}! Você é um pescador lendário!`, 'O momento mais feliz do jogo!');
+}
+add('lenda_passou_misterio', 'Um lendário ainda desconhecido passou sem a Isca Lendária', 'Você viu aquilo? Era um peixe lendário! Ele só morde a Isca Lendária. Um dia a gente pega!');
 
 sec('Mochila: escolher peixe e iscas', 'Falas da aba Escolher peixe, da troca de isca e das cores.');
 for (const sp of SPECIES) {
@@ -105,6 +115,7 @@ for (const b of BAITS) add(`alvo_isca_${b.id}`, `Depois de escolher o alvo, a is
 add('alvo_linha_fraca', 'Depois de escolher o alvo, se a linha for fraca', 'A linha é fraquinha pra ele, então solta bastante!');
 add('alvo_nenhum', 'Tirou o alvo', 'Tudo bem! Vamos pescar o que aparecer!');
 for (const b of BAITS) add(`isca_${b.id}`, `Trocou a isca para: ${b.name}`, `${b.name} no anzol!`);
+for (const b of BAITS.filter((b) => b.id !== 'minhoca')) add(`isca_acabou_${b.id}`, `A isca de ${b.name} acabou`, `Acabou a isca de ${b.name}! Coloquei minhoca no anzol. Dá pra comprar mais na loja!`);
 for (const sp of SPECIES.filter((s) => s.only && !s.legend)) {
   const fav = BAIT[sp.likes[0]];
   add(`recusou_${sp.id}`, `${sp.name} chegou perto e recusou a isca`, `${OA(sp)} ${sp.name} chegou pertinho, mas não quis essa isca. ${ele(sp)} prefere ${fav.name}!`, 'No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".');
@@ -120,7 +131,7 @@ sec('Loja e viagem', 'Falas ao comprar e ao viajar entre o mar e o rio.');
 for (const b of BAITS.filter((b) => b.cost > 0 && b.id !== 'lendaria')) {
   add(`compra_isca_${b.id}`, `Comprou a isca: ${b.name}`, `Uhuul! ${b.name} no anzol! Os peixes que adoram ${b.name.toLowerCase()} vão vir correndo!`);
 }
-add('compra_isca_lendaria', 'Comprou a Isca Lendária', 'A Isca Lendária! Agora o Megalodon vai querer morder. Vamos lá pro Abismo!', 'Empolgação máxima.');
+add('compra_isca_lendaria', 'Comprou a Isca Lendária', 'A Isca Lendária! Agora os peixes lendários vão querer morder!', 'Empolgação máxima.');
 RODS.slice(1).forEach((r, i) => add(`compra_vara_${i + 1}`, `Comprou: ${r.name}`, `Uhuul! Com a ${r.name} dá pra descer até ${r.depth} metros! Vamos descobrir peixes novos!`));
 LINES.slice(1).forEach((l, i) => add(`compra_linha_${i + 1}`, `Comprou: ${l.name}`, `Que legal! Você comprou: ${l.name}!`, 'No jogo atual a frase é sorteada entre 3 jeitos; a versão gravada usa este.'));
 add('compra_rio', 'Comprou a viagem para o Rio Amazonas', 'Eba! Agora a gente pode viajar pro Rio Amazonas! Toca no botão do barquinho lá em cima!');

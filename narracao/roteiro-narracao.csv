@@ -74,6 +74,7 @@ alvo_cumprido;alvo_cumprido.mp3;Peixe pescado (montagem);Quando o peixe pescado 
 peixe_novo;peixe_novo.mp3;Peixe pescado (montagem);Quando é a primeira vez daquele peixe;Peixe novo pro álbum!;21;
 peixe_gigante;peixe_gigante.mp3;Peixe pescado (montagem);Quando o peixe veio gigante;E que peixe gigante!;20;
 peixe_recorde;peixe_recorde.mp3;Peixe pescado (montagem);Quando é o maior daquela espécie;É o seu maior até agora!;24;
+peixe_raro;peixe_raro.mp3;Peixe pescado (montagem);"Quando o peixe pescado é o raro dourado (logo depois de ""Você pescou…"")";Uau, é um peixe raro, todo dourado! Ele vale muito mais!;56;Surpresa e alegria!
 sabia_sardinha;sabia_sardinha.mp3;Peixe pescado (montagem);Curiosidade: Sardinha;Sabia que sardinhas nadam em cardumes gigantes, com milhares de peixinhos juntos!;81;Tom de quem conta um segredo legal.
 sabia_tainha;sabia_tainha.mp3;Peixe pescado (montagem);Curiosidade: Tainha;Sabia que a tainha é famosa por dar pulos para fora da água!;60;Tom de quem conta um segredo legal.
 sabia_baiacu;sabia_baiacu.mp3;Peixe pescado (montagem);Curiosidade: Baiacu;Sabia que quando leva um susto, o baiacu se enche de água e vira uma bola cheia de espinhos!;92;Tom de quem conta um segredo legal.
@@ -94,6 +95,8 @@ sabia_remo;sabia_remo.mp3;Peixe pescado (montagem);Curiosidade: Peixe-remo;Sabia
 sabia_duende;sabia_duende.mp3;Peixe pescado (montagem);Curiosidade: Tubarão-duende;Sabia que quando vai morder, a boca do tubarão-duende pula para fora, como um estilingue!;89;Tom de quem conta um segredo legal.
 sabia_lula;sabia_lula.mp3;Peixe pescado (montagem);Curiosidade: Lula-colossal;Sabia que a lula-colossal tem os maiores olhos de todos os animais: do tamanho de uma bola de futebol!;102;Tom de quem conta um segredo legal.
 sabia_groenlandia;sabia_groenlandia.mp3;Peixe pescado (montagem);Curiosidade: Tubarão-da-Groenlândia;Sabia que ele pode viver mais de 250 anos! Nenhum outro animal com coluna vive tanto tempo.;91;Tom de quem conta um segredo legal.
+sabia_tubaraobaleia;sabia_tubaraobaleia.mp3;Peixe pescado (montagem);Curiosidade: Tubarão-baleia;Sabia que o tubarão-baleia é o maior peixe do mundo, maior que um ônibus! Mesmo gigante, ele é calmo e come bichinhos minúsculos.;129;Tom de quem conta um segredo legal.
+sabia_dunkleosteus;sabia_dunkleosteus.mp3;Peixe pescado (montagem);Curiosidade: Dunkleosteus;Sabia que o Dunkleosteus viveu há 360 milhões de anos e tinha uma armadura de osso na cabeça. Em vez de dentes, cortava a comida com lâminas na boca!;149;Tom de quem conta um segredo legal.
 sabia_megalodon;sabia_megalodon.mp3;Peixe pescado (montagem);Curiosidade: Megalodon;Sabia que o megalodon viveu há milhões de anos e foi o maior tubarão que já existiu! Cada dente era maior que a mão de um adulto.;129;Tom de quem conta um segredo legal.
 sabia_lambari;sabia_lambari.mp3;Peixe pescado (montagem);Curiosidade: Lambari;Sabia que o lambari é pequenininho e vive em cardumes. Muitos peixes grandes do rio adoram comer lambari!;105;Tom de quem conta um segredo legal.
 sabia_piranha;sabia_piranha.mp3;Peixe pescado (montagem);Curiosidade: Piranha;Sabia que a piranha tem dentes afiados que se encaixam como uma tesoura! Ela vive em grupos nos rios da Amazônia.;113;Tom de quem conta um segredo legal.
@@ -109,6 +112,8 @@ sabia_pintado;sabia_pintado.mp3;Peixe pescado (montagem);Curiosidade: Pintado;Sa
 sabia_dourada;sabia_dourada.mp3;Peixe pescado (montagem);Curiosidade: Dourada;Sabia que a dourada faz a maior viagem de todos os peixes de rio: nada mais de 11 mil quilômetros, das montanhas dos Andes até o mar e de volta!;144;Tom de quem conta um segredo legal.
 sabia_jau;sabia_jau.mp3;Peixe pescado (montagem);Curiosidade: Jaú;Sabia que o jaú é um bagre enorme e muito forte que mora nos poços mais fundos e nas corredeiras do rio!;104;Tom de quem conta um segredo legal.
 sabia_piraiba;sabia_piraiba.mp3;Peixe pescado (montagem);Curiosidade: Piraíba;Sabia que a piraíba é o maior bagre da Amazônia: pode passar de 2 metros e meio e tem bigodes compridos para sentir a comida!;125;Tom de quem conta um segredo legal.
+sabia_megapiranha;sabia_megapiranha.mp3;Peixe pescado (montagem);Curiosidade: Megapiranha;Sabia que a megapiranha viveu há uns 8 milhões de anos nos rios da América do Sul e era bem maior que as piranhas de hoje, com dentes em zigue-zague!;149;Tom de quem conta um segredo legal.
+sabia_boiuna;sabia_boiuna.mp3;Peixe pescado (montagem);Curiosidade: Boiúna;Sabia que a Boiúna, ou Cobra-Grande, é uma lenda da Amazônia: dizem que é uma cobra enorme com olhos que brilham como lanternas no rio!;135;Tom de quem conta um segredo legal.
 come_sardinha;come_sardinha.mp3;Peixe pescado (montagem);O que come: Sardinha;Ela come plâncton, que são bichinhos minúsculos que flutuam na água.;68;
 come_tainha;come_tainha.mp3;Peixe pescado (montagem);O que come: Tainha;Ela come algas e restinhos de plantas do fundo.;47;
 come_baiacu;come_baiacu.mp3;Peixe pescado (montagem);O que come: Baiacu;Ele come mariscos, caranguejos e ouriços.;41;
@@ -129,6 +134,8 @@ come_remo;come_remo.mp3;Peixe pescado (montagem);O que come: Peixe-remo;Ele come
 come_duende;come_duende.mp3;Peixe pescado (montagem);O que come: Tubarão-duende;Ele come peixes, lulas e camarões.;34;
 come_lula;come_lula.mp3;Peixe pescado (montagem);O que come: Lula-colossal;Ela come peixes do fundo do mar.;32;
 come_groenlandia;come_groenlandia.mp3;Peixe pescado (montagem);O que come: Tubarão-da-Groenlândia;Ele come peixes, focas e quase tudo o que encontra.;51;
+come_tubaraobaleia;come_tubaraobaleia.mp3;Peixe pescado (montagem);O que come: Tubarão-baleia;Ele come plâncton e peixinhos bem pequenos.;43;
+come_dunkleosteus;come_dunkleosteus.mp3;Peixe pescado (montagem);O que come: Dunkleosteus;Ele comia outros peixes grandes da sua época.;45;
 come_megalodon;come_megalodon.mp3;Peixe pescado (montagem);O que come: Megalodon;Ele comia baleias e outros animais grandes do mar.;50;
 come_lambari;come_lambari.mp3;Peixe pescado (montagem);O que come: Lambari;Ele come sementes, insetos e bichinhos.;39;
 come_piranha;come_piranha.mp3;Peixe pescado (montagem);O que come: Piranha;Ela come peixes, sementes e frutas que caem na água.;52;
@@ -144,6 +151,8 @@ come_pintado;come_pintado.mp3;Peixe pescado (montagem);O que come: Pintado;Ele c
 come_dourada;come_dourada.mp3;Peixe pescado (montagem);O que come: Dourada;Ela come peixes.;16;
 come_jau;come_jau.mp3;Peixe pescado (montagem);O que come: Jaú;Ele come peixes.;16;
 come_piraiba;come_piraiba.mp3;Peixe pescado (montagem);O que come: Piraíba;Ela come peixes.;16;
+come_megapiranha;come_megapiranha.mp3;Peixe pescado (montagem);O que come: Megapiranha;Ela comia peixes grandes.;25;
+come_boiuna;come_boiuna.mp3;Peixe pescado (montagem);O que come: Boiúna;Ela come peixes e tudo o que cai no rio, segundo a lenda.;57;
 final_loja;final_loja.mp3;Peixe pescado (montagem);Fim da fala quando já dá para comprar algo;E você já pode comprar coisa nova na loja!;42;
 final_1;final_1.mp3;Peixe pescado (montagem);Fim da fala (às vezes, sorteia 1 de 5);Continua assim!;15;
 final_2;final_2.mp3;Peixe pescado (montagem);Fim da fala (às vezes, sorteia 1 de 5);Você está ficando craque!;25;
@@ -170,6 +179,8 @@ nome_remo;nome_remo.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa
 nome_duende;nome_duende.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Tubarão-duende);Tubarão-duende!;15;
 nome_lula;nome_lula.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Lula-colossal);Lula-colossal!;14;
 nome_groenlandia;nome_groenlandia.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Tubarão-da-Groenlândia);Tubarão-da-Groenlândia!;23;
+nome_tubaraobaleia;nome_tubaraobaleia.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Tubarão-baleia);Tubarão-baleia!;15;
+nome_dunkleosteus;nome_dunkleosteus.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Dunkleosteus);Dunkleosteus!;13;
 nome_megalodon;nome_megalodon.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Megalodon);Megalodon!;10;
 nome_lambari;nome_lambari.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Lambari);Lambari!;8;
 nome_piranha;nome_piranha.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Piranha);Piranha!;8;
@@ -185,11 +196,26 @@ nome_pintado;nome_pintado.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: c
 nome_dourada;nome_dourada.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Dourada);Dourada!;8;
 nome_jau;nome_jau.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Jaú);Jaú!;4;
 nome_piraiba;nome_piraiba.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Piraíba);Piraíba!;8;
+nome_megapiranha;nome_megapiranha.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Megapiranha);Megapiranha!;12;
+nome_boiuna;nome_boiuna.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Boiúna);Boiúna!;7;
 mega_chegando;mega_chegando.mp3;Megalodon;O Megalodon vem na direção do anzol;Nossa! Tem alguma coisa enorme chegando… Será que é ele?;56;Suspense, voz mais baixa.
 mega_fisgou;mega_fisgou.mp3;Megalodon;O Megalodon mordeu a isca;É o Megalodon! Segura firme! Eu sei que você consegue!;54;Muita energia.
 mega_passou;mega_passou.mp3;Megalodon;O Megalodon passou sem a Isca Lendária;Você viu aquilo? Era o Megalodon! Ele só morde a Isca Lendária. Um dia a gente pega ele!;88;
 mega_pescou;mega_pescou.mp3;Megalodon;Pescou o Megalodon (antes de sabia_megalodon e come_megalodon);Você conseguiu! Você pescou o Megalodon! Você é um pescador lendário!;69;O momento mais feliz do jogo!
-mega_orgulho;mega_orgulho.mp3;Megalodon;Fim da fala do Megalodon;Eu tô muito orgulhosa de você!;30;
+mega_orgulho;mega_orgulho.mp3;Megalodon;Fim da fala de qualquer lendário pescado;Eu tô muito orgulhosa de você!;30;
+lenda_fisgou_tubaraobaleia;lenda_fisgou_tubaraobaleia.mp3;Megalodon;Lendário mordeu a isca: Tubarão-baleia;É o Tubarão-baleia! Segura firme! Eu sei que você consegue!;59;Muita energia.
+lenda_passou_tubaraobaleia;lenda_passou_tubaraobaleia.mp3;Megalodon;Tubarão-baleia passou sem a Isca Lendária;Você viu aquilo? Era o Tubarão-baleia! Ele só morde a Isca Lendária. Um dia a gente pega!;89;
+lenda_pescou_tubaraobaleia;lenda_pescou_tubaraobaleia.mp3;Megalodon;Pescou: Tubarão-baleia (antes de sabia_ e come_);Você conseguiu! Você pescou o Tubarão-baleia! Você é um pescador lendário!;74;O momento mais feliz do jogo!
+lenda_fisgou_dunkleosteus;lenda_fisgou_dunkleosteus.mp3;Megalodon;Lendário mordeu a isca: Dunkleosteus;É o Dunkleosteus! Segura firme! Eu sei que você consegue!;57;Muita energia.
+lenda_passou_dunkleosteus;lenda_passou_dunkleosteus.mp3;Megalodon;Dunkleosteus passou sem a Isca Lendária;Você viu aquilo? Era o Dunkleosteus! Ele só morde a Isca Lendária. Um dia a gente pega!;87;
+lenda_pescou_dunkleosteus;lenda_pescou_dunkleosteus.mp3;Megalodon;Pescou: Dunkleosteus (antes de sabia_ e come_);Você conseguiu! Você pescou o Dunkleosteus! Você é um pescador lendário!;72;O momento mais feliz do jogo!
+lenda_fisgou_megapiranha;lenda_fisgou_megapiranha.mp3;Megalodon;Lendário mordeu a isca: Megapiranha;É a Megapiranha! Segura firme! Eu sei que você consegue!;56;Muita energia.
+lenda_passou_megapiranha;lenda_passou_megapiranha.mp3;Megalodon;Megapiranha passou sem a Isca Lendária;Você viu aquilo? Era a Megapiranha! Ela só morde a Isca Lendária. Um dia a gente pega!;86;
+lenda_pescou_megapiranha;lenda_pescou_megapiranha.mp3;Megalodon;Pescou: Megapiranha (antes de sabia_ e come_);Você conseguiu! Você pescou a Megapiranha! Você é um pescador lendário!;71;O momento mais feliz do jogo!
+lenda_fisgou_boiuna;lenda_fisgou_boiuna.mp3;Megalodon;Lendário mordeu a isca: Boiúna;É a Boiúna! Segura firme! Eu sei que você consegue!;51;Muita energia.
+lenda_passou_boiuna;lenda_passou_boiuna.mp3;Megalodon;Boiúna passou sem a Isca Lendária;Você viu aquilo? Era a Boiúna! Ela só morde a Isca Lendária. Um dia a gente pega!;81;
+lenda_pescou_boiuna;lenda_pescou_boiuna.mp3;Megalodon;Pescou: Boiúna (antes de sabia_ e come_);Você conseguiu! Você pescou a Boiúna! Você é um pescador lendário!;66;O momento mais feliz do jogo!
+lenda_passou_misterio;lenda_passou_misterio.mp3;Megalodon;Um lendário ainda desconhecido passou sem a Isca Lendária;Você viu aquilo? Era um peixe lendário! Ele só morde a Isca Lendária. Um dia a gente pega!;90;
 alvo_sardinha;alvo_sardinha.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Sardinha;Bora pescar a Sardinha! Ela mora nas Águas Rasas, entre 0 e 50 metros.;70;
 alvo_tainha;alvo_tainha.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Tainha;Bora pescar a Tainha! Ela mora nas Águas Rasas, entre 0 e 50 metros.;68;
 alvo_baiacu;alvo_baiacu.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Baiacu;Bora pescar o Baiacu! Ele mora nas Águas Rasas, entre 0 e 50 metros.;68;
@@ -210,6 +236,8 @@ alvo_remo;alvo_remo.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Peixe-r
 alvo_duende;alvo_duende.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Tubarão-duende;Bora pescar o Tubarão-duende! Ele mora no Abismo, entre 550 e 900 metros.;73;
 alvo_lula;alvo_lula.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Lula-colossal;Bora pescar a Lula-colossal! Ela mora no Abismo, entre 550 e 900 metros.;72;
 alvo_groenlandia;alvo_groenlandia.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Tubarão-da-Groenlândia;Bora pescar o Tubarão-da-Groenlândia! Ele mora no Abismo, entre 550 e 900 metros.;81;
+alvo_tubaraobaleia;alvo_tubaraobaleia.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Tubarão-baleia;Bora pescar o Tubarão-baleia! Ele mora no Mar Aberto, entre 150 e 300 metros.;77;
+alvo_dunkleosteus;alvo_dunkleosteus.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Dunkleosteus;Bora pescar o Dunkleosteus! Ele mora nas Profundezas, entre 300 e 550 metros.;77;
 alvo_megalodon;alvo_megalodon.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Megalodon;Bora pescar o Megalodon! Ele mora no Abismo, entre 550 e 900 metros.;68;
 alvo_lambari;alvo_lambari.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Lambari;Bora pescar o Lambari! Ele mora na Margem do Rio, entre 0 e 20 metros.;70;
 alvo_piranha;alvo_piranha.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Piranha;Bora pescar a Piranha! Ela mora na Margem do Rio, entre 0 e 20 metros.;70;
@@ -225,6 +253,8 @@ alvo_pintado;alvo_pintado.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: P
 alvo_dourada;alvo_dourada.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Dourada;Bora pescar a Dourada! Ela mora no Poço do Rio, entre 90 e 120 metros.;70;
 alvo_jau;alvo_jau.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Jaú;Bora pescar o Jaú! Ele mora no Poço do Rio, entre 90 e 120 metros.;66;
 alvo_piraiba;alvo_piraiba.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Piraíba;Bora pescar a Piraíba! Ela mora no Poço do Rio, entre 90 e 120 metros.;70;
+alvo_megapiranha;alvo_megapiranha.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Megapiranha;Bora pescar a Megapiranha! Ela mora no Canal Profundo, entre 50 e 90 metros.;76;
+alvo_boiuna;alvo_boiuna.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Boiúna;Bora pescar a Boiúna! Ela mora no Poço do Rio, entre 90 e 120 metros.;69;
 alvo_misterio_mar_0;alvo_misterio_mar_0.mp3;Mochila: escolher peixe e iscas;Escolheu um peixe ainda desconhecido de: Águas Rasas;Bora pescar esse peixe misterioso! Ele mora nas Águas Rasas, entre 0 e 50 metros.;81;
 alvo_misterio_mar_1;alvo_misterio_mar_1.mp3;Mochila: escolher peixe e iscas;Escolheu um peixe ainda desconhecido de: Recife de Coral;Bora pescar esse peixe misterioso! Ele mora no Recife de Coral, entre 50 e 150 metros.;86;
 alvo_misterio_mar_2;alvo_misterio_mar_2.mp3;Mochila: escolher peixe e iscas;Escolheu um peixe ainda desconhecido de: Mar Aberto;Bora pescar esse peixe misterioso! Ele mora no Mar Aberto, entre 150 e 300 metros.;82;
@@ -250,6 +280,12 @@ isca_fruta;isca_fruta.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Fr
 isca_peixinho;isca_peixinho.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Peixinho;Peixinho no anzol!;18;
 isca_lula;isca_lula.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Lula;Lula no anzol!;14;
 isca_lendaria;isca_lendaria.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Isca Lendária;Isca Lendária no anzol!;23;
+isca_acabou_grilo;isca_acabou_grilo.mp3;Mochila: escolher peixe e iscas;A isca de Grilo acabou;Acabou a isca de Grilo! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;79;
+isca_acabou_camarao;isca_acabou_camarao.mp3;Mochila: escolher peixe e iscas;A isca de Camarão acabou;Acabou a isca de Camarão! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;81;
+isca_acabou_fruta;isca_acabou_fruta.mp3;Mochila: escolher peixe e iscas;A isca de Frutinha acabou;Acabou a isca de Frutinha! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;82;
+isca_acabou_peixinho;isca_acabou_peixinho.mp3;Mochila: escolher peixe e iscas;A isca de Peixinho acabou;Acabou a isca de Peixinho! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;82;
+isca_acabou_lula;isca_acabou_lula.mp3;Mochila: escolher peixe e iscas;A isca de Lula acabou;Acabou a isca de Lula! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;78;
+isca_acabou_lendaria;isca_acabou_lendaria.mp3;Mochila: escolher peixe e iscas;A isca de Isca Lendária acabou;Acabou a isca de Isca Lendária! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;87;
 recusou_palhaco;recusou_palhaco.mp3;Mochila: escolher peixe e iscas;Peixe-palhaço chegou perto e recusou a isca;O Peixe-palhaço chegou pertinho, mas não quis essa isca. Ele prefere Camarão!;77;"No jogo atual ela também diz o nome da isca recusada; a versão gravada fala ""essa isca""."
 recusou_arraia;recusou_arraia.mp3;Mochila: escolher peixe e iscas;Arraia chegou perto e recusou a isca;A Arraia chegou pertinho, mas não quis essa isca. Ela prefere Camarão!;70;"No jogo atual ela também diz o nome da isca recusada; a versão gravada fala ""essa isca""."
 recusou_espadarte;recusou_espadarte.mp3;Mochila: escolher peixe e iscas;Espadarte chegou perto e recusou a isca;O Espadarte chegou pertinho, mas não quis essa isca. Ele prefere Lula!;70;"No jogo atual ela também diz o nome da isca recusada; a versão gravada fala ""essa isca""."
@@ -272,11 +308,11 @@ compra_isca_camarao;compra_isca_camarao.mp3;Loja e viagem;Comprou a isca: Camar�
 compra_isca_fruta;compra_isca_fruta.mp3;Loja e viagem;Comprou a isca: Frutinha;Uhuul! Frutinha no anzol! Os peixes que adoram frutinha vão vir correndo!;73;
 compra_isca_peixinho;compra_isca_peixinho.mp3;Loja e viagem;Comprou a isca: Peixinho;Uhuul! Peixinho no anzol! Os peixes que adoram peixinho vão vir correndo!;73;
 compra_isca_lula;compra_isca_lula.mp3;Loja e viagem;Comprou a isca: Lula;Uhuul! Lula no anzol! Os peixes que adoram lula vão vir correndo!;65;
-compra_isca_lendaria;compra_isca_lendaria.mp3;Loja e viagem;Comprou a Isca Lendária;A Isca Lendária! Agora o Megalodon vai querer morder. Vamos lá pro Abismo!;74;Empolgação máxima.
-compra_vara_1;compra_vara_1.mp3;Loja e viagem;Comprou: Vara de Fibra;Uhuul! Com a Vara de Fibra dá pra descer até 150 metros! Vamos descobrir peixes novos!;86;
-compra_vara_2;compra_vara_2.mp3;Loja e viagem;Comprou: Vara de Carbono;Uhuul! Com a Vara de Carbono dá pra descer até 300 metros! Vamos descobrir peixes novos!;88;
-compra_vara_3;compra_vara_3.mp3;Loja e viagem;Comprou: Vara Profissional;Uhuul! Com a Vara Profissional dá pra descer até 550 metros! Vamos descobrir peixes novos!;90;
-compra_vara_4;compra_vara_4.mp3;Loja e viagem;Comprou: Vara Abissal;Uhuul! Com a Vara Abissal dá pra descer até 900 metros! Vamos descobrir peixes novos!;85;
+compra_isca_lendaria;compra_isca_lendaria.mp3;Loja e viagem;Comprou a Isca Lendária;A Isca Lendária! Agora os peixes lendários vão querer morder!;61;Empolgação máxima.
+compra_vara_1;compra_vara_1.mp3;Loja e viagem;Comprou: Vara de Fibra;Uhuul! Com a Vara de Fibra dá pra descer até 100 metros! Vamos descobrir peixes novos!;86;
+compra_vara_2;compra_vara_2.mp3;Loja e viagem;Comprou: Vara de Carbono;Uhuul! Com a Vara de Carbono dá pra descer até 225 metros! Vamos descobrir peixes novos!;88;
+compra_vara_3;compra_vara_3.mp3;Loja e viagem;Comprou: Vara Profissional;Uhuul! Com a Vara Profissional dá pra descer até 425 metros! Vamos descobrir peixes novos!;90;
+compra_vara_4;compra_vara_4.mp3;Loja e viagem;Comprou: Vara Abissal;Uhuul! Com a Vara Abissal dá pra descer até 725 metros! Vamos descobrir peixes novos!;85;
 compra_linha_1;compra_linha_1.mp3;Loja e viagem;Comprou: Linha Forte;Que legal! Você comprou: Linha Forte!;37;"No jogo atual a frase é sorteada entre 3 jeitos; a versão gravada usa este."
 compra_linha_2;compra_linha_2.mp3;Loja e viagem;Comprou: Linha de Aço;Que legal! Você comprou: Linha de Aço!;38;"No jogo atual a frase é sorteada entre 3 jeitos; a versão gravada usa este."
 compra_linha_3;compra_linha_3.mp3;Loja e viagem;Comprou: Linha de Kevlar;Que legal! Você comprou: Linha de Kevlar!;41;"No jogo atual a frase é sorteada entre 3 jeitos; a versão gravada usa este."

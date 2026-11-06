@@ -163,11 +163,11 @@ export async function POST(request) {
     const line = int(body.line, 0, 4); if (line !== null) { changes.line = [data.line || 0, line]; data.line = line; }
     if (typeof body.river === 'boolean') { changes.river = [!!data.river, body.river]; data.river = body.river ? 1 : 0; if (!body.river && data.loc === 'rio') data.loc = 'mar'; }
     if (typeof body.mega === 'boolean') { changes.mega = [!!data.mega, body.mega]; data.mega = body.mega; }
-    if (Array.isArray(body.baits)) {
-      const owned = { minhoca: 1 };
-      for (const b of body.baits) if (BAITS.includes(b)) owned[b] = 1;
-      changes.baits = Object.keys(owned); data.baits = owned;
-      if (!owned[data.bait]) data.bait = 'minhoca';
+    if (body.baits && typeof body.baits === 'object' && !Array.isArray(body.baits)) { // quantidade de cada isca
+      const next = {};
+      for (const id of BAITS) if (id !== 'minhoca') { const n = int(body.baits[id], 0, 9999); if (n) next[id] = n; }
+      changes.baits = Object.entries(next).map(([k, v]) => `${k} ×${v}`); data.baits = next; data.baitV = 2;
+      if (data.bait && data.bait !== 'minhoca' && !next[data.bait]) data.bait = 'minhoca';
     }
     if (!Object.keys(changes).length) return json({ error: 'Nada para alterar.' }, 400);
     const saved = await writeSave(id, data, prev);

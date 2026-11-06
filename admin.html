@@ -267,7 +267,7 @@ details summary{cursor:pointer;font-weight:900}
     <div class="table-wrap"><table><thead><tr><th>Quando</th><th>Admin</th><th>Ação</th><th>Jogador</th><th>Detalhes</th></tr></thead><tbody id="logBody"></tbody></table></div>
   </section>
 </main>
-<footer class="site-credit">Site desenvolvido por <a href="https://housemedia.app" target="_blank" rel="noopener">House Media</a></footer>
+<footer class="site-credit">Jogo desenvolvido por <a href="https://housemedia.app" target="_blank" rel="noopener">House Media</a></footer>
 
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" hidden aria-label="Detalhes do jogador"></aside>
@@ -280,7 +280,7 @@ details summary{cursor:pointer;font-weight:900}
 const $ = s => document.querySelector(s);
 const RODS = ['Bambu (50 m)', 'Fibra (150 m)', 'Carbono (300 m)', 'Profissional (550 m)', 'Abissal (900 m)'];
 const LINES = ['Fina', 'Forte', 'Aço', 'Kevlar', 'Titânica'];
-const BAITS = [['minhoca','🪱 Minhoca'],['grilo','🦗 Grilo'],['camarao','🦐 Camarão'],['fruta','🍒 Frutinha'],['peixinho','🐟 Peixinho'],['lula','🦑 Lula'],['lendaria','✨ Isca Lendária']];
+const BAITS = [['minhoca','🪱 Minhoca ∞'],['grilo','🦗 Grilo'],['camarao','🦐 Camarão'],['fruta','🍒 Frutinha'],['peixinho','🐟 Peixinho'],['lula','🦑 Lula'],['lendaria','✨ Isca Lendária']];
 const ACTIONS = {update:'Editou progresso', reset:'Zerou progresso', restore:'Restaurou cópia', delete:'Apagou conta', settings:'Mudou aviso/evento', export:'Exportou CSV'};
 let SPECIES = {}, TOTAL_SPECIES = 35, me = null, view = 'overview', stats = null, speciesAll = false;
 let pState = {q:'', sort:'recent', page:0, total:0, pageSize:50};
@@ -530,7 +530,8 @@ function renderDrawer(d){
   const addBtn = n => el('button', {class:'btn small', type:'button', text:`+${fmt(n)}`, onclick: () => { coins.value = Math.max(0, Number(coins.value || 0) + n); }});
   const rod = el('select', {id:'edRod'}, RODS.map((r,i) => el('option', {value:i, selected: (s.rod||0) === i, text: r})));
   const line = el('select', {id:'edLine'}, LINES.map((r,i) => el('option', {value:i, selected: (s.line||0) === i, text: r})));
-  const baitBoxes = BAITS.map(([id, nm]) => { const cb = el('input', {type:'checkbox', value:id, checked: !!owned[id] || id === 'minhoca', disabled: id === 'minhoca'}); return [cb, el('label', {class:'check'}, cb, nm)]; });
+  // iscas são por unidade (a minhoca é infinita e não aparece aqui)
+  const baitBoxes = BAITS.filter(([id]) => id !== 'minhoca').map(([id, nm]) => { const inp = el('input', {type:'number', min:0, max:9999, value: Math.max(0, Math.floor(Number(owned[id]) || 0)), 'aria-label': nm, style:'width:76px;min-height:32px;padding:3px 8px'}); inp.dataset.id = id; return [inp, el('label', {class:'check'}, nm, inp)]; });
   const river = el('input', {type:'checkbox', checked: !!s.river}), mega = el('input', {type:'checkbox', checked: !!s.mega});
   const saveBtn = el('button', {class:'btn primary', type:'submit', text:'Salvar alterações'});
   const form = el('form', {class:'card'},
@@ -539,7 +540,7 @@ function renderDrawer(d){
       el('div', {class:'field full'}, el('label', {for:'edCoins', text:'Moedas'}), coins, el('div', {class:'row-btns', style:'margin-top:6px'}, addBtn(100), addBtn(1000), addBtn(10000))),
       el('div', {class:'field'}, el('label', {for:'edRod', text:'Vara'}), rod),
       el('div', {class:'field'}, el('label', {for:'edLine', text:'Linha'}), line),
-      el('div', {class:'field full'}, el('label', {text:'Iscas'}), el('div', {class:'checks'}, baitBoxes.map(b => b[1]))),
+      el('div', {class:'field full'}, el('label', {text:'Iscas (quantidade)'}), el('div', {class:'checks'}, baitBoxes.map(b => b[1]))),
       el('label', {class:'toggle'}, 'Rio Amazonas liberado', river),
       el('label', {class:'toggle'}, 'Já pescou o Megalodon', mega)),
     el('div', {class:'row-btns', style:'margin-top:14px'}, saveBtn));
@@ -547,7 +548,7 @@ function renderDrawer(d){
     e.preventDefault(); saveBtn.disabled = true;
     try {
       await post({action:'update', id: p.id, coins: Number(coins.value), rod: Number(rod.value), line: Number(line.value), river: river.checked, mega: mega.checked,
-        baits: baitBoxes.filter(b => b[0].checked).map(b => b[0].value)});
+        baits: Object.fromEntries(baitBoxes.map(b => [b[0].dataset.id, Math.max(0, Math.floor(Number(b[0].value) || 0))]))});
       toast('Progresso atualizado ✓'); openPlayer(p.id); refreshCurrent();
     } catch(err){ toast(err.message, true); } finally { saveBtn.disabled = false; }
   });

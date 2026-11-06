@@ -71,7 +71,14 @@ const hash = (t) => createHash('sha1').update(`${VOICE_ID}|${MODEL}|${JSON.strin
 let manifest = {};
 if (existsSync(manifestPath)) { try { manifest = JSON.parse(readFileSync(manifestPath, 'utf8')); } catch { manifest = {}; } }
 
-const pendentes = falas.filter((f) => REFAZER || !existsSync(join(outDir, f.arquivo)) || (manifest[f.id] && manifest[f.id].hash !== hash(f.texto)));
+// Refaz o que falta, o que mudou de texto e (com Voice ID definido) o que foi gerado com outra voz/configuração.
+const textHash = (t) => createHash('sha1').update(t).digest('hex').slice(0, 12);
+const mudou = (f) => {
+  const m = manifest[f.id]; if (!m) return false;
+  if (m.texto && m.texto !== textHash(f.texto)) return true;
+  return !!VOICE_ID && m.hash !== hash(f.texto);
+};
+const pendentes = falas.filter((f) => REFAZER || !existsSync(join(outDir, f.arquivo)) || mudou(f));
 const chars = pendentes.reduce((a, f) => a + f.texto.length, 0);
 console.log(`Roteiro: ${falas.length} falas · faltam ${pendentes.length} (${chars.toLocaleString('pt-BR')} caracteres) · modelo ${MODEL}`);
 
@@ -115,7 +122,7 @@ async function trabalhador() {
     try {
       const mp3 = await gerar(f);
       writeFileSync(join(outDir, f.arquivo), mp3);
-      manifest[f.id] = { arquivo: f.arquivo, hash: hash(f.texto), bytes: mp3.length };
+      manifest[f.id] = { arquivo: f.arquivo, hash: hash(f.texto), texto: textHash(f.texto), bytes: mp3.length };
       writeFileSync(manifestPath, JSON.stringify(manifest, null, 1));
       feitos++;
       console.log(`  ✓ ${String(feitos).padStart(3)}/${pendentes.length}  ${f.arquivo}`);
