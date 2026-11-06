@@ -1644,5 +1644,47 @@
   "hash": "f6cc6c5c3193",
   "texto": "58ae0c40bcc4",
   "bytes": 102861
+ },
+ "come_kraken": {
+  "arquivo": "come_kraken.mp3",
+  "hash": "b28ffd66b1f7",
+  "texto": "b820d64d84cd",
+  "bytes": 80709
+ },
+ "sabia_kraken": {
+  "arquivo": "sabia_kraken.mp3",
+  "hash": "ab70344d4239",
+  "texto": "f12bfe613673",
+  "bytes": 192722
+ },
+ "nome_kraken": {
+  "arquivo": "nome_kraken.mp3",
+  "hash": "67908648260a",
+  "texto": "bcec7a752dca",
+  "bytes": 18851
+ },
+ "lenda_fisgou_kraken": {
+  "arquivo": "lenda_fisgou_kraken.mp3",
+  "hash": "b6f5fd86c3f9",
+  "texto": "108bb1c9f9f2",
+  "bytes": 51452
+ },
+ "lenda_passou_kraken": {
+  "arquivo": "lenda_passou_kraken.mp3",
+  "hash": "91b3c31b9327",
+  "texto": "23d8eda5251f",
+  "bytes": 84470
+ },
+ "lenda_pescou_kraken": {
+  "arquivo": "lenda_pescou_kraken.mp3",
+  "hash": "f9b6ddee7e35",
+  "texto": "bc1ce5c019e7",
+  "bytes": 67334
+ },
+ "alvo_kraken": {
+  "arquivo": "alvo_kraken.mp3",
+  "hash": "6bb74276b1f9",
+  "texto": "48aa4e03ce32",
+  "bytes": 89486
  }
 }
