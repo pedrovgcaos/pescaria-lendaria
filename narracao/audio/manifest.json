@@ -1048,5 +1048,380 @@
   "arquivo": "alvo_lula.mp3",
   "hash": "e51fe74d7684",
   "bytes": 91576
+ },
+ "alvo_megalodon": {
+  "arquivo": "alvo_megalodon.mp3",
+  "hash": "4f774f65ab13",
+  "bytes": 91576
+ },
+ "alvo_groenlandia": {
+  "arquivo": "alvo_groenlandia.mp3",
+  "hash": "5aed2dac266d",
+  "bytes": 101189
+ },
+ "alvo_lambari": {
+  "arquivo": "alvo_lambari.mp3",
+  "hash": "fc83f251974b",
+  "bytes": 81127
+ },
+ "alvo_piranha": {
+  "arquivo": "alvo_piranha.mp3",
+  "hash": "afb2d2ea45b3",
+  "bytes": 84888
+ },
+ "alvo_pacu": {
+  "arquivo": "alvo_pacu.mp3",
+  "hash": "e8406cfd9444",
+  "bytes": 71514
+ },
+ "alvo_aruana": {
+  "arquivo": "alvo_aruana.mp3",
+  "hash": "fd4d9f3035f4",
+  "bytes": 87396
+ },
+ "alvo_jaraqui": {
+  "arquivo": "alvo_jaraqui.mp3",
+  "hash": "2da2f8055d6b",
+  "bytes": 79037
+ },
+ "alvo_tucunare": {
+  "arquivo": "alvo_tucunare.mp3",
+  "hash": "040b9b4cb20d",
+  "bytes": 80709
+ },
+ "alvo_tambaqui": {
+  "arquivo": "alvo_tambaqui.mp3",
+  "hash": "2e651d6c1d07",
+  "bytes": 71514
+ },
+ "alvo_pirarucu": {
+  "arquivo": "alvo_pirarucu.mp3",
+  "hash": "b8e2a3b2b93b",
+  "bytes": 86560
+ },
+ "alvo_arraiafogo": {
+  "arquivo": "alvo_arraiafogo.mp3",
+  "hash": "a8c15c493e51",
+  "bytes": 92412
+ },
+ "alvo_poraque": {
+  "arquivo": "alvo_poraque.mp3",
+  "hash": "b3194e875749",
+  "bytes": 84888
+ },
+ "alvo_pintado": {
+  "arquivo": "alvo_pintado.mp3",
+  "hash": "a2f8b0582ee0",
+  "bytes": 90322
+ },
+ "alvo_dourada": {
+  "arquivo": "alvo_dourada.mp3",
+  "hash": "9adcbb6b1da9",
+  "bytes": 81963
+ },
+ "alvo_jau": {
+  "arquivo": "alvo_jau.mp3",
+  "hash": "0d4b772db139",
+  "bytes": 83634
+ },
+ "alvo_piraiba": {
+  "arquivo": "alvo_piraiba.mp3",
+  "hash": "ccf3f8264af8",
+  "bytes": 89486
+ },
+ "alvo_misterio_mar_0": {
+  "arquivo": "alvo_misterio_mar_0.mp3",
+  "hash": "f3ddf66d7251",
+  "bytes": 89486
+ },
+ "alvo_misterio_mar_1": {
+  "arquivo": "alvo_misterio_mar_1.mp3",
+  "hash": "ff1756d7ed9f",
+  "bytes": 96173
+ },
+ "alvo_misterio_mar_3": {
+  "arquivo": "alvo_misterio_mar_3.mp3",
+  "hash": "3bc6f63e0ac8",
+  "bytes": 101189
+ },
+ "alvo_misterio_mar_2": {
+  "arquivo": "alvo_misterio_mar_2.mp3",
+  "hash": "353a2daef7ee",
+  "bytes": 95337
+ },
+ "alvo_misterio_mar_4": {
+  "arquivo": "alvo_misterio_mar_4.mp3",
+  "hash": "b7b644bb6a1b",
+  "bytes": 98263
+ },
+ "alvo_misterio_rio_0": {
+  "arquivo": "alvo_misterio_rio_0.mp3",
+  "hash": "6c19aca4ee0e",
+  "bytes": 88650
+ },
+ "alvo_misterio_rio_1": {
+  "arquivo": "alvo_misterio_rio_1.mp3",
+  "hash": "8040e8aec6d9",
+  "bytes": 89486
+ },
+ "alvo_misterio_rio_2": {
+  "arquivo": "alvo_misterio_rio_2.mp3",
+  "hash": "0b96243e2a9c",
+  "bytes": 94083
+ },
+ "alvo_isca_minhoca": {
+  "arquivo": "alvo_isca_minhoca.mp3",
+  "hash": "c6127cb756ec",
+  "bytes": 30136
+ },
+ "alvo_misterio_rio_3": {
+  "arquivo": "alvo_misterio_rio_3.mp3",
+  "hash": "e1b27b10e987",
+  "bytes": 94083
+ },
+ "alvo_isca_grilo": {
+  "arquivo": "alvo_isca_grilo.mp3",
+  "hash": "960120161b5f",
+  "bytes": 27210
+ },
+ "alvo_isca_camarao": {
+  "arquivo": "alvo_isca_camarao.mp3",
+  "hash": "e7d415cc44ce",
+  "bytes": 27210
+ },
+ "alvo_isca_fruta": {
+  "arquivo": "alvo_isca_fruta.mp3",
+  "hash": "707cf1471bf2",
+  "bytes": 29300
+ },
+ "alvo_isca_peixinho": {
+  "arquivo": "alvo_isca_peixinho.mp3",
+  "hash": "421890db467d",
+  "bytes": 28464
+ },
+ "alvo_isca_lula": {
+  "arquivo": "alvo_isca_lula.mp3",
+  "hash": "527e13b758bc",
+  "bytes": 26374
+ },
+ "alvo_isca_lendaria": {
+  "arquivo": "alvo_isca_lendaria.mp3",
+  "hash": "a76b858ca98a",
+  "bytes": 35151
+ },
+ "alvo_linha_fraca": {
+  "arquivo": "alvo_linha_fraca.mp3",
+  "hash": "1af722208275",
+  "bytes": 51452
+ },
+ "alvo_nenhum": {
+  "arquivo": "alvo_nenhum.mp3",
+  "hash": "3748a463c177",
+  "bytes": 42674
+ },
+ "isca_minhoca": {
+  "arquivo": "isca_minhoca.mp3",
+  "hash": "3e0a66733ec6",
+  "bytes": 26374
+ },
+ "isca_grilo": {
+  "arquivo": "isca_grilo.mp3",
+  "hash": "3a5022574a26",
+  "bytes": 20523
+ },
+ "isca_camarao": {
+  "arquivo": "isca_camarao.mp3",
+  "hash": "18d26ebc000e",
+  "bytes": 24284
+ },
+ "isca_fruta": {
+  "arquivo": "isca_fruta.mp3",
+  "hash": "678b49642d0d",
+  "bytes": 25538
+ },
+ "isca_peixinho": {
+  "arquivo": "isca_peixinho.mp3",
+  "hash": "6386167b7b64",
+  "bytes": 26374
+ },
+ "isca_lula": {
+  "arquivo": "isca_lula.mp3",
+  "hash": "26440e7cb3ef",
+  "bytes": 20941
+ },
+ "isca_lendaria": {
+  "arquivo": "isca_lendaria.mp3",
+  "hash": "af7e71e4c205",
+  "bytes": 27628
+ },
+ "recusou_palhaco": {
+  "arquivo": "recusou_palhaco.mp3",
+  "hash": "e00a32e87e5c",
+  "bytes": 74021
+ },
+ "recusou_arraia": {
+  "arquivo": "recusou_arraia.mp3",
+  "hash": "40c635fc508f",
+  "bytes": 70260
+ },
+ "recusou_espadarte": {
+  "arquivo": "recusou_espadarte.mp3",
+  "hash": "60162400fa2b",
+  "bytes": 72350
+ },
+ "recusou_groenlandia": {
+  "arquivo": "recusou_groenlandia.mp3",
+  "hash": "c21b4f77fdf7",
+  "bytes": 73185
+ },
+ "recusou_celacanto": {
+  "arquivo": "recusou_celacanto.mp3",
+  "hash": "d8462dceb110",
+  "bytes": 69424
+ },
+ "recusou_pacu": {
+  "arquivo": "recusou_pacu.mp3",
+  "hash": "b6a4ec76a695",
+  "bytes": 86560
+ },
+ "recusou_aruana": {
+  "arquivo": "recusou_aruana.mp3",
+  "hash": "30e63ac024a5",
+  "bytes": 74021
+ },
+ "recusou_tambaqui": {
+  "arquivo": "recusou_tambaqui.mp3",
+  "hash": "ba0d50508bf4",
+  "bytes": 78201
+ },
+ "recusou_piraiba": {
+  "arquivo": "recusou_piraiba.mp3",
+  "hash": "20fe8ab94dc1",
+  "bytes": 67334
+ },
+ "recusou_misterio_camarao": {
+  "arquivo": "recusou_misterio_camarao.mp3",
+  "hash": "bbdc8ca7986c",
+  "bytes": 87396
+ },
+ "recusou_misterio_lula": {
+  "arquivo": "recusou_misterio_lula.mp3",
+  "hash": "71bf06f2928f",
+  "bytes": 81963
+ },
+ "recusou_misterio_fruta": {
+  "arquivo": "recusou_misterio_fruta.mp3",
+  "hash": "8074981f976f",
+  "bytes": 91158
+ },
+ "recusou_misterio_grilo": {
+  "arquivo": "recusou_misterio_grilo.mp3",
+  "hash": "4e6b169d2af7",
+  "bytes": 85724
+ },
+ "cor_bloqueada_album10": {
+  "arquivo": "cor_bloqueada_album10.mp3",
+  "hash": "1bc09696810c",
+  "bytes": 47272
+ },
+ "recusou_misterio_peixinho": {
+  "arquivo": "recusou_misterio_peixinho.mp3",
+  "hash": "a47db607df92",
+  "bytes": 80709
+ },
+ "cor_bloqueada_album20": {
+  "arquivo": "cor_bloqueada_album20.mp3",
+  "hash": "0bf402565f79",
+  "bytes": 44346
+ },
+ "cor_bloqueada_mega": {
+  "arquivo": "cor_bloqueada_mega.mp3",
+  "hash": "b4a1d1b96cd3",
+  "bytes": 43510
+ },
+ "compra_isca_grilo": {
+  "arquivo": "compra_isca_grilo.mp3",
+  "hash": "eb9b230fd9a0",
+  "bytes": 76111
+ },
+ "compra_isca_camarao": {
+  "arquivo": "compra_isca_camarao.mp3",
+  "hash": "e54d04a0cfc6",
+  "bytes": 76111
+ },
+ "compra_isca_fruta": {
+  "arquivo": "compra_isca_fruta.mp3",
+  "hash": "ef5ddb172c63",
+  "bytes": 76947
+ },
+ "compra_isca_peixinho": {
+  "arquivo": "compra_isca_peixinho.mp3",
+  "hash": "f5cff72978c9",
+  "bytes": 74021
+ },
+ "compra_isca_lendaria": {
+  "arquivo": "compra_isca_lendaria.mp3",
+  "hash": "16f46d209abe",
+  "bytes": 80709
+ },
+ "compra_isca_lula": {
+  "arquivo": "compra_isca_lula.mp3",
+  "hash": "5081b571cc2f",
+  "bytes": 67752
+ },
+ "compra_vara_2": {
+  "arquivo": "compra_vara_2.mp3",
+  "hash": "603344cb3c22",
+  "bytes": 91576
+ },
+ "compra_vara_1": {
+  "arquivo": "compra_vara_1.mp3",
+  "hash": "75df05aeb5ae",
+  "bytes": 97845
+ },
+ "compra_vara_4": {
+  "arquivo": "compra_vara_4.mp3",
+  "hash": "be051e05850d",
+  "bytes": 91158
+ },
+ "compra_vara_3": {
+  "arquivo": "compra_vara_3.mp3",
+  "hash": "75914130a978",
+  "bytes": 100771
+ },
+ "compra_linha_1": {
+  "arquivo": "compra_linha_1.mp3",
+  "hash": "cefee0b8fec4",
+  "bytes": 42674
+ },
+ "compra_linha_2": {
+  "arquivo": "compra_linha_2.mp3",
+  "hash": "16fa7b4283b7",
+  "bytes": 47272
+ },
+ "compra_linha_3": {
+  "arquivo": "compra_linha_3.mp3",
+  "hash": "16e826c1efa8",
+  "bytes": 43510
+ },
+ "compra_linha_4": {
+  "arquivo": "compra_linha_4.mp3",
+  "hash": "14943691ca98",
+  "bytes": 50198
+ },
+ "compra_rio": {
+  "arquivo": "compra_rio.mp3",
+  "hash": "15f830eb1e82",
+  "bytes": 84470
+ },
+ "viagem_mar": {
+  "arquivo": "viagem_mar.mp3",
+  "hash": "a225b72e9c84",
+  "bytes": 32225
+ },
+ "viagem_rio": {
+  "arquivo": "viagem_rio.mp3",
+  "hash": "a96841222e83",
+  "bytes": 134625
  }
 }
