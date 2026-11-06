@@ -2,7 +2,7 @@
 // Por privacidade (jogadores são crianças): mostra só o primeiro nome e a inicial do sobrenome, sem e-mail e sem foto.
 import { configured, ensureSchema, sql, sessionPlayer, json } from './_lib.js';
 
-const LEGENDS = ['tubaraobaleia', 'dunkleosteus', 'megalodon', 'megapiranha', 'boiuna'];
+const LEGENDS = ['tubaraobaleia', 'dunkleosteus', 'kraken', 'megalodon', 'megapiranha', 'boiuna'];
 const METRICS = {
   album: 'album',
   moedas: 'earned',

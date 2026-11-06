@@ -574,6 +574,8 @@ const SPECIES = [
    fact:'O tubarão-baleia é o maior peixe do mundo, maior que um ônibus! Mesmo gigante, ele é calmo e come bichinhos minúsculos.'},
   {id:'dunkleosteus', name:'Dunkleosteus', zone:3, type:'shark', len:340, h:.3, c1:'#5b5246', c2:'#b9ad97', fin:'#4a4238', real:600, value:3500, power:7, stam:4.4, w:0, speed:40, legend:true, extinct:true, ex:{armor:true},
    fact:'O Dunkleosteus viveu há 360 milhões de anos e tinha uma armadura de osso na cabeça. Em vez de dentes, cortava a comida com lâminas na boca!'},
+  {id:'kraken', name:'Kraken', zone:4, type:'kraken', len:480, h:.34, c1:'#4b2a5e', c2:'#c77a9c', fin:'#3a1f4a', real:1800, value:4500, power:7.5, stam:4.6, w:0, speed:38, legend:true, ex:{},
+   fact:'O Kraken é um monstro das lendas dos marinheiros do norte da Europa: diziam que era tão grande que parecia uma ilha! A lenda pode ter nascido da lula-gigante, que existe de verdade.'},
   {id:'megalodon', name:'Megalodon', zone:4, type:'shark', len:560, h:.27, c1:'#3f4c5a', c2:'#cfd6dd', fin:'#35404c', real:1600, value:6000, power:8, stam:4.8, w:0, speed:45, legend:true, extinct:true, ex:{teeth:true, scars:true},
    fact:'O megalodon viveu há milhões de anos e foi o maior tubarão que já existiu! Cada dente era maior que a mão de um adulto.'},
   // ---------- RIO AMAZONAS ----------
@@ -619,7 +621,7 @@ const FOOD = {
   lanterna:['o','plâncton'], vibora:['o','peixes pequenos'], diabo:['o','os peixes que chegam perto da sua luz'], celacanto:['o','peixes e lulas'],
   remo:['o','plâncton e camarõezinhos'], duende:['o','peixes, lulas e camarões'], lula:['a','peixes do fundo do mar'],
   groenlandia:['o','peixes, focas e quase tudo o que encontra'], megalodon:['o','baleias e outros animais grandes do mar'],
-  tubaraobaleia:['o','plâncton e peixinhos bem pequenos'], dunkleosteus:['o','outros peixes grandes da sua época'],
+  tubaraobaleia:['o','plâncton e peixinhos bem pequenos'], kraken:['o','peixes, baleias e, nas histórias dos marinheiros, até navios inteiros'], dunkleosteus:['o','outros peixes grandes da sua época'],
   megapiranha:['a','peixes grandes'], boiuna:['a','peixes e tudo o que cai no rio, segundo a lenda'],
   lambari:['o','sementes, insetos e bichinhos'], piranha:['a','peixes, sementes e frutas que caem na água'], pacu:['o','frutas e sementes'],
   aruana:['o','insetos, aranhas e até passarinhos'], jaraqui:['o','o lodo e as algas das pedras e dos galhos'], tucunare:['o','outros peixes'],
@@ -632,7 +634,7 @@ const LIKES = {
   cirurgiao:'camarao minhoca', papagaio:'camarao minhoca', garoupa:'peixinho camarao minhoca', arraia:'!camarao',
   atum:'peixinho lula camarao minhoca', dourado:'peixinho lula minhoca', martelo:'peixinho lula minhoca', espadarte:'!lula',
   lanterna:'camarao minhoca', vibora:'peixinho minhoca', diabo:'peixinho camarao minhoca', celacanto:'!lula',
-  remo:'camarao minhoca', duende:'peixinho lula minhoca', lula:'peixinho camarao minhoca', groenlandia:'!lula', megalodon:'!lendaria', tubaraobaleia:'!lendaria', dunkleosteus:'!lendaria', megapiranha:'!lendaria', boiuna:'!lendaria',
+  remo:'camarao minhoca', duende:'peixinho lula minhoca', lula:'peixinho camarao minhoca', groenlandia:'!lula', megalodon:'!lendaria', tubaraobaleia:'!lendaria', dunkleosteus:'!lendaria', kraken:'!lendaria', megapiranha:'!lendaria', boiuna:'!lendaria',
   lambari:'minhoca fruta grilo', piranha:'peixinho minhoca', pacu:'!fruta', aruana:'!grilo', jaraqui:'minhoca fruta',
   tucunare:'peixinho grilo minhoca', tambaqui:'!fruta', pirarucu:'peixinho minhoca', arraiafogo:'camarao minhoca',
   poraque:'peixinho minhoca', pintado:'peixinho minhoca', dourada:'peixinho minhoca', jau:'peixinho minhoca', piraiba:'!peixinho',
@@ -1019,6 +1021,7 @@ function drawSpecies(c, sp, L, t, o={}){
     case 'eel': return drawEel(c,sp,L,H,t,o);
     case 'angler': return drawAngler(c,sp,L,H,t,o);
     case 'squid': return drawSquid(c,sp,L,H,t,o);
+    case 'kraken': return drawKraken(c,sp,L,H,t,o);
   }
 }
 function drawFishT(c,sp,L,H,t,o){
@@ -1396,6 +1399,63 @@ function drawSquid(c,sp,L,H,t,o){
     c.fillStyle='#10131a'; c.beginPath(); c.arc(-L*.015,-H*.06,H*.16,0,7); c.fill();
     c.fillStyle='#8fd8ff'; c.beginPath(); c.arc(-L*.005,-H*.11,H*.05,0,7); c.fill();
   }
+}
+
+// Kraken: monstro lendário dos mares do norte, um polvo-lula gigante com olho que brilha
+function drawKraken(c,sp,L,H,t,o){
+  const sil=o.sil, fin=sil?SIL:sp.fin, sw=t*(o.fight?5:2.2)+(o.seed||0), r=rng(7);
+  const arms=[];
+  // braços (8) e dois tentáculos compridos com "clava" na ponta
+  for (let k=0;k<10;k++){
+    const club = k >= 8, kk = club ? (k===8 ? .1 : .9) : k/7;
+    const y0 = (kk-.5)*H*.75, len = L*(club ? .66 : .44 + r()*.12), w0 = H*(club ? .13 : .3), ph = k*1.7, pts=[];
+    for (let i=0;i<=18;i++){ const u=i/18;
+      pts.push([-L*.04 - u*len, y0*(1+u*1.9) + Math.sin(sw+ph+u*4.2)*H*.45*u + Math.cos(sw*.7+ph*1.3+u*2.4)*H*.2*u*u]); }
+    // ponta enrolada para fora (como um polvo)
+    if (!club){ const [ex0,ey0]=pts[18], dir = y0 >= 0 ? 1 : -1, rc = H*(.16+r()*.08), a0 = Math.PI*.5*-dir;
+      for (let i=1;i<=6;i++){ const u=i/6, ang = a0 - dir*u*Math.PI*1.4, rr = rc*(1-u*.55); pts.push([ex0 - rc*Math.cos(a0) + Math.cos(ang)*rr*-1, ey0 + dir*rc + Math.sin(ang)*rr]); } }
+    arms.push({pts, w0, club});
+  }
+  c.strokeStyle = fin;
+  for (const a of arms){
+    const N = a.pts.length - 1;
+    for (let i=0;i<N;i++){ c.lineWidth = Math.max(1, a.w0*(1 - i/N*(a.club ? .55 : .9))); c.beginPath(); c.moveTo(a.pts[i][0],a.pts[i][1]); c.lineTo(a.pts[i+1][0],a.pts[i+1][1]); c.stroke(); }
+    if (a.club){ const e=a.pts[18], p=a.pts[16]; c.fillStyle=fin; c.beginPath(); c.ellipse(e[0],e[1],L*.04,H*.11,Math.atan2(e[1]-p[1],e[0]-p[0]),0,7); c.fill(); }
+  }
+  if (!sil){ // ventosas
+    c.fillStyle = hexA(sp.c2,.85);
+    for (const a of arms){ const N = a.pts.length - 1; for (let i=2;i<N-2;i+=2){ const [x,y]=a.pts[i], w=a.w0*(1-i/N*.9), rr=Math.max(.8,w*.24); c.beginPath(); c.arc(x,y+w*.22,rr,0,7); c.fill(); } }
+  }
+  // nadadeiras na ponta do manto
+  c.fillStyle=fin;
+  c.beginPath(); c.moveTo(L*.34,-H*.36); c.quadraticCurveTo(L*.5,-H*1.0,L*.58,-H*.04); c.closePath(); c.fill();
+  c.beginPath(); c.moveTo(L*.34,H*.36); c.quadraticCurveTo(L*.5,H*1.0,L*.58,H*.04); c.closePath(); c.fill();
+  // cabeça e manto
+  c.fillStyle=bodyGrad(c,H,sp.c1,sp.c2,sil);
+  c.beginPath(); c.ellipse(0,0,L*.1,H*.46,0,0,7); c.fill();
+  const mantle = () => { c.beginPath(); c.moveTo(L*.02,-H*.5); c.bezierCurveTo(L*.22,-H*.74,L*.48,-H*.46,L*.55,0); c.bezierCurveTo(L*.48,H*.46,L*.22,H*.68,L*.02,H*.48); c.closePath(); };
+  mantle(); c.fill();
+  if (sil) return;
+  c.save(); mantle(); c.clip();
+  c.strokeStyle='rgba(255,255,255,.12)'; c.lineWidth=Math.max(1,H*.05);
+  for (let k=0;k<5;k++){ const x=L*(.12+k*.08); c.beginPath(); c.moveTo(x,-H*.6); c.quadraticCurveTo(x+L*.05,0,x,H*.6); c.stroke(); }
+  c.fillStyle='rgba(20,0,30,.35)';
+  for (let k=0;k<16;k++){ c.beginPath(); c.arc(L*(.06+r()*.42),(r()-.5)*H*.8,Math.max(1,H*(.03+r()*.04)),0,7); c.fill(); }
+  c.fillStyle='rgba(255,255,255,.18)'; c.beginPath(); c.ellipse(L*.26,-H*.3,L*.17,H*.07,-.1,0,7); c.fill();
+  c.restore();
+  mantle(); outline(c, L*.8);
+  // pintinhas que brilham no escuro
+  for (let k=0;k<6;k++){ const x=L*(.1+k*.065), y=-H*(.12+Math.sin(k*1.9)*.18);
+    c.fillStyle='#8ff7ff'; c.beginPath(); c.arc(x,y,Math.max(1,H*.035),0,7); c.fill(); if (k%2===0) glow(c,x,y,Math.max(8,H*.25),'#5ff0ff'); }
+  // olho gigante amarelo com pupila de fenda
+  const ex=L*.03, ey=-H*.1, er=H*.22;
+  glow(c,ex,ey,Math.max(16,er*3.2),'#ffcf3a');
+  c.fillStyle='#2a1030'; c.beginPath(); c.arc(ex,ey,er*1.18,0,7); c.fill();
+  const g=c.createRadialGradient(ex,ey,er*.1,ex,ey,er); g.addColorStop(0,'#fff6b0'); g.addColorStop(.55,'#ffcf3a'); g.addColorStop(1,'#e07a12');
+  c.fillStyle=g; c.beginPath(); c.arc(ex,ey,er,0,7); c.fill();
+  const blink = o.fight ? .1 : .18 + Math.abs(Math.sin(t*.9))*.06;
+  c.fillStyle='#120610'; c.beginPath(); c.ellipse(ex+er*.08,ey,er*.62,er*blink,0,0,7); c.fill();
+  c.fillStyle='#fff'; c.beginPath(); c.arc(ex+er*.35,ey-er*.4,er*.17,0,7); c.fill();
 }
 
 /* ================= CENÁRIO ================= */
@@ -1894,7 +1954,8 @@ function waitLogic(dt){
   const m = hook.y/PX;
   waitT += dt; checkT -= dt;
   // lendário da zona onde o anzol está: sem a Isca Lendária ele só passa; com ela, vem morder
-  const lz = zoneAt(m).id, mega = fishes.find(f => f.sp.legend && f.sp.zone === lz);
+  const lz = zoneAt(m).id, tgL = curTarget(), legs = fishes.filter(f => f.sp.legend && f.sp.zone === lz && f.state === 'swim'),
+    mega = legs.find(f => f.sp === tgL) || legs[Math.floor(Math.random()*legs.length)];
   if (save.bait !== 'lendaria' && mega && !megaTold && waitT > 1.2 && mega.state === 'swim'){
     megaTold = true; megaTeaseT = 2.2; teaseSp = mega.sp;
     const L = fishLen(mega); mega.dir = hook.x > W/2 ? 1 : -1;
@@ -2112,8 +2173,8 @@ function fitDraw(c, sp, opts={}){
   const cw = c.canvas.width, ch = c.canvas.height;
   c.setTransform(1,0,0,1,0,0); c.clearRect(0,0,cw,ch);
   const ex = sp.ex || {};
-  const vext = {fish: sp.h*(ex.sail?2.6:ex.longDorsal||ex.rearFins?1.8:ex.barbels?1.9:1.3), catfish: sp.h*(1.6 + (ex.barbels||1)*.8), puffer:1.05, shark: sp.h*2.3, ray:.6, eel: ex.electric ? .45 : ex.serpent ? .42 : .5, angler:1.5, squid:.75}[sp.type];
-  const hext = {fish: ex.bill?1.5:ex.chinBarbels?1.2:1.12, catfish: ex.filament ? 1.3 : 1.15, puffer:1.1, shark:1.2, ray:1.3, eel:1.05, angler:1.1, squid:1.15}[sp.type];
+  const vext = {fish: sp.h*(ex.sail?2.6:ex.longDorsal||ex.rearFins?1.8:ex.barbels?1.9:1.3), catfish: sp.h*(1.6 + (ex.barbels||1)*.8), puffer:1.05, shark: sp.h*2.3, ray:.6, eel: ex.electric ? .45 : ex.serpent ? .42 : .5, angler:1.5, squid:.75, kraken:sp.h*2.9}[sp.type];
+  const hext = {fish: ex.bill?1.5:ex.chinBarbels?1.2:1.12, catfish: ex.filament ? 1.3 : 1.15, puffer:1.1, shark:1.2, ray:1.3, eel:1.05, angler:1.1, squid:1.15, kraken:1.24}[sp.type];
   const L = Math.min(cw*.86/hext, ch*.82/vext);
   let cx = cw/2, cy = ch/2;
   if (sp.type === 'shark') cy = ch*.56;
@@ -2125,6 +2186,7 @@ function fitDraw(c, sp, opts={}){
   if (ex.bill) cx -= L*.22;
   if (sp.type === 'ray') cx += L*.18;
   if (sp.type === 'squid') cx += L*.06;
+  if (sp.type === 'kraken') cx += L*.05;
   c.save(); c.translate(cx, cy); drawSpecies(c, sp, L, opts.t ?? 1.3, {sil: opts.sil, rare: opts.rare, seed:0, open: sp.legend}); c.restore();
 }
 let cardSpeech = {text:'', clips:[]};

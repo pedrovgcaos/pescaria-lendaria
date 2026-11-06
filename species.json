@@ -132,6 +132,12 @@
   "zone": 3
  },
  {
+  "id": "kraken",
+  "name": "Kraken",
+  "loc": "mar",
+  "zone": 4
+ },
+ {
   "id": "megalodon",
   "name": "Megalodon",
   "loc": "mar",

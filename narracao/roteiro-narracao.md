@@ -1,6 +1,6 @@
 # Roteiro de narração: Iara, a ajudante da Pescaria Lendária
 
-Gerado automaticamente a partir do código do jogo em 06/11/2026. **321 falas**, 16.801 caracteres no total.
+Gerado automaticamente a partir do código do jogo em 06/11/2026. **328 falas**, 17.341 caracteres no total.
 
 ## A personagem
 
@@ -22,7 +22,7 @@ Nomes que merecem atenção (sílaba forte em **negrito**):
 
 - Tucuna**ré**, Pira**í**ba, Pira**ru**cu, Arua**nã**, Jara**qui**, Pora**quê**, Tamba**qui**, Lamba**ri**, Pa**cu**, Ja**ú**
 - Cela**can**to, Megalo**don**, Espa**dar**te, Ga**rou**pa, Baia**cu**
-- Todos os peixes: Sardinha, Tainha, Baiacu, Peixe-palhaço, Peixe-cirurgião, Peixe-papagaio, Garoupa, Arraia, Atum, Dourado-do-mar, Tubarão-martelo, Espadarte, Peixe-lanterna, Peixe-víbora, Peixe-diabo-negro, Celacanto, Peixe-remo, Tubarão-duende, Lula-colossal, Tubarão-da-Groenlândia, Tubarão-baleia, Dunkleosteus, Megalodon, Lambari, Piranha, Pacu, Aruanã, Jaraqui, Tucunaré, Tambaqui, Pirarucu, Arraia-de-fogo, Poraquê, Pintado, Dourada, Jaú, Piraíba, Megapiranha, Boiúna.
+- Todos os peixes: Sardinha, Tainha, Baiacu, Peixe-palhaço, Peixe-cirurgião, Peixe-papagaio, Garoupa, Arraia, Atum, Dourado-do-mar, Tubarão-martelo, Espadarte, Peixe-lanterna, Peixe-víbora, Peixe-diabo-negro, Celacanto, Peixe-remo, Tubarão-duende, Lula-colossal, Tubarão-da-Groenlândia, Tubarão-baleia, Dunkleosteus, Kraken, Megalodon, Lambari, Piranha, Pacu, Aruanã, Jaraqui, Tucunaré, Tambaqui, Pirarucu, Arraia-de-fogo, Poraquê, Pintado, Dourada, Jaú, Piraíba, Megapiranha, Boiúna.
 
 ## Abertura e conta
 
@@ -140,6 +140,7 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `sabia_groenlandia` | Curiosidade: Tubarão-da-Groenlândia | Sabia que ele pode viver mais de 250 anos! Nenhum outro animal com coluna vive tanto tempo.<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_tubaraobaleia` | Curiosidade: Tubarão-baleia | Sabia que o tubarão-baleia é o maior peixe do mundo, maior que um ônibus! Mesmo gigante, ele é calmo e come bichinhos minúsculos.<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_dunkleosteus` | Curiosidade: Dunkleosteus | Sabia que o Dunkleosteus viveu há 360 milhões de anos e tinha uma armadura de osso na cabeça. Em vez de dentes, cortava a comida com lâminas na boca!<br><small>*Tom de quem conta um segredo legal.*</small> |
+| `sabia_kraken` | Curiosidade: Kraken | Sabia que o Kraken é um monstro das lendas dos marinheiros do norte da Europa: diziam que era tão grande que parecia uma ilha! A lenda pode ter nascido da lula-gigante, que existe de verdade.<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_megalodon` | Curiosidade: Megalodon | Sabia que o megalodon viveu há milhões de anos e foi o maior tubarão que já existiu! Cada dente era maior que a mão de um adulto.<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_lambari` | Curiosidade: Lambari | Sabia que o lambari é pequenininho e vive em cardumes. Muitos peixes grandes do rio adoram comer lambari!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_piranha` | Curiosidade: Piranha | Sabia que a piranha tem dentes afiados que se encaixam como uma tesoura! Ela vive em grupos nos rios da Amazônia.<br><small>*Tom de quem conta um segredo legal.*</small> |
@@ -179,6 +180,7 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `come_groenlandia` | O que come: Tubarão-da-Groenlândia | Ele come peixes, focas e quase tudo o que encontra. |
 | `come_tubaraobaleia` | O que come: Tubarão-baleia | Ele come plâncton e peixinhos bem pequenos. |
 | `come_dunkleosteus` | O que come: Dunkleosteus | Ele comia outros peixes grandes da sua época. |
+| `come_kraken` | O que come: Kraken | Ele come peixes, baleias e, nas histórias dos marinheiros, até navios inteiros. |
 | `come_megalodon` | O que come: Megalodon | Ele comia baleias e outros animais grandes do mar. |
 | `come_lambari` | O que come: Lambari | Ele come sementes, insetos e bichinhos. |
 | `come_piranha` | O que come: Piranha | Ela come peixes, sementes e frutas que caem na água. |
@@ -224,6 +226,7 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `nome_groenlandia` | Botão Ouvir do álbum: começa pelo nome (Tubarão-da-Groenlândia) | Tubarão-da-Groenlândia! |
 | `nome_tubaraobaleia` | Botão Ouvir do álbum: começa pelo nome (Tubarão-baleia) | Tubarão-baleia! |
 | `nome_dunkleosteus` | Botão Ouvir do álbum: começa pelo nome (Dunkleosteus) | Dunkleosteus! |
+| `nome_kraken` | Botão Ouvir do álbum: começa pelo nome (Kraken) | Kraken! |
 | `nome_megalodon` | Botão Ouvir do álbum: começa pelo nome (Megalodon) | Megalodon! |
 | `nome_lambari` | Botão Ouvir do álbum: começa pelo nome (Lambari) | Lambari! |
 | `nome_piranha` | Botão Ouvir do álbum: começa pelo nome (Piranha) | Piranha! |
@@ -258,6 +261,9 @@ Momentos especiais do tubarão lendário.
 | `lenda_fisgou_dunkleosteus` | Lendário mordeu a isca: Dunkleosteus | É o Dunkleosteus! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
 | `lenda_passou_dunkleosteus` | Dunkleosteus passou sem a Isca Lendária | Você viu aquilo? Era o Dunkleosteus! Ele só morde a Isca Lendária. Um dia a gente pega! |
 | `lenda_pescou_dunkleosteus` | Pescou: Dunkleosteus (antes de sabia_ e come_) | Você conseguiu! Você pescou o Dunkleosteus! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
+| `lenda_fisgou_kraken` | Lendário mordeu a isca: Kraken | É o Kraken! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
+| `lenda_passou_kraken` | Kraken passou sem a Isca Lendária | Você viu aquilo? Era o Kraken! Ele só morde a Isca Lendária. Um dia a gente pega! |
+| `lenda_pescou_kraken` | Pescou: Kraken (antes de sabia_ e come_) | Você conseguiu! Você pescou o Kraken! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
 | `lenda_fisgou_megapiranha` | Lendário mordeu a isca: Megapiranha | É a Megapiranha! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
 | `lenda_passou_megapiranha` | Megapiranha passou sem a Isca Lendária | Você viu aquilo? Era a Megapiranha! Ela só morde a Isca Lendária. Um dia a gente pega! |
 | `lenda_pescou_megapiranha` | Pescou: Megapiranha (antes de sabia_ e come_) | Você conseguiu! Você pescou a Megapiranha! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
@@ -293,6 +299,7 @@ Falas da aba Escolher peixe, da troca de isca e das cores.
 | `alvo_groenlandia` | Escolheu o alvo: Tubarão-da-Groenlândia | Bora pescar o Tubarão-da-Groenlândia! Ele mora no Abismo, entre 550 e 900 metros. |
 | `alvo_tubaraobaleia` | Escolheu o alvo: Tubarão-baleia | Bora pescar o Tubarão-baleia! Ele mora no Mar Aberto, entre 150 e 300 metros. |
 | `alvo_dunkleosteus` | Escolheu o alvo: Dunkleosteus | Bora pescar o Dunkleosteus! Ele mora nas Profundezas, entre 300 e 550 metros. |
+| `alvo_kraken` | Escolheu o alvo: Kraken | Bora pescar o Kraken! Ele mora no Abismo, entre 550 e 900 metros. |
 | `alvo_megalodon` | Escolheu o alvo: Megalodon | Bora pescar o Megalodon! Ele mora no Abismo, entre 550 e 900 metros. |
 | `alvo_lambari` | Escolheu o alvo: Lambari | Bora pescar o Lambari! Ele mora na Margem do Rio, entre 0 e 20 metros. |
 | `alvo_piranha` | Escolheu o alvo: Piranha | Bora pescar a Piranha! Ela mora na Margem do Rio, entre 0 e 20 metros. |

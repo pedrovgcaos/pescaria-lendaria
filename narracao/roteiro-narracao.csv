@@ -97,6 +97,7 @@ sabia_lula;sabia_lula.mp3;Peixe pescado (montagem);Curiosidade: Lula-colossal;Sa
 sabia_groenlandia;sabia_groenlandia.mp3;Peixe pescado (montagem);Curiosidade: Tubarão-da-Groenlândia;Sabia que ele pode viver mais de 250 anos! Nenhum outro animal com coluna vive tanto tempo.;91;Tom de quem conta um segredo legal.
 sabia_tubaraobaleia;sabia_tubaraobaleia.mp3;Peixe pescado (montagem);Curiosidade: Tubarão-baleia;Sabia que o tubarão-baleia é o maior peixe do mundo, maior que um ônibus! Mesmo gigante, ele é calmo e come bichinhos minúsculos.;129;Tom de quem conta um segredo legal.
 sabia_dunkleosteus;sabia_dunkleosteus.mp3;Peixe pescado (montagem);Curiosidade: Dunkleosteus;Sabia que o Dunkleosteus viveu há 360 milhões de anos e tinha uma armadura de osso na cabeça. Em vez de dentes, cortava a comida com lâminas na boca!;149;Tom de quem conta um segredo legal.
+sabia_kraken;sabia_kraken.mp3;Peixe pescado (montagem);Curiosidade: Kraken;Sabia que o Kraken é um monstro das lendas dos marinheiros do norte da Europa: diziam que era tão grande que parecia uma ilha! A lenda pode ter nascido da lula-gigante, que existe de verdade.;191;Tom de quem conta um segredo legal.
 sabia_megalodon;sabia_megalodon.mp3;Peixe pescado (montagem);Curiosidade: Megalodon;Sabia que o megalodon viveu há milhões de anos e foi o maior tubarão que já existiu! Cada dente era maior que a mão de um adulto.;129;Tom de quem conta um segredo legal.
 sabia_lambari;sabia_lambari.mp3;Peixe pescado (montagem);Curiosidade: Lambari;Sabia que o lambari é pequenininho e vive em cardumes. Muitos peixes grandes do rio adoram comer lambari!;105;Tom de quem conta um segredo legal.
 sabia_piranha;sabia_piranha.mp3;Peixe pescado (montagem);Curiosidade: Piranha;Sabia que a piranha tem dentes afiados que se encaixam como uma tesoura! Ela vive em grupos nos rios da Amazônia.;113;Tom de quem conta um segredo legal.
@@ -136,6 +137,7 @@ come_lula;come_lula.mp3;Peixe pescado (montagem);O que come: Lula-colossal;Ela c
 come_groenlandia;come_groenlandia.mp3;Peixe pescado (montagem);O que come: Tubarão-da-Groenlândia;Ele come peixes, focas e quase tudo o que encontra.;51;
 come_tubaraobaleia;come_tubaraobaleia.mp3;Peixe pescado (montagem);O que come: Tubarão-baleia;Ele come plâncton e peixinhos bem pequenos.;43;
 come_dunkleosteus;come_dunkleosteus.mp3;Peixe pescado (montagem);O que come: Dunkleosteus;Ele comia outros peixes grandes da sua época.;45;
+come_kraken;come_kraken.mp3;Peixe pescado (montagem);O que come: Kraken;Ele come peixes, baleias e, nas histórias dos marinheiros, até navios inteiros.;79;
 come_megalodon;come_megalodon.mp3;Peixe pescado (montagem);O que come: Megalodon;Ele comia baleias e outros animais grandes do mar.;50;
 come_lambari;come_lambari.mp3;Peixe pescado (montagem);O que come: Lambari;Ele come sementes, insetos e bichinhos.;39;
 come_piranha;come_piranha.mp3;Peixe pescado (montagem);O que come: Piranha;Ela come peixes, sementes e frutas que caem na água.;52;
@@ -181,6 +183,7 @@ nome_lula;nome_lula.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa
 nome_groenlandia;nome_groenlandia.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Tubarão-da-Groenlândia);Tubarão-da-Groenlândia!;23;
 nome_tubaraobaleia;nome_tubaraobaleia.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Tubarão-baleia);Tubarão-baleia!;15;
 nome_dunkleosteus;nome_dunkleosteus.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Dunkleosteus);Dunkleosteus!;13;
+nome_kraken;nome_kraken.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Kraken);Kraken!;7;
 nome_megalodon;nome_megalodon.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Megalodon);Megalodon!;10;
 nome_lambari;nome_lambari.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Lambari);Lambari!;8;
 nome_piranha;nome_piranha.mp3;Peixe pescado (montagem);Botão Ouvir do álbum: começa pelo nome (Piranha);Piranha!;8;
@@ -209,6 +212,9 @@ lenda_pescou_tubaraobaleia;lenda_pescou_tubaraobaleia.mp3;Megalodon;Pescou: Tuba
 lenda_fisgou_dunkleosteus;lenda_fisgou_dunkleosteus.mp3;Megalodon;Lendário mordeu a isca: Dunkleosteus;É o Dunkleosteus! Segura firme! Eu sei que você consegue!;57;Muita energia.
 lenda_passou_dunkleosteus;lenda_passou_dunkleosteus.mp3;Megalodon;Dunkleosteus passou sem a Isca Lendária;Você viu aquilo? Era o Dunkleosteus! Ele só morde a Isca Lendária. Um dia a gente pega!;87;
 lenda_pescou_dunkleosteus;lenda_pescou_dunkleosteus.mp3;Megalodon;Pescou: Dunkleosteus (antes de sabia_ e come_);Você conseguiu! Você pescou o Dunkleosteus! Você é um pescador lendário!;72;O momento mais feliz do jogo!
+lenda_fisgou_kraken;lenda_fisgou_kraken.mp3;Megalodon;Lendário mordeu a isca: Kraken;É o Kraken! Segura firme! Eu sei que você consegue!;51;Muita energia.
+lenda_passou_kraken;lenda_passou_kraken.mp3;Megalodon;Kraken passou sem a Isca Lendária;Você viu aquilo? Era o Kraken! Ele só morde a Isca Lendária. Um dia a gente pega!;81;
+lenda_pescou_kraken;lenda_pescou_kraken.mp3;Megalodon;Pescou: Kraken (antes de sabia_ e come_);Você conseguiu! Você pescou o Kraken! Você é um pescador lendário!;66;O momento mais feliz do jogo!
 lenda_fisgou_megapiranha;lenda_fisgou_megapiranha.mp3;Megalodon;Lendário mordeu a isca: Megapiranha;É a Megapiranha! Segura firme! Eu sei que você consegue!;56;Muita energia.
 lenda_passou_megapiranha;lenda_passou_megapiranha.mp3;Megalodon;Megapiranha passou sem a Isca Lendária;Você viu aquilo? Era a Megapiranha! Ela só morde a Isca Lendária. Um dia a gente pega!;86;
 lenda_pescou_megapiranha;lenda_pescou_megapiranha.mp3;Megalodon;Pescou: Megapiranha (antes de sabia_ e come_);Você conseguiu! Você pescou a Megapiranha! Você é um pescador lendário!;71;O momento mais feliz do jogo!
@@ -238,6 +244,7 @@ alvo_lula;alvo_lula.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Lula-co
 alvo_groenlandia;alvo_groenlandia.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Tubarão-da-Groenlândia;Bora pescar o Tubarão-da-Groenlândia! Ele mora no Abismo, entre 550 e 900 metros.;81;
 alvo_tubaraobaleia;alvo_tubaraobaleia.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Tubarão-baleia;Bora pescar o Tubarão-baleia! Ele mora no Mar Aberto, entre 150 e 300 metros.;77;
 alvo_dunkleosteus;alvo_dunkleosteus.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Dunkleosteus;Bora pescar o Dunkleosteus! Ele mora nas Profundezas, entre 300 e 550 metros.;77;
+alvo_kraken;alvo_kraken.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Kraken;Bora pescar o Kraken! Ele mora no Abismo, entre 550 e 900 metros.;65;
 alvo_megalodon;alvo_megalodon.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Megalodon;Bora pescar o Megalodon! Ele mora no Abismo, entre 550 e 900 metros.;68;
 alvo_lambari;alvo_lambari.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Lambari;Bora pescar o Lambari! Ele mora na Margem do Rio, entre 0 e 20 metros.;70;
 alvo_piranha;alvo_piranha.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Piranha;Bora pescar a Piranha! Ela mora na Margem do Rio, entre 0 e 20 metros.;70;
