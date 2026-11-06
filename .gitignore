@@ -9,3 +9,6 @@ desktop.ini
 .DS_Store
 Thumbs.db
 *.tmp
+
+# Áudios de teste da voz (os definitivos ficam em narracao/audio)
+narracao/audio-teste

@@ -627,6 +627,7 @@ function savePrefs(){ try { localStorage.setItem(PREFS_KEY, JSON.stringify(prefs
 /* ================= SOM ================= */
 let AC = null, noiseBuf = null;
 function initAudio(){
+  unlockVoice();
   if (AC) { if (AC.state === 'suspended') AC.resume().catch(()=>{}); return; }
   try {
     AC = new (window.AudioContext || window.webkitAudioContext)();
@@ -691,12 +692,52 @@ function buddy(text){
   clearTimeout(buddyTimer);
   buddyTimer = setTimeout(() => { b.classList.remove('show'); setTimeout(() => { if (!b.classList.contains('show')) b.hidden = true; }, 300); }, Math.max(2800, text.length*70));
 }
-// Fala com a voz da Iara. bubble: texto do balão (false = sem balão, quando o card já mostra o texto)
-function say(text, bubble){
+/* ---- Voz gravada da Iara (narracao/audio/*.mp3); a voz do aparelho fica como reserva ---- */
+const VOICE_BASE = '/narracao/audio/';
+const CAN_CLIPS = !(!!window.claude || /claude\.ai|claudeusercontent/.test(location.hostname)) && location.protocol.startsWith('http');
+let clipSet = null, voiceUnlocked = false, clipToken = 0, clipWarm = [];
+const voiceEl = typeof Audio !== 'undefined' ? new Audio() : null;
+if (voiceEl) voiceEl.preload = 'auto';
+async function loadClips(){
+  if (!CAN_CLIPS) return;
+  try { const r = await fetch(VOICE_BASE + 'manifest.json', {cache:'no-cache'}); if (r.ok) clipSet = new Set(Object.keys(await r.json())); } catch(e){}
+}
+const hasClips = ids => !!(clipSet && voiceEl && ids && ids.length && ids.every(id => clipSet.has(id)));
+// No iPhone/iPad o áudio só toca depois de um toque: "destrava" o player tocando um clipe sem som.
+function unlockVoice(){
+  if (voiceUnlocked || !voiceEl || !clipSet || !clipSet.size) return;
+  voiceUnlocked = true;
+  const id = clipSet.has('peixe_novo') ? 'peixe_novo' : [...clipSet][0];
+  voiceEl.muted = true; voiceEl.src = VOICE_BASE + id + '.mp3';
+  const p = voiceEl.play(); const done = () => { try { voiceEl.pause(); } catch(e){} voiceEl.muted = false; };
+  if (p && p.then) p.then(done, done); else done();
+}
+function stopVoice(){
+  clipToken++;
+  if (voiceEl){ voiceEl.onended = null; try { voiceEl.pause(); } catch(e){} }
+  if (HAS_TTS) try { speechSynthesis.cancel(); } catch(e){}
+}
+function playClips(ids){
+  stopVoice();
+  const token = clipToken; let i = 0;
+  clipWarm = ids.slice(1, 4).map(id => { const a = new Audio(); a.preload = 'auto'; a.src = VOICE_BASE + id + '.mp3'; return a; });
+  const next = () => {
+    if (token !== clipToken || i >= ids.length) return;
+    voiceEl.onended = () => setTimeout(next, 90);
+    voiceEl.muted = false; voiceEl.src = VOICE_BASE + ids[i++] + '.mp3';
+    const p = voiceEl.play(); if (p && p.catch) p.catch(() => {});
+  };
+  next();
+}
+// Fala com a voz da Iara. bubble: texto do balão (false = sem balão, quando o card já mostra o texto).
+// clips: áudios gravados que dizem essa fala; se algum faltar, a fala inteira usa a voz do aparelho.
+function say(text, bubble, clips){
   if (bubble !== false) buddy(bubble || text);
-  if (!HAS_TTS || !prefs.voice) return;
+  if (!prefs.voice) return;
+  if (hasClips(clips)){ playClips(clips); return; }
+  if (!HAS_TTS) return;
   try {
-    speechSynthesis.cancel();
+    stopVoice();
     if (!voice) pickVoice();
     const clean = text.replace(/["“”]/g, '').replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, '');
     const parts = clean.split(/(?<=[.!?…])\s+/).filter(s => s.trim());
@@ -720,18 +761,24 @@ const sabia = f => 'Sabia que ' + f.charAt(0).toLowerCase() + f.slice(1);
 const ele = sp => sp.art === 'a' ? 'Ela' : 'Ele';
 const known = sp => !!save.album[sp.id];
 const nameOf = sp => known(sp) ? sp.name : (sp.legend ? '??? Lendário' : 'Peixe misterioso');
+const pickI = a => Math.floor(Math.random()*a.length);
+// Devolve {text, clips}: o texto (balão e voz do aparelho) e a sequência de áudios gravados.
 function fishSpeech(sp, isNew, giant, record, wasTarget){
   const um = sp.art === 'a' ? 'uma' : 'um';
-  if (sp.legend) return `Você conseguiu! Você pescou o Megalodon! Você é um pescador lendário! ${sabia(sp.fact)} ${ele(sp)} comia ${sp.food}. Eu tô muito orgulhosa de você!`;
-  let s = `${pick(CHEERS)} Você pescou ${um} ${sp.name}! `;
-  if (wasTarget) s += 'Missão cumprida! Era o peixe que você escolheu! ';
-  if (isNew) s += 'Peixe novo pro álbum! ';
-  if (giant) s += 'E que peixe gigante! '; else if (record) s += 'É o seu maior até agora! ';
-  s += `${sabia(sp.fact)} ${ele(sp)} come ${sp.food}.`;
+  if (sp.legend) return {
+    text: `Você conseguiu! Você pescou o Megalodon! Você é um pescador lendário! ${sabia(sp.fact)} ${ele(sp)} comia ${sp.food}. Eu tô muito orgulhosa de você!`,
+    clips: ['mega_pescou', `sabia_${sp.id}`, `come_${sp.id}`, 'mega_orgulho'] };
+  const ci = pickI(CHEERS);
+  let s = `${CHEERS[ci]} Você pescou ${um} ${sp.name}! `;
+  const clips = [`comemora_${ci+1}`, `pescou_${sp.id}`];
+  if (wasTarget){ s += 'Missão cumprida! Era o peixe que você escolheu! '; clips.push('alvo_cumprido'); }
+  if (isNew){ s += 'Peixe novo pro álbum! '; clips.push('peixe_novo'); }
+  if (giant){ s += 'E que peixe gigante! '; clips.push('peixe_gigante'); } else if (record){ s += 'É o seu maior até agora! '; clips.push('peixe_recorde'); }
+  s += `${sabia(sp.fact)} ${ele(sp)} come ${sp.food}.`; clips.push(`sabia_${sp.id}`, `come_${sp.id}`);
   const nu = nextUpgrade();
-  if (nu && save.coins >= nu.item.cost) s += ' E você já pode comprar coisa nova na loja!';
-  else if (Math.random() < .4) s += ' ' + pick(ENDS);
-  return s;
+  if (nu && save.coins >= nu.item.cost){ s += ' E você já pode comprar coisa nova na loja!'; clips.push('final_loja'); }
+  else if (Math.random() < .4){ const ei = pickI(ENDS); s += ' ' + ENDS[ei]; clips.push(`final_${ei+1}`); }
+  return {text: s, clips};
 }
 
 /* ================= CANVAS ================= */
@@ -809,7 +856,7 @@ function travel(){
   SFX.zone();
   showToast(LOC === RIO ? '🌿 Rio Amazonas' : '🌊 De volta ao mar!', 'zone', 2400,
     LOC === RIO ? 'Agora com 14 peixes para descobrir!' : 'O Megalodon continua lá no Abismo…');
-  say(LOC === RIO ? 'Chegamos no Rio Amazonas, o maior rio do mundo! Aqui tem piranha, tucunaré, tambaqui, pirarucu, poraquê e muito mais!' : 'De volta ao mar! Bora pescar!');
+  say(LOC === RIO ? 'Chegamos no Rio Amazonas, o maior rio do mundo! Aqui tem piranha, tucunaré, tambaqui, pirarucu, poraquê e muito mais!' : 'De volta ao mar! Bora pescar!', undefined, [LOC === RIO ? 'viagem_rio' : 'viagem_mar']);
   uiKey = ''; refreshUI();
 }
 function initScenery(){
@@ -1517,7 +1564,7 @@ function startChase(f){
     f.x = f.dir > 0 ? -L*.7 : W + L*.7; f.y = hook.y + 30;
     showToast('⚠️ Algo ENORME está chegando…', 'danger', 2600, 'Segure firme!');
     SFX.roar(); shake(1.4, 10); buzz([80,60,80]);
-    say('Nossa! Tem alguma coisa enorme chegando… Será que é ele?');
+    say('Nossa! Tem alguma coisa enorme chegando… Será que é ele?', undefined, ['mega_chegando']);
   }
 }
 function bite(f){
@@ -1526,8 +1573,9 @@ function bite(f){
   fight = {fish:f, p:0, tension:.2, thrash:0, nextThrash: rand(1.2,2.2), startY: hook.y, t:0, wx: hook.x, clickT:0, warned:false};
   mode = 'fight';
   SFX.bite(); shake(.25, 4); buzz(60);
-  if (f.sp.legend){ SFX.roar(); shake(1.2, 14); buzz([150,80,150]); say('É o Megalodon! Segura firme! Eu sei que você consegue!'); }
-  else say(save.casts <= 2 ? 'Fisgou! Agora segura o botão pra puxar, e solta quando a linha ficar vermelha!' : pick(BITES));
+  if (f.sp.legend){ SFX.roar(); shake(1.2, 14); buzz([150,80,150]); say('É o Megalodon! Segura firme! Eu sei que você consegue!', undefined, ['mega_fisgou']); }
+  else if (save.casts <= 2) say('Fisgou! Agora segura o botão pra puxar, e solta quando a linha ficar vermelha!', undefined, ['fisgou_tutorial']);
+  else { const bi = pickI(BITES); say(BITES[bi], undefined, [`fisgou_${bi+1}`]); }
   $('fhName').textContent = f.sp.legend ? '🦈 MEGALODON!!!' : (known(f.sp) ? `Fisgou: ${f.sp.name}!` : 'Fisgou um peixe misterioso!');
   refreshUI();
 }
@@ -1572,7 +1620,7 @@ function fightUpdate(dt){
   $('progFill').style.width = `${F.p*100}%`;
   $('thrash').hidden = !thr;
   const tip2 = $('fhTip'), warn = F.tension > .78;
-  if (warn && !F.warned && F.tension > .85){ F.warned = true; say(pick(['Solta um pouquinho, senão a linha arrebenta!', 'Cuidado! Solta o botão!', 'Calma, solta um pouco!'])); }
+  if (warn && !F.warned && F.tension > .85){ F.warned = true; const WARN = ['Solta um pouquinho, senão a linha arrebenta!', 'Cuidado! Solta o botão!', 'Calma, solta um pouco!']; const wi = pickI(WARN); say(WARN[wi], undefined, [`solta_${wi+1}`]); }
   if (warn !== tip2.classList.contains('warn')){ tip2.classList.toggle('warn', warn); tip2.textContent = warn ? '⚠️ SOLTE! A linha vai arrebentar!' : 'SEGURE para puxar · SOLTE se ficar vermelho'; }
 }
 function snapLine(){
@@ -1581,7 +1629,7 @@ function snapLine(){
   SFX.snap(); shake(.4, 6); buzz(200);
   save.stats.lost++; persist();
   showToast('A linha arrebentou! 😵', 'danger', 2600, 'Dica: solte o botão quando a linha ficar vermelha.');
-  setTimeout(() => say(pick(SNAPS)), 500);
+  const si = pickI(SNAPS); setTimeout(() => say(SNAPS[si], undefined, [`arrebentou_${si+1}`]), 500);
   holding = false; mode = 'reelEmpty'; refreshUI();
 }
 function landFish(){
@@ -1663,7 +1711,7 @@ function waitLogic(dt){
     if (picky){
       rareTold = true; const sp = picky.sp, fav = BAIT[sp.likes[0]];
       say(known(sp) ? `${ele(sp) === 'Ela' ? 'A' : 'O'} ${sp.name} chegou pertinho, mas não gosta de ${BAIT[save.bait].name}. ${ele(sp)} prefere ${fav.name}!`
-        : `Um peixe misterioso chegou perto, mas não quis a ${BAIT[save.bait].name}. Acho que ele gosta de ${fav.name}!`);
+        : `Um peixe misterioso chegou perto, mas não quis a ${BAIT[save.bait].name}. Acho que ele gosta de ${fav.name}!`, undefined, [known(sp) ? `recusou_${sp.id}` : `recusou_misterio_${fav.id}`]);
     }
   }
   const wf = f => (f.sp.likes[0] === save.bait ? 3 : 1) * (tgt && f.sp === tgt ? 8 : 1);
@@ -1694,7 +1742,7 @@ function update(dt){
 
   for (let i=respawns.length-1;i>=0;i--){ const r = respawns[i]; r.t -= dt; if (r.t <= 0){ fishes.push(makeFish(r.legend ? MEGA : pickSpecies(r.zone), r.zone)); respawns.splice(i,1); } }
   updateFish(dt);
-  if (megaTeaseT > 0){ megaTeaseT -= dt; if (megaTeaseT <= 0){ showToast('O MEGALODON passou… e não quis sua isca! 🦈', 'danger', 3800, 'Ele só morde a ISCA LENDÁRIA. Procure na Loja!'); say('Você viu aquilo? Era o Megalodon! Ele só morde a Isca Lendária. Um dia a gente pega ele!'); } }
+  if (megaTeaseT > 0){ megaTeaseT -= dt; if (megaTeaseT <= 0){ showToast('O MEGALODON passou… e não quis sua isca! 🦈', 'danger', 3800, 'Ele só morde a ISCA LENDÁRIA. Procure na Loja!'); say('Você viu aquilo? Era o Megalodon! Ele só morde a Isca Lendária. Um dia a gente pega ele!', undefined, ['mega_passou']); } }
 
   if (mode === 'cast'){
     castT += dt/.6;
@@ -1717,12 +1765,12 @@ function update(dt){
           showToast(`🎯 Zona do ${nameOf(tgt)}`, 'zone', 1800, 'O anzol parou sozinho. Agora é esperar!'); }
       }
       if (hook.y >= maxY){ hook.y = maxY; hook.atMax = true; waitT = 0; checkT = .4; refreshUI();
-        if (RODS[save.rod].depth < LOC.max && !limitTold && !curTarget()){ limitTold = true; if ((save.tips.limit||0) < 3){ save.tips.limit = (save.tips.limit||0)+1; persist(); showToast('🔒 Sua vara chegou no limite!', '', 2600, 'Compre uma vara melhor para descer mais fundo.'); say('Sua vara chegou no limite! Vamos esperar um peixe aqui. Depois a gente junta moedas pra comprar uma vara maior!'); } }
+        if (RODS[save.rod].depth < LOC.max && !limitTold && !curTarget()){ limitTold = true; if ((save.tips.limit||0) < 3){ save.tips.limit = (save.tips.limit||0)+1; persist(); showToast('🔒 Sua vara chegou no limite!', '', 2600, 'Compre uma vara melhor para descer mais fundo.'); say('Sua vara chegou no limite! Vamos esperar um peixe aqui. Depois a gente junta moedas pra comprar uma vara maior!', undefined, ['limite_vara']); } }
       }
     }
     const z = zoneAt(hook.y/PX).id;
     if (z > diveZone){ diveZone = z; const zz = ZONES[z]; showToast(`${zz.icon} ${zz.name}`, 'zone', 1800, `${zz.from} metros de profundidade`); SFX.zone();
-      const zk = `z_${LOC.id}_${z}`; if (!save.tips[zk]){ save.tips[zk] = 1; persist(); say(zz.hi); } }
+      const zk = `z_${LOC.id}_${z}`; if (!save.tips[zk]){ save.tips[zk] = 1; persist(); say(zz.hi, undefined, [`zona_${LOC.id}_${z}`]); } }
     if (hook.stopped || hook.atMax) waitLogic(dt);
   } else if (mode === 'reelEmpty'){
     hook.y -= Math.max(800, hook.y*1.4)*dt;
@@ -1871,7 +1919,7 @@ function fitDraw(c, sp, opts={}){
   if (sp.type === 'squid') cx += L*.06;
   c.save(); c.translate(cx, cy); drawSpecies(c, sp, L, opts.t ?? 1.3, {sil: opts.sil, seed:0, open: sp.legend}); c.restore();
 }
-let cardSpeech = '';
+let cardSpeech = {text:'', clips:[]};
 function showCard(sp, cm, value, isNew, isRecord, giant, wasTarget){
   const b = $('cardBadges'); b.innerHTML = '';
   const add = (t, cls) => { const s = document.createElement('span'); s.className = 'badge' + (cls ? ' ' + cls : ''); s.textContent = t; b.append(s); };
@@ -1891,7 +1939,7 @@ function showCard(sp, cm, value, isNew, isRecord, giant, wasTarget){
   cardSpeech = fishSpeech(sp, isNew, giant, isRecord, wasTarget);
   $('cardSay').hidden = !HAS_TTS;
   openModal('cardOv');
-  setTimeout(() => say(cardSpeech, false), 650);
+  setTimeout(() => say(cardSpeech.text, false, cardSpeech.clips), 650);
 }
 function showMega(cm){
   SFX.fanfare(); setTimeout(() => SFX.roar(), 500);
@@ -1901,7 +1949,7 @@ function showMega(cm){
   $('megaFood').textContent = `🍽️ Ele comia: ${MEGA.food}.`;
   cardSpeech = fishSpeech(MEGA, true);
   $('megaSay').hidden = !HAS_TTS;
-  setTimeout(() => say(cardSpeech, false), 2600);
+  setTimeout(() => say(cardSpeech.text, false, cardSpeech.clips), 2600);
   openModal('megaOv'); burstConfetti(); setTimeout(burstConfetti, 700);
 }
 function closeCard(){
@@ -1958,7 +2006,7 @@ function renderShop(){
 function equipBait(id, quiet){
   if (!save.baits[id]) return;
   save.bait = id; persist(); SFX.pop();
-  if (!quiet) say(`${BAIT[id].name} no anzol!`);
+  if (!quiet) say(`${BAIT[id].name} no anzol!`, undefined, [`isca_${id}`]);
   uiKey = ''; refreshUI();
 }
 function buy(k, item){
@@ -1966,13 +2014,13 @@ function buy(k, item){
   save.coins -= item.cost;
   if (k === 'bait'){ save.baits[item.id] = 1; save.bait = item.id; } else save[k]++;
   persist(); SFX.coin(); updateCoins(true);
-  if (k === 'river'){ showToast('🛶 Rio Amazonas liberado!', 'zone', 3200, 'Feche a loja e toque no botão 🛶 lá em cima para viajar.'); say('Eba! Agora a gente pode viajar pro Rio Amazonas! Toca no botão do barquinho lá em cima!'); }
+  if (k === 'river'){ showToast('🛶 Rio Amazonas liberado!', 'zone', 3200, 'Feche a loja e toque no botão 🛶 lá em cima para viajar.'); say('Eba! Agora a gente pode viajar pro Rio Amazonas! Toca no botão do barquinho lá em cima!', undefined, ['compra_rio']); }
   else {
     showToast(`Comprou: ${item.name}! 🎉`, '', 1800);
-    if (k === 'bait' && item.id === 'lendaria') say('A Isca Lendária! Agora o Megalodon vai querer morder. Vamos lá pro Abismo!');
-    else if (k === 'bait') say(`Uhuul! ${item.name} no anzol! Os peixes que adoram ${item.name.toLowerCase()} vão vir correndo!`);
-    else if (k === 'rod') say(`Uhuul! Com a ${item.name} dá pra descer até ${item.depth} metros! Vamos descobrir peixes novos!`);
-    else say(pick([`Que legal! Você comprou: ${item.name}!`, `Boa escolha! ${item.name}!`, `Uhuul! ${item.name} é sua agora!`]));
+    if (k === 'bait' && item.id === 'lendaria') say('A Isca Lendária! Agora o Megalodon vai querer morder. Vamos lá pro Abismo!', undefined, ['compra_isca_lendaria']);
+    else if (k === 'bait') say(`Uhuul! ${item.name} no anzol! Os peixes que adoram ${item.name.toLowerCase()} vão vir correndo!`, undefined, [`compra_isca_${item.id}`]);
+    else if (k === 'rod') say(`Uhuul! Com a ${item.name} dá pra descer até ${item.depth} metros! Vamos descobrir peixes novos!`, undefined, [`compra_vara_${save.rod}`]);
+    else say(`Que legal! Você comprou: ${item.name}!`, undefined, [`compra_linha_${save.line}`]);
   }
   renderShop();
   uiKey = ''; refreshUI();
@@ -2020,7 +2068,7 @@ function renderAlbum(){
   }
   const acts = document.createElement('div'); acts.className = 'acts';
   if (got && HAS_TTS){ const sb = document.createElement('button'); sb.type = 'button'; sb.className = 'say'; sb.textContent = '🔊 Ouvir';
-    sb.addEventListener('click', () => say(`${sp.name}! ${sabia(sp.fact)} ${ele(sp)} ${sp.legend ? 'comia' : 'come'} ${sp.food}.`, false)); acts.append(sb); }
+    sb.addEventListener('click', () => say(`${sp.name}! ${sabia(sp.fact)} ${ele(sp)} ${sp.legend ? 'comia' : 'come'} ${sp.food}.`, false, [`nome_${sp.id}`, `sabia_${sp.id}`, `come_${sp.id}`])); acts.append(sb); }
   const tb = document.createElement('button'); tb.type = 'button'; tb.className = 'say'; tb.textContent = '🎯 Quero pescar este';
   tb.addEventListener('click', () => { closeModal('albumOv'); openBag('alvo', sp.id); }); acts.append(tb);
   box.append(h, p, meta, acts); det.append(box);
@@ -2081,7 +2129,7 @@ function renderTargetTab(body){
       shop.addEventListener('click', () => { closeModal('bagOv'); renderShop(); openModal('shopOv'); }); acts.append(shop);
     }
     if (save.target){ const clr = document.createElement('button'); clr.type = 'button'; clr.className = 'btn alt small'; clr.textContent = 'Sem alvo';
-      clr.addEventListener('click', () => { save.target = null; persist(); uiKey = ''; refreshUI(); renderBag(); say('Tudo bem! Vamos pescar o que aparecer!'); }); acts.append(clr); }
+      clr.addEventListener('click', () => { save.target = null; persist(); uiKey = ''; refreshUI(); renderBag(); say('Tudo bem! Vamos pescar o que aparecer!', undefined, ['alvo_nenhum']); }); acts.append(clr); }
     box.append(h, ul, acts); body.append(box);
   }
   for (const [loc, title] of [['mar','🌊 Mar'], ['rio','🌿 Rio Amazonas']]){
@@ -2099,7 +2147,8 @@ function setTarget(id){
   if (wantLoc !== LOC){ setLoc(wantLoc); camY = -H*.42; } else ensureTarget();
   closeModal('bagOv'); uiKey = ''; refreshUI(); SFX.pop();
   const z = zonesOf(sp)[sp.zone], who = known(sp) ? `${sp.art === 'a' ? 'a' : 'o'} ${sp.name}` : 'esse peixe misterioso';
-  say(`Bora pescar ${who}! ${known(sp) ? ele(sp) : 'Ele'} mora ${z.at}, entre ${z.from} e ${z.to} metros. Coloquei ${BAIT[r.bait].name} no anzol!${r.lineOk ? '' : ' A linha é fraquinha pra ele, então solta bastante!'}`);
+  say(`Bora pescar ${who}! ${known(sp) ? ele(sp) : 'Ele'} mora ${z.at}, entre ${z.from} e ${z.to} metros. Coloquei ${BAIT[r.bait].name} no anzol!${r.lineOk ? '' : ' A linha é fraquinha pra ele, então solta bastante!'}`, undefined,
+    [known(sp) ? `alvo_${sp.id}` : `alvo_misterio_${sp.loc}_${sp.zone}`, `alvo_isca_${r.bait}`, ...(r.lineOk ? [] : ['alvo_linha_fraca'])]);
 }
 function renderBaitTab(body){
   const p = document.createElement('p'); p.className = 'note'; p.style.fontSize = '14px'; p.textContent = 'Toque numa isca para colocar no anzol. Iscas novas são compradas na Loja.'; body.append(p);
@@ -2137,7 +2186,7 @@ function renderStyleTab(body){
       const l = document.createElement('span'); l.textContent = lock ? lock : s.name;
       b.append(i, l); row.append(b);
       b.addEventListener('click', () => {
-        if (lock){ say(`Pra liberar essa cor: ${lock}!`); return; }
+        if (lock){ say(`Pra liberar essa cor: ${lock}!`, undefined, [`cor_bloqueada_${s.need}`]); return; }
         save[g.key] = s.id; persist(); SFX.pop(); renderBag();
       });
     }
@@ -2162,7 +2211,7 @@ function sayAnnouncement(){
   const parts = [];
   if (acctCfg.announcement) parts.push(`Aviso do porto: ${acctCfg.announcement}`);
   if (eventMult() > 1) parts.push(`Hoje tem ${acctCfg.eventName || 'evento especial'}: as moedas valem ${eventMult() === 2 ? 'o dobro' : 'o triplo'}!`);
-  if (parts.length){ announceSaid = true; setTimeout(() => say(parts.join(' ')), 4200); }
+  if (parts.length){ announceSaid = true; const evClips = !acctCfg.announcement && eventMult() > 1 ? [`evento_x${eventMult()}`] : null; setTimeout(() => say(parts.join(' '), undefined, evClips), 4200); }
 }
 function avatarHTML(cls){
   const nm = user ? (user.name || user.email || 'P') : '';
@@ -2205,7 +2254,7 @@ function renderPlayer(){
   for (const [k, label] of [['sfx','🔊 Efeitos sonoros'], ['voice','🧜‍♀️ Voz da Iara']]){
     const b = document.createElement('button'); b.type = 'button'; b.className = 'tg'; b.setAttribute('aria-pressed', String(!!prefs[k]));
     b.innerHTML = `<span>${label}</span><span class="sw2"></span>`;
-    b.addEventListener('click', () => { prefs[k] = !prefs[k]; savePrefs(); if (k === 'voice' && !prefs.voice && HAS_TTS) try { speechSynthesis.cancel(); } catch(e){} renderPlayer(); });
+    b.addEventListener('click', () => { prefs[k] = !prefs[k]; savePrefs(); if (k === 'voice' && !prefs.voice) stopVoice(); renderPlayer(); });
     tg.append(b);
   }
   body.append(tg);
@@ -2264,7 +2313,7 @@ async function signOut(){
   user = null; cloudState = '';
   saveKey = KEY; loadSave(); applySave();
   renderTitleLogin(); if (!$('playerOv').hidden) renderPlayer();
-  say('Até logo! Agora você está jogando como convidado.');
+  say('Até logo! Agora você está jogando como convidado.', undefined, ['conta_saiu']);
 }
 // Escolhe o progresso mais recente entre a nuvem e este aparelho
 async function setUser(player, cloud){
@@ -2282,7 +2331,7 @@ async function setUser(player, cloud){
   applySave(); persist(); await pushCloud();
   renderTitleLogin();
   if (!$('playerOv').hidden) renderPlayer();
-  if (mode !== 'title') say(`Oi, ${(player.name || 'pescador').split(' ')[0]}! Seu progresso agora fica salvo na sua conta!`);
+  if (mode !== 'title') say(`Oi, ${(player.name || 'pescador').split(' ')[0]}! Seu progresso agora fica salvo na sua conta!`, undefined, ['conta_entrou']);
 }
 function applySave(){
   fight = null; holding = false; chaser = null;
@@ -2300,7 +2349,7 @@ async function pushCloud(keepalive){
     if (r.status === 409){ // o admin alterou o progresso: adota a versão do servidor
       const d = await r.json();
       if (d && d.save){ save = Object.assign(defaultSave(), d.save); migrate(); applySave(); persist(); cloudState = 'ok';
-        showToast('✨ Seu progresso foi atualizado pelo porto!', 'zone', 3000); say('Olha só! O pessoal do porto atualizou o seu jogo!');
+        showToast('✨ Seu progresso foi atualizado pelo porto!', 'zone', 3000); say('Olha só! O pessoal do porto atualizou o seu jogo!', undefined, ['admin_atualizou']);
         setTimeout(pushCloud, 300); }
     }
     if (r.status === 401){ user = null; renderTitleLogin(); uiKey = ''; refreshUI(); }
@@ -2330,8 +2379,8 @@ $('stopBtn').addEventListener('click', toggleStop);
 $('upBtn').addEventListener('click', startReelUp);
 $('cardBtn').addEventListener('click', closeCard);
 $('megaBtn').addEventListener('click', closeCard);
-$('cardSay').addEventListener('click', () => say(cardSpeech, false));
-$('megaSay').addEventListener('click', () => say(cardSpeech, false));
+$('cardSay').addEventListener('click', () => say(cardSpeech.text, false, cardSpeech.clips));
+$('megaSay').addEventListener('click', () => say(cardSpeech.text, false, cardSpeech.clips));
 $('shopBtn').addEventListener('click', () => { initAudio(); renderShop(); openModal('shopOv'); });
 $('shopClose').addEventListener('click', () => closeModal('shopOv'));
 $('bagBtn').addEventListener('click', () => openBag());
@@ -2352,9 +2401,11 @@ $('playBtn').addEventListener('click', () => {
   if (save.loc === 'rio' && save.river){ setLoc(RIO); camY = 60*PX; }
   mode = 'idle'; uiKey = ''; refreshUI();
   sayAnnouncement();
-  setTimeout(() => say(save.casts === 0
-    ? 'Oi! Eu sou a Iara, e vou pescar com você! Toca em Lançar pra jogar o anzol na água!'
-    : pick(['Oi de novo! Que bom que você voltou! Vamos pescar?', 'Eba, você voltou! Bora pescar uns peixes incríveis!', 'Oi, pescador! Pronto pra mais uma aventura?'])), 900);
+  const HELLO = ['Oi de novo! Que bom que você voltou! Vamos pescar?', 'Eba, você voltou! Bora pescar uns peixes incríveis!', 'Oi, pescador! Pronto pra mais uma aventura?'];
+  const hi = pickI(HELLO);
+  setTimeout(() => save.casts === 0
+    ? say('Oi! Eu sou a Iara, e vou pescar com você! Toca em Lançar pra jogar o anzol na água!', undefined, ['abertura_primeira'])
+    : say(HELLO[hi], undefined, [`abertura_volta_${hi+1}`]), 900);
 });
 window.addEventListener('keydown', e => {
   if (e.repeat && e.code !== 'Space') return;
@@ -2403,7 +2454,7 @@ function start(data){
   const n = Object.keys(save.album).length;
   if (save.casts > 0){ const r = $('resumeTxt'); r.hidden = false; r.textContent = `Seu progresso está salvo: 🪙 ${fmt(save.coins)} · ${n}/${SPECIES.length} peixes no álbum`; }
   updateCoins(false);
-  initAccount();
+  initAccount(); loadClips();
   requestAnimationFrame(t => { last = t; requestAnimationFrame(frame); });
 }
 if (DEBUG) window.__dbg = {step(n){ for (let i=0;i<n;i++) update(1/60); render(); }, get mode(){return mode;}, get fight(){return fight;}, get hook(){return hook;}, get save(){return save;}, set hold(v){holding=v;}, fishes:()=>fishes, get loc(){return LOC.id;}, speech:()=>cardSpeech, get Q(){return Q;},

@@ -4,7 +4,10 @@
   "type": "module",
   "description": "Jogo de pescaria educativo. Site estático (index.html) + funções em /api para contas (Google, Neon e Vercel Blob).",
   "scripts": {
-    "build:index": "node build-index.mjs"
+    "build:index": "node build-index.mjs",
+    "roteiro": "node narracao/gerar-roteiro.mjs",
+    "voz:teste": "node narracao/gerar-audios.mjs --teste",
+    "voz": "node narracao/gerar-audios.mjs"
   },
   "engines": {
     "node": ">=20"
