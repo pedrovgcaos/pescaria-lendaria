@@ -223,6 +223,8 @@ button{touch-action:manipulation;}
 .title-wrap p b{color:#ff8f7a;}
 .how{font-weight:800;font-size:14px;opacity:.85;}
 .resume{font-weight:800;font-size:14px;color:var(--gold);}
+.announce{font-weight:900;font-size:16px;line-height:1.35;color:var(--ink);background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:8px 14px;box-shadow:0 4px 0 var(--ink);max-width:min(520px,100%);text-wrap:balance;}
+.mult{display:inline-block;margin-left:6px;font-size:14px;background:var(--coral);color:#fff;border:2px solid var(--ink);border-radius:8px;padding:1px 6px;vertical-align:2px;}
 
 /* Megalodon */
 .mega h2{color:#b0201b;font-size:34px;}
@@ -322,6 +324,7 @@ button{touch-action:manipulation;}
   <div class="title-wrap">
     <div class="logo"><span class="l1">Pescaria</span><span class="l2">Lendária</span></div>
     <p>Pesque, venda e compre equipamentos melhores para descer cada vez mais fundo… até encontrar o <b>MEGALODON</b>, o tubarão gigante dos tempos antigos!</p>
+    <div class="announce" id="announce" hidden></div>
     <div class="resume" id="resumeTxt" hidden></div>
     <button class="btn big" id="playBtn" type="button">▶ JOGAR</button>
     <div id="titleLogin"></div>
@@ -1591,7 +1594,7 @@ function landFish(){
   fishes = fishes.filter(x => x !== f);
   respawns.push({zone: sp.zone, t: sp.legend ? 60 : 1.5, legend: !!sp.legend});
   splash(hook.x, 0, 28); SFX.splash(); buzz([40,40,80]);
-  const cm = sp.real*f.s, value = sp.legend ? sp.value : Math.max(1, Math.round(sp.value*f.s*f.s));
+  const cm = sp.real*f.s, value = sp.legend ? sp.value : Math.max(1, Math.round(sp.value*f.s*f.s)) * eventMult();
   const entry = save.album[sp.id] || {count:0, best:0};
   const isNew = entry.count === 0, isRecord = !isNew && cm > entry.best;
   entry.count++; entry.best = Math.max(entry.best, cm); save.album[sp.id] = entry;
@@ -1782,6 +1785,9 @@ function showToast(text, cls='', ms=2200, small=''){
 }
 function updateCoins(bump){
   $('coinTxt').textContent = fmt(save.coins);
+  const m = eventMult(); let mt = $('coinChip').querySelector('.mult');
+  if (m > 1){ if (!mt){ mt = document.createElement('span'); mt.className = 'mult'; $('coinChip').append(mt); } mt.textContent = `x${m}`; mt.title = acctCfg && acctCfg.eventName ? acctCfg.eventName : `Moedas em dobro`; }
+  else if (mt) mt.remove();
   if (bump){ const c = $('coinChip'); c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump'); }
   const nu = nextUpgrade();
   $('shopBtn').classList.toggle('can', !!nu && save.coins >= nu.item.cost);
@@ -1878,6 +1884,7 @@ function showCard(sp, cm, value, isNew, isRecord, giant, wasTarget){
   if (isNew) add('NOVO NO ÁLBUM!', 'gold');
   if (giant) add('GIGANTE!');
   if (isRecord) add('RECORDE!');
+  if (eventMult() > 1) add(`🎉 MOEDAS x${eventMult()}`, 'gold');
   fitDraw($('cardCv').getContext('2d'), sp);
   $('cardName').textContent = sp.name;
   $('cardSize').textContent = `📏 ${fmtSize(cm)}`;
@@ -2144,8 +2151,24 @@ function renderStyleTab(body){
 }
 
 /* ----- Painel do jogador e conta ----- */
-let user = null, acctCfg = null, gsiReady = false, cloudTimer = 0, cloudState = '';
+let user = null, acctCfg = null, gsiReady = false, cloudTimer = 0, cloudState = '', announceSaid = false;
 const accountsOn = () => !!(acctCfg && acctCfg.enabled && gsiReady);
+function eventMult(){ const m = acctCfg && Number(acctCfg.coinMultiplier); return m === 2 || m === 3 ? m : 1; }
+// Aviso e evento definidos no painel admin
+function applyEvent(){
+  const a = $('announce'), txt = acctCfg && acctCfg.announcement;
+  const ev = eventMult() > 1 ? `🎉 ${acctCfg.eventName || 'Evento'}: moedas x${eventMult()}!` : '';
+  const full = [txt, ev].filter(Boolean).join(' · ');
+  a.textContent = full; a.hidden = !full;
+  updateCoins(false);
+}
+function sayAnnouncement(){
+  if (announceSaid || !acctCfg) return;
+  const parts = [];
+  if (acctCfg.announcement) parts.push(`Aviso do porto: ${acctCfg.announcement}`);
+  if (eventMult() > 1) parts.push(`Hoje tem ${acctCfg.eventName || 'evento especial'}: as moedas valem ${eventMult() === 2 ? 'o dobro' : 'o triplo'}!`);
+  if (parts.length){ announceSaid = true; setTimeout(() => say(parts.join(' ')), 4200); }
+}
 function avatarHTML(cls){
   const nm = user ? (user.name || user.email || 'P') : '';
   return `<span class="${cls}" style="${user && user.picture ? `background-image:url('${esc(user.picture)}')` : ''}">${user && user.picture ? '' : esc((nm[0]||'?').toUpperCase())}</span>`;
@@ -2164,6 +2187,7 @@ function renderPlayer(){
     acct.innerHTML = `${avatarHTML('pic')}<div class="who"><b>${esc(user.name || 'Pescador')}</b><span>${esc(user.email || '')}</span><br>
       <span>${cloudState === 'erro' ? '⚠️ Não consegui salvar na nuvem agora. Vou tentar de novo.' : '☁️ Progresso salvo na sua conta'}</span></div>`;
     const out = document.createElement('button'); out.type = 'button'; out.className = 'btn alt small'; out.textContent = 'Sair'; out.addEventListener('click', signOut); acct.append(out);
+    if (user.isAdmin){ const ad = document.createElement('a'); ad.className = 'btn small'; ad.href = '/admin.html'; ad.target = '_blank'; ad.rel = 'noopener'; ad.textContent = '🛠️ Painel admin'; ad.style.textDecoration = 'none'; acct.append(ad); }
   } else if (accountsOn()){
     acct.innerHTML = `<div class="pic">👤</div><div class="who"><b>Jogando como convidado</b><span>Entre com o Google para salvar seu progresso na sua conta e jogar em qualquer aparelho.</span></div>`;
     acct.append(googleBtn());
@@ -2215,6 +2239,7 @@ async function initAccount(){
   renderTitleLogin();
   if (!ACCOUNTS_API) return;
   try { const r = await fetch('/api/config', {cache:'no-store'}); if (!r.ok) return; acctCfg = await r.json(); } catch(e){ return; }
+  applyEvent(); if (mode !== 'title') sayAnnouncement();
   if (!acctCfg || !acctCfg.enabled) return;
   try { const r = await fetch('/api/me', {credentials:'same-origin', cache:'no-store'}); if (r.ok){ const d = await r.json(); if (d.player) await setUser(d.player, d.save); } } catch(e){}
   try {
@@ -2247,7 +2272,10 @@ async function signOut(){
 async function setUser(player, cloud){
   user = player; saveKey = KEY + ':' + player.id;
   let local = null; try { const raw = localStorage.getItem(saveKey); if (raw) local = JSON.parse(raw); } catch(e){}
-  let chosen = cloud && local ? ((cloud.updated || 0) >= (local.updated || 0) ? cloud : local) : (cloud || local);
+  let chosen = cloud && local
+    ? ((Number(cloud.adminRev) || 0) > (Number(local.adminRev) || 0) ? cloud // o admin mexeu: a nuvem vale
+      : (cloud.updated || 0) >= (local.updated || 0) ? cloud : local)
+    : (cloud || local);
   if (!chosen){ // primeira vez nesta conta: leva junto o progresso de convidado deste aparelho
     let guest = null; try { guest = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){}
     if (guest && guest.casts > 0) chosen = guest;
@@ -2271,6 +2299,12 @@ async function pushCloud(keepalive){
   try {
     const r = await fetch('/api/save', {method:'PUT', credentials:'same-origin', keepalive: !!keepalive, headers:{'content-type':'application/json'}, body: JSON.stringify({data: save})});
     cloudState = r.ok ? 'ok' : 'erro';
+    if (r.status === 409){ // o admin alterou o progresso: adota a versão do servidor
+      const d = await r.json();
+      if (d && d.save){ save = Object.assign(defaultSave(), d.save); migrate(); applySave(); persist(); cloudState = 'ok';
+        showToast('✨ Seu progresso foi atualizado pelo porto!', 'zone', 3000); say('Olha só! O pessoal do porto atualizou o seu jogo!');
+        setTimeout(pushCloud, 300); }
+    }
     if (r.status === 401){ user = null; renderTitleLogin(); uiKey = ''; refreshUI(); }
   } catch(e){ cloudState = 'erro'; }
   if (!$('playerOv').hidden) renderPlayer();
@@ -2319,6 +2353,7 @@ $('playBtn').addEventListener('click', () => {
   const mega = fishes.find(f => f.sp.legend); if (mega) mega.baseY = rand(720,870)*PX;
   if (save.loc === 'rio' && save.river){ setLoc(RIO); camY = 60*PX; }
   mode = 'idle'; uiKey = ''; refreshUI();
+  sayAnnouncement();
   setTimeout(() => say(save.casts === 0
     ? 'Oi! Eu sou a Iara, e vou pescar com você! Toca em Lançar pra jogar o anzol na água!'
     : pick(['Oi de novo! Que bom que você voltou! Vamos pescar?', 'Eba, você voltou! Bora pescar uns peixes incríveis!', 'Oi, pescador! Pronto pra mais uma aventura?'])), 900);

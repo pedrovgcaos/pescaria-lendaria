@@ -35,3 +35,9 @@ ${body}
 `;
 writeFileSync('index.html', out);
 console.log(`index.html gerado (${out.length} bytes)`);
+
+// Lista de peixes para o painel admin (nome, lugar e zona), extraída da fonte do jogo.
+const species = [...src.matchAll(/\{id:'(\w+)', name:'([^']+)'(?:, loc:'(\w+)')?, zone:(\d)/g)]
+  .map(([, id, name, loc, zone]) => ({ id, name, loc: loc || 'mar', zone: Number(zone) }));
+writeFileSync('species.json', JSON.stringify(species, null, 1));
+console.log(`species.json gerado (${species.length} peixes)`);

@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin · Pescaria Lendária</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%9B%A0%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;700;800;900&display=swap">
+<style>
+/* Layout: barra do porto no topo, abas de trabalho, cartões de dados; detalhes do jogador em uma gaveta lateral */
+:root{
+  --bg:#f3f6f9; --surface:#ffffff; --surface-2:#eef2f6; --ink:#0f1b2b; --ink-2:#46566a; --muted:#748397; --line:#dbe2ea;
+  --accent:#2a78d6; --accent-soft:#e3eefb; --brand:#f2b705; --brand-ink:#0b1d33; --danger:#c8372f; --danger-soft:#fbe7e5; --good:#13804f; --good-soft:#e2f5ec;
+  --display:'Lilita One','Trebuchet MS',sans-serif; --body:'Nunito','Segoe UI',system-ui,sans-serif;
+  --radius:14px; --shadow:0 1px 2px rgba(15,27,43,.06),0 4px 14px rgba(15,27,43,.05);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0b131e; --surface:#121d2b; --surface-2:#192637; --ink:#e8eef5; --ink-2:#b2bfcd; --muted:#8091a5; --line:#24344a;
+  --accent:#3987e5; --accent-soft:#16304f; --brand:#f2b705; --brand-ink:#0b1d33; --danger:#e66767; --danger-soft:#3a1b1d; --good:#3fbf85; --good-soft:#12301f;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark; } }
+:root[data-theme="dark"]{
+  --bg:#0b131e; --surface:#121d2b; --surface-2:#192637; --ink:#e8eef5; --ink-2:#b2bfcd; --muted:#8091a5; --line:#24344a;
+  --accent:#3987e5; --accent-soft:#16304f; --brand:#f2b705; --brand-ink:#0b1d33; --danger:#e66767; --danger-soft:#3a1b1d; --good:#3fbf85; --good-soft:#12301f;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark; }
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:600 15px/1.45 var(--body)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* Topo */
+.top{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left))}
+.top-row{display:flex;align-items:center;gap:12px;max-width:1240px;margin:0 auto;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-right:auto}
+.brand .logo{width:36px;height:36px;border-radius:10px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-size:20px;border:2px solid var(--brand-ink)}
+.brand b{font-family:var(--display);font-weight:400;font-size:21px;letter-spacing:.01em}
+.brand small{display:block;font-weight:800;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.who{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;color:var(--ink-2);min-width:0}
+.ava{width:30px;height:30px;border-radius:50%;background:var(--accent-soft) center/cover;flex:0 0 auto;display:grid;place-items:center;font-weight:900;color:var(--accent)}
+.nav{display:flex;gap:4px;max-width:1240px;margin:8px auto 0;overflow-x:auto}
+.nav a{padding:10px 14px;border-bottom:3px solid transparent;text-decoration:none;color:var(--ink-2);font-weight:800;white-space:nowrap}
+.nav a[aria-current="page"]{color:var(--ink);border-color:var(--accent)}
+.nav a:hover{color:var(--ink)}
+
+main{max-width:1240px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-right)) 60px max(16px,env(safe-area-inset-left))}
+h1{font-family:var(--display);font-weight:400;font-size:28px;margin:0 0 4px;letter-spacing:.01em;text-wrap:balance}
+.lede{color:var(--muted);font-weight:700;margin:0 0 18px}
+h2{font-size:16px;font-weight:900;margin:0;letter-spacing:.01em}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;min-width:0}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.card-head .sub{color:var(--muted);font-weight:700;font-size:13px}
+.grid{display:grid;gap:14px}
+.g-kpi{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g-2{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+@media (max-width:980px){ .g-kpi{grid-template-columns:repeat(2,minmax(0,1fr))} .g-2{grid-template-columns:minmax(0,1fr)} }
+
+/* KPI */
+.kpi small{display:block;font-weight:800;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kpi b{display:block;font-family:var(--display);font-weight:400;font-size:30px;line-height:1.15;margin-top:4px}
+.kpi span{font-weight:800;font-size:13px;color:var(--ink-2)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-weight:900;font-size:12px;border-radius:999px;padding:2px 8px;background:var(--surface-2);color:var(--ink-2)}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.warn{background:#fff3cf;color:#8a5a00}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .pill.warn{background:#3a2e10;color:#f2c94c} }
+:root[data-theme="dark"] .pill.warn{background:#3a2e10;color:#f2c94c}
+
+/* Gráficos */
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.axis text{fill:var(--muted);font-size:11px;font-weight:700}
+.grid-line{stroke:var(--line);stroke-width:1}
+.base-line{stroke:var(--ink-2);stroke-width:1}
+.bar{fill:var(--accent)}
+.bar.hover{fill:color-mix(in oklab,var(--accent) 78%,white)}
+.hit{fill:transparent;cursor:pointer}
+.hbars{display:grid;gap:6px}
+.hrow{display:grid;grid-template-columns:minmax(90px,170px) minmax(0,1fr) 56px;align-items:center;gap:10px;font-size:13px;font-weight:800;border-radius:8px;padding:2px 4px;cursor:default}
+.hrow:hover,.hrow:focus{background:var(--surface-2)}
+.hrow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hrow .track{height:14px;position:relative}
+.hrow .fill{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:var(--accent);min-width:3px}
+.hrow .val{text-align:right;color:var(--ink-2)}
+.tip{position:fixed;z-index:50;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:8px 10px;font-size:13px;max-width:240px}
+.tip b{display:block;font-size:16px;font-weight:900}
+.tip span{color:var(--muted);font-weight:700}
+.linkish{background:none;border:none;color:var(--accent);font-weight:900;cursor:pointer;padding:4px 0}
+
+/* Tabelas */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:900;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface-2)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+td.r,th.r{text-align:right}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover{background:var(--surface-2)}
+.person{display:flex;align-items:center;gap:10px;min-width:0}
+.person b{display:block;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+.person span{display:block;color:var(--muted);font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+.empty{color:var(--muted);font-weight:700;text-align:center;padding:24px}
+
+/* Controles */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;font-weight:900;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+input[type=text],input[type=search],input[type=number],input[type=email],select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 11px;min-height:40px;width:100%}
+textarea{resize:vertical;min-height:72px}
+.search{flex:1 1 240px;max-width:420px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-weight:900;cursor:pointer;text-decoration:none;color:var(--ink)}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.danger{background:var(--danger-soft);border-color:transparent;color:var(--danger)}
+.btn.danger.armed{background:var(--danger);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.small{min-height:32px;padding:4px 10px;font-size:13px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:none;background:var(--surface);padding:8px 16px;font-weight:900;cursor:pointer;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.check{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:800;cursor:pointer;background:var(--surface)}
+.check input{accent-color:var(--accent)}
+.pager{display:flex;align-items:center;gap:10px;justify-content:flex-end;margin-top:12px;color:var(--muted);font-weight:800}
+
+/* Gaveta */
+.scrim{position:fixed;inset:0;background:rgba(5,12,22,.45);z-index:30}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg);z-index:31;overflow-y:auto;box-shadow:-10px 0 30px rgba(0,0,0,.2);
+  padding:16px max(16px,env(safe-area-inset-right)) 40px 16px;display:flex;flex-direction:column;gap:14px;overscroll-behavior:contain}
+.drawer-head{display:flex;gap:12px;align-items:center}
+.drawer-head .ava{width:52px;height:52px;font-size:20px}
+.drawer-head h2{font-size:20px}
+.drawer-head .x{margin-left:auto}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kv div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.kv small{display:block;font-size:11px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.kv b{font-size:17px;font-weight:900}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.form-grid .full{grid-column:1/-1}
+.row-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--surface);font-weight:800;cursor:pointer}
+.toggle input{width:20px;height:20px;accent-color:var(--accent)}
+.fishes{display:flex;flex-wrap:wrap;gap:6px}
+.fishes span{background:var(--surface-2);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:800}
+.list{display:grid;gap:6px}
+.list-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-weight:800}
+.list-row span{color:var(--muted);font-weight:700;font-size:13px}
+pre{background:var(--surface-2);border-radius:10px;padding:12px;overflow:auto;font-size:12px;max-height:320px}
+details summary{cursor:pointer;font-weight:900}
+.danger-zone{border-color:var(--danger-soft)}
+
+/* Avisos */
+.gate{max-width:440px;margin:60px auto;text-align:center;display:grid;gap:14px;justify-items:center}
+.gate .logo{width:64px;height:64px;font-size:34px;border-radius:16px;background:var(--brand);border:2px solid var(--brand-ink);display:grid;place-items:center}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:900;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:calc(100% - 32px)}
+.toast.err{background:var(--danger);color:#fff}
+.preview{border:2px dashed var(--line);border-radius:12px;padding:14px;display:grid;justify-items:center;gap:8px;background:var(--surface-2)}
+.preview .ann{font-weight:900;color:#0b1d33;background:#ffd84d;border:3px solid #0b1d33;border-radius:14px;padding:8px 14px;box-shadow:0 4px 0 #0b1d33;text-align:center;max-width:100%}
+.loading{opacity:.55;transition:opacity .2s}
+@media (max-width:640px){ .kv{grid-template-columns:repeat(2,minmax(0,1fr))} .form-grid{grid-template-columns:minmax(0,1fr)} .hrow{grid-template-columns:minmax(80px,120px) minmax(0,1fr) 48px} h1{font-size:24px} .kpi b{font-size:24px} }
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <a class="brand" href="#visao-geral"><span class="logo" aria-hidden="true">🎣</span><span><b>Pescaria Lendária</b><small>Painel admin</small></span></a>
+    <div class="who" id="who"></div>
+  </div>
+  <nav class="nav" id="nav" hidden>
+    <a href="#visao-geral" data-view="overview">Visão geral</a>
+    <a href="#jogadores" data-view="players">Jogadores</a>
+    <a href="#configuracoes" data-view="settings">Avisos e eventos</a>
+    <a href="#registro" data-view="log">Registro de ações</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section id="gate" class="gate"><div class="logo" aria-hidden="true">🛠️</div><p class="lede">Carregando…</p></section>
+
+  <section id="v-overview" hidden>
+    <h1>Visão geral</h1>
+    <p class="lede" id="ovLede">Como o jogo está indo, em números.</p>
+    <div class="grid g-kpi" id="kpis"></div>
+    <div class="grid g-2" style="margin-top:14px">
+      <div class="card">
+        <div class="card-head"><h2>Novos jogadores</h2><span class="sub" id="signupSub">últimos 30 dias</span></div>
+        <div class="chart" id="signupChart"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Peixes mais pescados</h2><button class="linkish" type="button" id="speciesMore">Ver todos</button></div>
+        <div class="hbars" id="speciesBars"></div>
+      </div>
+    </div>
+    <div class="grid g-2" style="margin-top:14px">
+      <div class="card">
+        <div class="card-head"><h2>Top jogadores</h2><span class="sub">por moedas</span></div>
+        <div class="table-wrap"><table><thead><tr><th>Jogador</th><th class="r">Moedas</th><th class="r">Pescados</th><th class="r">Álbum</th></tr></thead><tbody id="topBody"></tbody></table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h2>Aviso e evento ativos</h2><a href="#configuracoes" class="linkish" style="text-decoration:none">Editar</a></div>
+        <div id="ovEvent"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-players" hidden>
+    <h1>Jogadores</h1>
+    <p class="lede">Busque uma conta para ver o progresso, dar presentes, restaurar cópias ou apagar dados.</p>
+    <div class="toolbar">
+      <input type="search" id="q" class="search" placeholder="Buscar por nome ou e-mail" aria-label="Buscar jogador">
+      <select id="sort" aria-label="Ordenar por" style="width:auto">
+        <option value="recent">Último acesso</option>
+        <option value="created">Mais novos</option>
+        <option value="coins">Mais moedas</option>
+        <option value="caught">Mais peixes pescados</option>
+        <option value="album">Álbum mais completo</option>
+        <option value="name">Nome (A–Z)</option>
+      </select>
+      <a class="btn" id="exportBtn" href="/api/admin?action=export">⬇ Exportar CSV</a>
+    </div>
+    <div class="table-wrap" id="playersWrap">
+      <table>
+        <thead><tr><th>Jogador</th><th class="r">Moedas</th><th class="r">Álbum</th><th class="r">Pescados</th><th>Vara</th><th>Rio</th><th>Megalodon</th><th>Último acesso</th></tr></thead>
+        <tbody id="playersBody"></tbody>
+      </table>
+    </div>
+    <div class="pager"><span id="pageInfo" class="num"></span><button class="btn small" id="prevPage" type="button">← Anterior</button><button class="btn small" id="nextPage" type="button">Próxima →</button></div>
+  </section>
+
+  <section id="v-settings" hidden>
+    <h1>Avisos e eventos</h1>
+    <p class="lede">O aviso aparece na tela inicial do jogo e a Iara lê em voz alta. O evento multiplica as moedas de todos os peixes (menos o Megalodon).</p>
+    <div class="grid g-2">
+      <form class="card" id="settingsForm">
+        <div class="grid" style="gap:14px">
+          <div class="field"><label for="annText">Aviso na tela inicial</label>
+            <textarea id="annText" maxlength="160" placeholder="Ex.: Fim de semana de pesca no Rio Amazonas!"></textarea>
+            <span class="sub num" id="annCount" style="color:var(--muted);font-size:12px;font-weight:800">0/160</span></div>
+          <div class="field"><label for="evName">Nome do evento</label><input type="text" id="evName" maxlength="40" placeholder="Ex.: Festival da Pesca"></div>
+          <div class="field"><label>Moedas por peixe</label>
+            <div class="seg" id="multSeg" role="group" aria-label="Multiplicador de moedas">
+              <button type="button" data-m="1" aria-pressed="true">Normal</button><button type="button" data-m="2" aria-pressed="false">x2</button><button type="button" data-m="3" aria-pressed="false">x3</button>
+            </div></div>
+          <div class="row-btns"><button class="btn primary" type="submit">Salvar e publicar</button><button class="btn" type="button" id="clearSettings">Limpar aviso e evento</button></div>
+        </div>
+      </form>
+      <div class="card">
+        <div class="card-head"><h2>Como aparece no jogo</h2></div>
+        <div class="preview" id="preview"></div>
+        <p class="lede" style="margin:12px 0 0;font-size:13px">As mudanças valem para quem abrir o jogo depois de salvar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="v-log" hidden>
+    <h1>Registro de ações</h1>
+    <p class="lede">Tudo o que foi feito pelo painel admin, do mais recente para o mais antigo.</p>
+    <div class="table-wrap"><table><thead><tr><th>Quando</th><th>Admin</th><th>Ação</th><th>Jogador</th><th>Detalhes</th></tr></thead><tbody id="logBody"></tbody></table></div>
+  </section>
+</main>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Detalhes do jogador"></aside>
+<div class="tip" id="tip" hidden></div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const RODS = ['Bambu (50 m)', 'Fibra (150 m)', 'Carbono (300 m)', 'Profissional (550 m)', 'Abissal (900 m)'];
+const LINES = ['Fina', 'Forte', 'Aço', 'Kevlar', 'Titânica'];
+const BAITS = [['minhoca','🪱 Minhoca'],['grilo','🦗 Grilo'],['camarao','🦐 Camarão'],['fruta','🍒 Frutinha'],['peixinho','🐟 Peixinho'],['lula','🦑 Lula'],['lendaria','✨ Isca Lendária']];
+const ACTIONS = {update:'Editou progresso', reset:'Zerou progresso', restore:'Restaurou cópia', delete:'Apagou conta', settings:'Mudou aviso/evento', export:'Exportou CSV'};
+let SPECIES = {}, TOTAL_SPECIES = 35, me = null, view = 'overview', stats = null, speciesAll = false;
+let pState = {q:'', sort:'recent', page:0, total:0, pageSize:50};
+
+/* ---------- utilidades ---------- */
+function el(tag, attrs, ...kids){
+  const e = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs || {})){
+    if (v == null || v === false) continue;
+    if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v;
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (k === 'style') e.style.cssText = v; else e.setAttribute(k, v === true ? '' : v);
+  }
+  for (const k of kids.flat()) if (k != null && k !== false) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+const fmt = n => Number(n || 0).toLocaleString('pt-BR');
+const dateFmt = d => d ? new Date(d).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}) : '—';
+function ago(d){
+  if (!d) return '—';
+  const s = (Date.now() - new Date(d).getTime())/1000;
+  if (s < 60) return 'agora'; if (s < 3600) return `há ${Math.floor(s/60)} min`; if (s < 86400) return `há ${Math.floor(s/3600)} h`;
+  if (s < 86400*30) return `há ${Math.floor(s/86400)} d`; return new Date(d).toLocaleDateString('pt-BR');
+}
+function avatar(p, cls){
+  const a = el('span', {class: cls || 'ava'});
+  if (p && p.picture) a.style.backgroundImage = `url("${String(p.picture).replace(/"/g,'')}")`; else a.textContent = ((p && (p.name || p.email)) || '?')[0].toUpperCase();
+  return a;
+}
+function person(p){ return el('div', {class:'person'}, avatar(p), el('div', {}, el('b', {text: p.name || '(sem nome)'}), el('span', {text: p.email || ''}))); }
+let toastT = 0;
+function toast(msg, err){ const t = $('#toast'); t.textContent = msg; t.className = 'toast' + (err ? ' err' : ''); t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 3200); }
+async function api(path, opts = {}){
+  const r = await fetch(path, {credentials:'same-origin', cache:'no-store', ...opts, headers: {'content-type':'application/json', ...(opts.headers || {})}});
+  const d = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(d.error || `Erro ${r.status}`), {status: r.status});
+  return d;
+}
+const post = body => api('/api/admin', {method:'POST', body: JSON.stringify(body)});
+// Botão que pede um segundo toque para confirmar ações perigosas
+function armed(btn, label, run){
+  let on = false, t = 0;
+  btn.addEventListener('click', async () => {
+    if (!on){ on = true; btn.classList.add('armed'); btn.dataset.orig = btn.textContent; btn.textContent = label; t = setTimeout(() => { on = false; btn.classList.remove('armed'); btn.textContent = btn.dataset.orig; }, 4000); return; }
+    clearTimeout(t); on = false; btn.classList.remove('armed'); btn.textContent = btn.dataset.orig; btn.disabled = true;
+    try { await run(); } finally { btn.disabled = false; }
+  });
+}
+
+/* ---------- tooltip ---------- */
+const tip = $('#tip');
+function showTip(e, value, label){
+  tip.replaceChildren(el('b', {class:'num', text: value}), el('span', {text: label}));
+  tip.hidden = false;
+  const r = tip.getBoundingClientRect(); let x = e.clientX + 14, y = e.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = e.clientY - r.height - 14;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+function tipAt(node, value, label){ const r = node.getBoundingClientRect(); showTip({clientX: r.left + r.width/2, clientY: r.top}, value, label); }
+const hideTip = () => tip.hidden = true;
+
+/* ---------- login / acesso ---------- */
+function gate(...kids){ const g = $('#gate'); g.hidden = false; g.replaceChildren(el('div', {class:'logo', 'aria-hidden':'true', text:'🛠️'}), ...kids); $('#nav').hidden = true; for (const s of ['overview','players','settings','log']) $(`#v-${s}`).hidden = true; }
+async function signOut(){ try { await fetch('/api/auth', {method:'DELETE', credentials:'same-origin'}); } catch(e){} location.reload(); }
+function renderWho(){
+  const w = $('#who'); w.replaceChildren();
+  if (!me) return;
+  w.append(avatar(me), el('span', {text: me.name || me.email, style:'max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'}),
+    el('a', {class:'btn small', href:'/', target:'_blank', rel:'noopener', text:'🎣 Abrir jogo'}), el('button', {class:'btn small', type:'button', onclick: signOut, text:'Sair'}));
+}
+async function boot(){
+  try { SPECIES = Object.fromEntries((await (await fetch('/species.json', {cache:'no-store'})).json()).map(s => [s.id, s])); TOTAL_SPECIES = Object.keys(SPECIES).length; } catch(e){}
+  let cfg = {};
+  try { cfg = await api('/api/config'); } catch(e){}
+  if (!cfg.enabled){ gate(el('h1', {text:'Login desligado'}), el('p', {class:'lede', text:'O login com Google ainda não está configurado neste site.'})); return; }
+  let d = {};
+  try { d = await api('/api/me'); } catch(e){}
+  me = d.player || null;
+  if (!me){
+    const holder = el('div');
+    gate(el('h1', {text:'Painel admin'}), el('p', {class:'lede', text:'Entre com a conta Google de administrador.'}), holder);
+    const s = document.createElement('script'); s.src = 'https://accounts.google.com/gsi/client'; s.async = true;
+    s.onload = () => {
+      google.accounts.id.initialize({client_id: cfg.googleClientId, callback: async resp => {
+        try { await api('/api/auth', {method:'POST', body: JSON.stringify({credential: resp.credential})}); location.reload(); } catch(e){ toast('Não consegui entrar. Tente de novo.', true); }
+      }});
+      google.accounts.id.renderButton(holder, {theme:'outline', size:'large', shape:'pill', text:'signin_with', locale:'pt-BR'});
+    };
+    document.head.append(s); return;
+  }
+  renderWho();
+  if (!me.isAdmin){ gate(el('h1', {text:'Sem permissão'}), el('p', {class:'lede', text:`A conta ${me.email} não é administradora. Entre com a conta de administrador.`}), el('button', {class:'btn', type:'button', onclick: signOut, text:'Sair e trocar de conta'})); return; }
+  $('#gate').hidden = true; $('#nav').hidden = false;
+  route();
+}
+
+/* ---------- navegação ---------- */
+const VIEWS = {'visao-geral':'overview', 'jogadores':'players', 'configuracoes':'settings', 'registro':'log'};
+function route(){
+  if (!me || !me.isAdmin) return;
+  view = VIEWS[location.hash.slice(1)] || 'overview';
+  for (const s of ['overview','players','settings','log']) $(`#v-${s}`).hidden = s !== view;
+  document.querySelectorAll('#nav a').forEach(a => { if (a.dataset.view === view) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  if (view === 'overview') loadOverview();
+  if (view === 'players') loadPlayers();
+  if (view === 'settings') loadSettings();
+  if (view === 'log') loadLog();
+}
+addEventListener('hashchange', route);
+
+/* ---------- visão geral ---------- */
+async function loadOverview(){
+  $('#v-overview').classList.add('loading');
+  try { stats = await api('/api/admin?action=stats'); } catch(e){ toast(e.message, true); return; } finally { $('#v-overview').classList.remove('loading'); }
+  const t = stats.totals;
+  const kpi = (label, value, extra) => el('div', {class:'card kpi'}, el('small', {text: label}), el('b', {class:'num', text: value}), extra ? el('span', {}, extra) : null);
+  $('#kpis').replaceChildren(
+    kpi('Jogadores', fmt(t.players), t.new7 ? el('span', {class:'pill good', text:`+${fmt(t.new7)} na semana`}) : 'nenhum novo na semana'),
+    kpi('Ativos hoje', fmt(t.active1), `${fmt(t.active7)} nos últimos 7 dias`),
+    kpi('Peixes pescados', fmt(t.caught), 'somando todas as contas'),
+    kpi('Moedas guardadas', fmt(t.coins), 'nas contas agora'),
+    kpi('Álbum médio', `${String(t.album_avg).replace('.', ',')}/${TOTAL_SPECIES}`, 'peixes descobertos por conta'),
+    kpi('Rio liberado', fmt(t.river), `de ${fmt(t.players)} contas`),
+    kpi('Megalodons', fmt(t.mega), t.mega ? 'jogadores lendários 🦈' : 'ninguém pescou ainda'),
+    kpi('Evento', stats.settings.coinMultiplier > 1 ? `x${stats.settings.coinMultiplier}` : 'Nenhum', stats.settings.eventName || (stats.settings.announcement ? 'aviso ativo' : 'sem aviso')),
+  );
+  drawSignups(stats.signups);
+  drawSpecies();
+  const tb = $('#topBody'); tb.replaceChildren();
+  if (!stats.top.length) tb.append(el('tr', {}, el('td', {colspan:4, class:'empty', text:'Nenhum progresso salvo ainda.'})));
+  for (const p of stats.top) tb.append(el('tr', {class:'click', tabindex:0, onclick: () => openPlayer(p.id), onkeydown: e => e.key === 'Enter' && openPlayer(p.id)},
+    el('td', {}, person(p)), el('td', {class:'r num', text: fmt(p.coins)}), el('td', {class:'r num', text: fmt(p.caught)}), el('td', {class:'r num', text: `${p.album}/${TOTAL_SPECIES}`})));
+  renderEventBox($('#ovEvent'), stats.settings);
+}
+function niceMax(v){ if (v <= 4) return 4; const p = Math.pow(10, Math.floor(Math.log10(v))); for (const m of [1,2,2.5,5,10]) if (m*p >= v) return m*p; return 10*p; }
+function drawSignups(rows){
+  const box = $('#signupChart'); box.replaceChildren();
+  const total = rows.reduce((a,r) => a + r.n, 0);
+  $('#signupSub').textContent = `${fmt(total)} nos últimos 30 dias`;
+  const W = 640, H = 220, L = 34, R = 8, T = 10, B = 26;
+  const max = niceMax(Math.max(1, ...rows.map(r => r.n)));
+  const NS = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', `Novos jogadores por dia nos últimos 30 dias: ${total} no total`);
+  const mk = (tag, a) => { const e = document.createElementNS(NS, tag); for (const [k,v] of Object.entries(a)) e.setAttribute(k, v); return e; };
+  const y = v => T + (H - T - B) * (1 - v/max);
+  const ax = mk('g', {class:'axis'});
+  for (let i = 0; i <= 4; i++){ const v = max*i/4, yy = y(v);
+    ax.append(mk('line', {x1:L, x2:W-R, y1:yy, y2:yy, class: i ? 'grid-line' : 'base-line'}));
+    const tx = mk('text', {x:L-6, y:yy+4, 'text-anchor':'end'}); tx.textContent = Number.isInteger(v) ? v : v.toFixed(1); ax.append(tx); }
+  svg.append(ax);
+  const n = rows.length, slot = (W - L - R)/n, bw = Math.max(3, slot - 4);
+  rows.forEach((r, i) => {
+    const x = L + i*slot + (slot - bw)/2, yy = y(r.n), h = Math.max(0, H - B - yy);
+    const label = new Date(r.day + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'});
+    if (h > 0){ const rad = Math.min(4, bw/2, h);
+      svg.append(mk('path', {class:'bar', d:`M${x},${H-B} V${yy+rad} Q${x},${yy} ${x+rad},${yy} H${x+bw-rad} Q${x+bw},${yy} ${x+bw},${yy+rad} V${H-B} Z`, 'data-i': i})); }
+    if (i % 5 === 0 || i === n-1){ const tx = mk('text', {x: x + bw/2, y: H - 8, 'text-anchor':'middle', class:'axis'}); tx.textContent = label; tx.setAttribute('fill', 'var(--muted)'); tx.setAttribute('font-size', '11'); tx.setAttribute('font-weight','700'); svg.append(tx); }
+    const hit = mk('rect', {x: L + i*slot, y: T, width: slot, height: H - T - B, class:'hit', tabindex: 0, 'aria-label': `${label}: ${r.n} novos jogadores`});
+    const on = e => { svg.querySelectorAll('.bar').forEach(b => b.classList.toggle('hover', b.dataset.i == i)); e.type === 'focus' ? tipAt(hit, `${r.n} novo${r.n === 1 ? '' : 's'}`, label) : showTip(e, `${r.n} novo${r.n === 1 ? '' : 's'}`, label); };
+    hit.addEventListener('pointermove', on); hit.addEventListener('focus', on);
+    const off = () => { svg.querySelectorAll('.bar').forEach(b => b.classList.remove('hover')); hideTip(); };
+    hit.addEventListener('pointerleave', off); hit.addEventListener('blur', off);
+    svg.append(hit);
+  });
+  box.append(svg);
+}
+function drawSpecies(){
+  const box = $('#speciesBars'); box.replaceChildren();
+  const rows = stats.species;
+  if (!rows.length){ box.append(el('p', {class:'empty', text:'Nenhum peixe pescado ainda.'})); $('#speciesMore').hidden = true; return; }
+  const max = Math.max(...rows.map(r => r.n));
+  const show = speciesAll ? rows : rows.slice(0, 12);
+  $('#speciesMore').hidden = rows.length <= 12; $('#speciesMore').textContent = speciesAll ? 'Ver menos' : `Ver todos (${rows.length})`;
+  for (const r of show){
+    const sp = SPECIES[r.id] || {name: r.id, loc: 'mar'};
+    const label = `${sp.loc === 'rio' ? '🌿' : '🌊'} ${sp.name}`;
+    const row = el('div', {class:'hrow', tabindex:0, 'aria-label': `${sp.name}: ${r.n} pescados por ${r.players} jogadores`},
+      el('span', {class:'nm', text: label}), el('div', {class:'track'}, el('div', {class:'fill', style:`width:${(r.n/max*100).toFixed(1)}%`})), el('span', {class:'val num', text: fmt(r.n)}));
+    const tipText = `${r.players} jogador${r.players === 1 ? '' : 'es'} · ${sp.loc === 'rio' ? 'Rio Amazonas' : 'Mar'}`;
+    row.addEventListener('pointermove', e => showTip(e, `${fmt(r.n)} pescados`, `${sp.name} · ${tipText}`));
+    row.addEventListener('focus', () => tipAt(row, `${fmt(r.n)} pescados`, `${sp.name} · ${tipText}`));
+    row.addEventListener('pointerleave', hideTip); row.addEventListener('blur', hideTip);
+    box.append(row);
+  }
+}
+$('#speciesMore').addEventListener('click', () => { speciesAll = !speciesAll; drawSpecies(); });
+function renderEventBox(box, s){
+  box.replaceChildren();
+  const prev = el('div', {class:'preview'});
+  const parts = [s.announcement, s.coinMultiplier > 1 ? `🎉 ${s.eventName || 'Evento'}: moedas x${s.coinMultiplier}!` : ''].filter(Boolean);
+  if (parts.length) prev.append(el('div', {class:'ann', text: parts.join(' · ')}));
+  else prev.append(el('span', {class:'lede', style:'margin:0', text:'Nenhum aviso ou evento ativo.'}));
+  box.append(prev);
+}
+
+/* ---------- jogadores ---------- */
+let qTimer = 0;
+$('#q').addEventListener('input', e => { clearTimeout(qTimer); qTimer = setTimeout(() => { pState.q = e.target.value.trim(); pState.page = 0; loadPlayers(); }, 300); });
+$('#sort').addEventListener('change', e => { pState.sort = e.target.value; pState.page = 0; loadPlayers(); });
+$('#prevPage').addEventListener('click', () => { if (pState.page > 0){ pState.page--; loadPlayers(); } });
+$('#nextPage').addEventListener('click', () => { if ((pState.page+1)*pState.pageSize < pState.total){ pState.page++; loadPlayers(); } });
+async function loadPlayers(){
+  const wrap = $('#playersWrap'); wrap.classList.add('loading');
+  let d;
+  try { d = await api(`/api/admin?action=players&q=${encodeURIComponent(pState.q)}&sort=${pState.sort}&page=${pState.page}`); }
+  catch(e){ toast(e.message, true); return; } finally { wrap.classList.remove('loading'); }
+  pState.total = d.total; pState.pageSize = d.pageSize;
+  const tb = $('#playersBody'); tb.replaceChildren();
+  if (!d.players.length) tb.append(el('tr', {}, el('td', {colspan:8, class:'empty', text: pState.q ? 'Nenhum jogador encontrado.' : 'Nenhum jogador ainda.'})));
+  for (const p of d.players){
+    tb.append(el('tr', {class:'click', tabindex:0, onclick: () => openPlayer(p.id), onkeydown: e => e.key === 'Enter' && openPlayer(p.id)},
+      el('td', {}, person(p)),
+      el('td', {class:'r num', text: fmt(p.coins)}),
+      el('td', {class:'r num', text: `${p.album || 0}/${TOTAL_SPECIES}`}),
+      el('td', {class:'r num', text: fmt(p.caught)}),
+      el('td', {text: p.rod != null ? RODS[p.rod].split(' ')[0] : '—'}),
+      el('td', {}, p.river ? el('span', {class:'pill good', text:'Sim'}) : el('span', {class:'pill', text:'Não'})),
+      el('td', {}, p.mega ? el('span', {class:'pill warn', text:'🦈 Sim'}) : el('span', {class:'pill', text:'—'})),
+      el('td', {title: dateFmt(p.last_login), text: ago(p.last_login)})));
+  }
+  const from = d.total ? d.page*d.pageSize + 1 : 0, to = Math.min(d.total, (d.page+1)*d.pageSize);
+  $('#pageInfo').textContent = `${fmt(from)}–${fmt(to)} de ${fmt(d.total)}`;
+  $('#prevPage').disabled = d.page === 0; $('#nextPage').disabled = to >= d.total;
+}
+
+/* ---------- gaveta do jogador ---------- */
+const drawer = $('#drawer'), scrim = $('#scrim');
+function closeDrawer(){ drawer.hidden = true; scrim.hidden = true; }
+scrim.addEventListener('click', closeDrawer);
+addEventListener('keydown', e => { if (e.key === 'Escape' && !drawer.hidden) closeDrawer(); });
+async function openPlayer(id){
+  drawer.hidden = false; scrim.hidden = false; drawer.replaceChildren(el('p', {class:'lede', text:'Carregando…'}));
+  let d; try { d = await api(`/api/admin?action=player&id=${encodeURIComponent(id)}`); } catch(e){ drawer.replaceChildren(el('p', {class:'lede', text: e.message})); return; }
+  renderDrawer(d);
+}
+function renderDrawer(d){
+  const p = d.player, s = p.data || {}, st = s.stats || {};
+  const album = s.album || {}, owned = s.baits || {minhoca:1};
+  const head = el('div', {class:'drawer-head'}, avatar(p), el('div', {style:'min-width:0'}, el('h2', {text: p.name || '(sem nome)'}), el('div', {class:'lede', style:'margin:0;font-size:13px;overflow-wrap:anywhere', text: p.email || ''})),
+    el('button', {class:'btn small x', type:'button', onclick: closeDrawer, 'aria-label':'Fechar', text:'✕'}));
+  const kv = el('div', {class:'kv'},
+    ...[['Moedas', fmt(s.coins)], ['Álbum', `${Object.keys(album).length}/${TOTAL_SPECIES}`], ['Pescados', fmt(st.caught)], ['Arrebentadas', fmt(st.lost)], ['Criado', new Date(p.created_at).toLocaleDateString('pt-BR')], ['Último acesso', ago(p.last_login)]]
+      .map(([k,v]) => el('div', {}, el('small', {text:k}), el('b', {class:'num', text: v}))));
+
+  // Editar progresso
+  const coins = el('input', {type:'number', id:'edCoins', min:0, max:100000000, value: s.coins || 0});
+  const addBtn = n => el('button', {class:'btn small', type:'button', text:`+${fmt(n)}`, onclick: () => { coins.value = Math.max(0, Number(coins.value || 0) + n); }});
+  const rod = el('select', {id:'edRod'}, RODS.map((r,i) => el('option', {value:i, selected: (s.rod||0) === i, text: r})));
+  const line = el('select', {id:'edLine'}, LINES.map((r,i) => el('option', {value:i, selected: (s.line||0) === i, text: r})));
+  const baitBoxes = BAITS.map(([id, nm]) => { const cb = el('input', {type:'checkbox', value:id, checked: !!owned[id] || id === 'minhoca', disabled: id === 'minhoca'}); return [cb, el('label', {class:'check'}, cb, nm)]; });
+  const river = el('input', {type:'checkbox', checked: !!s.river}), mega = el('input', {type:'checkbox', checked: !!s.mega});
+  const saveBtn = el('button', {class:'btn primary', type:'submit', text:'Salvar alterações'});
+  const form = el('form', {class:'card'},
+    el('div', {class:'card-head'}, el('h2', {text:'Editar progresso'}), el('span', {class:'sub', text:'O jogo do jogador recebe na próxima vez que salvar.'})),
+    el('div', {class:'form-grid'},
+      el('div', {class:'field full'}, el('label', {for:'edCoins', text:'Moedas'}), coins, el('div', {class:'row-btns', style:'margin-top:6px'}, addBtn(100), addBtn(1000), addBtn(10000))),
+      el('div', {class:'field'}, el('label', {for:'edRod', text:'Vara'}), rod),
+      el('div', {class:'field'}, el('label', {for:'edLine', text:'Linha'}), line),
+      el('div', {class:'field full'}, el('label', {text:'Iscas'}), el('div', {class:'checks'}, baitBoxes.map(b => b[1]))),
+      el('label', {class:'toggle'}, 'Rio Amazonas liberado', river),
+      el('label', {class:'toggle'}, 'Já pescou o Megalodon', mega)),
+    el('div', {class:'row-btns', style:'margin-top:14px'}, saveBtn));
+  form.addEventListener('submit', async e => {
+    e.preventDefault(); saveBtn.disabled = true;
+    try {
+      await post({action:'update', id: p.id, coins: Number(coins.value), rod: Number(rod.value), line: Number(line.value), river: river.checked, mega: mega.checked,
+        baits: baitBoxes.filter(b => b[0].checked).map(b => b[0].value)});
+      toast('Progresso atualizado ✓'); openPlayer(p.id); refreshCurrent();
+    } catch(err){ toast(err.message, true); } finally { saveBtn.disabled = false; }
+  });
+
+  // Álbum
+  const fishes = el('div', {class:'fishes'});
+  const caught = Object.entries(album).sort((a,b) => (b[1].count||0) - (a[1].count||0));
+  if (!caught.length) fishes.append(el('span', {text:'Nenhum peixe ainda'}));
+  for (const [id, e] of caught) fishes.append(el('span', {title:`Maior: ${e.best ? Math.round(e.best) + ' cm' : '—'}`, text: `${(SPECIES[id] || {name:id}).name} ×${e.count || 0}`}));
+  const albumCard = el('div', {class:'card'}, el('div', {class:'card-head'}, el('h2', {text:'Álbum'}), el('span', {class:'sub num', text: `${caught.length}/${TOTAL_SPECIES}`})), fishes);
+
+  // Cópias de segurança
+  const backups = el('div', {class:'list'});
+  if (!d.backups.length) backups.append(el('p', {class:'lede', style:'margin:0', text:'Nenhuma cópia ainda. Elas são criadas uma vez por dia quando o jogador salva.'}));
+  for (const b of d.backups){
+    const rb = el('button', {class:'btn small', type:'button', text:'Restaurar'});
+    armed(rb, 'Confirmar restauração?', async () => { try { await post({action:'restore', id: p.id, date: b.date}); toast(`Progresso restaurado de ${b.date} ✓`); openPlayer(p.id); refreshCurrent(); } catch(e){ toast(e.message, true); } });
+    backups.append(el('div', {class:'list-row'}, el('div', {}, new Date(b.date + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'long', year:'numeric'}), ' ', el('span', {text:`· ${(b.size/1024).toFixed(1).replace('.', ',')} KB`})), rb));
+  }
+  const backupCard = el('div', {class:'card'}, el('div', {class:'card-head'}, el('h2', {text:'Cópias de segurança'}), el('span', {class:'sub', text:'Vercel Blob'})), backups);
+
+  // Histórico do admin
+  const hist = el('div', {class:'list'});
+  if (!d.log.length) hist.append(el('p', {class:'lede', style:'margin:0', text:'Nenhuma ação do admin nesta conta.'}));
+  for (const l of d.log) hist.append(el('div', {class:'list-row'}, el('div', {}, ACTIONS[l.action] || l.action, ' ', el('span', {text:`· ${l.admin_email}`})), el('span', {text: ago(l.at)})));
+  const histCard = el('div', {class:'card'}, el('div', {class:'card-head'}, el('h2', {text:'Histórico do admin'})), hist);
+
+  // Zona de perigo
+  const resetBtn = el('button', {class:'btn danger', type:'button', text:'Zerar progresso'});
+  armed(resetBtn, 'Toque de novo para zerar', async () => { try { await post({action:'reset', id: p.id}); toast('Progresso zerado'); openPlayer(p.id); refreshCurrent(); } catch(e){ toast(e.message, true); } });
+  const confirmInput = el('input', {type:'email', placeholder: p.email || 'e-mail do jogador', 'aria-label':'Digite o e-mail do jogador para confirmar'});
+  const delBtn = el('button', {class:'btn danger', type:'button', text:'Apagar conta e dados', disabled: true});
+  confirmInput.addEventListener('input', () => { delBtn.disabled = confirmInput.value.trim().toLowerCase() !== String(p.email || '').toLowerCase(); });
+  delBtn.addEventListener('click', async () => {
+    delBtn.disabled = true;
+    try { await post({action:'delete', id: p.id, confirm: p.email}); toast('Conta apagada'); closeDrawer(); refreshCurrent(); }
+    catch(e){ toast(e.message, true); delBtn.disabled = false; }
+  });
+  const danger = el('div', {class:'card danger-zone'},
+    el('div', {class:'card-head'}, el('h2', {text:'Zona de perigo'})),
+    el('div', {class:'grid', style:'gap:12px'},
+      el('div', {class:'row-btns'}, resetBtn, el('span', {class:'lede', style:'margin:0;font-size:13px', text:'Volta ao começo, mas mantém a conta.'})),
+      el('div', {class:'field'}, el('label', {text:'Apagar conta (pedido de privacidade)'}), el('p', {class:'lede', style:'margin:0;font-size:13px', text:'Remove a conta, o progresso e todas as cópias. Digite o e-mail do jogador para liberar o botão.'}), confirmInput, el('div', {class:'row-btns', style:'margin-top:6px'}, delBtn))));
+
+  const raw = el('details', {class:'card'}, el('summary', {text:'Dados brutos (JSON)'}), el('pre', {text: JSON.stringify(s, null, 2)}));
+  drawer.replaceChildren(head, kv, form, albumCard, backupCard, histCard, danger, raw);
+}
+function refreshCurrent(){ if (view === 'players') loadPlayers(); else if (view === 'overview') loadOverview(); else if (view === 'log') loadLog(); }
+
+/* ---------- avisos e eventos ---------- */
+let mult = 1;
+function setMult(m){ mult = m; document.querySelectorAll('#multSeg button').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.m) === m))); updatePreview(); }
+document.querySelectorAll('#multSeg button').forEach(b => b.addEventListener('click', () => setMult(Number(b.dataset.m))));
+function updatePreview(){
+  $('#annCount').textContent = `${$('#annText').value.length}/160`;
+  renderEventBox($('#preview'), {announcement: $('#annText').value.trim(), eventName: $('#evName').value.trim(), coinMultiplier: mult});
+}
+$('#annText').addEventListener('input', updatePreview); $('#evName').addEventListener('input', updatePreview);
+async function loadSettings(){
+  try { const d = await api('/api/admin?action=settings'); $('#annText').value = d.settings.announcement || ''; $('#evName').value = d.settings.eventName || ''; setMult(d.settings.coinMultiplier || 1); }
+  catch(e){ toast(e.message, true); }
+}
+async function saveSettings(body){
+  try { await post({action:'settings', ...body}); toast('Publicado no jogo ✓'); loadSettings(); } catch(e){ toast(e.message, true); }
+}
+$('#settingsForm').addEventListener('submit', e => { e.preventDefault(); saveSettings({announcement: $('#annText').value, eventName: $('#evName').value, coinMultiplier: mult}); });
+$('#clearSettings').addEventListener('click', () => saveSettings({announcement:'', eventName:'', coinMultiplier:1}));
+
+/* ---------- registro ---------- */
+function describe(l){
+  const d = l.detail || {};
+  if (l.action === 'update') return Object.entries(d).map(([k,v]) => Array.isArray(v) && v.length === 2 && typeof v[0] !== 'object' ? `${k}: ${v[0]} → ${v[1]}` : `${k}: ${Array.isArray(v) ? v.join(', ') : v}`).join(' · ');
+  if (l.action === 'restore') return `cópia de ${d.date}`;
+  if (l.action === 'settings') return [d.announcement ? `aviso: "${d.announcement}"` : 'sem aviso', d.coinMultiplier > 1 ? `moedas x${d.coinMultiplier}` : 'moedas normais'].join(' · ');
+  if (l.action === 'delete') return `${d.name || ''} (${d.email || ''})`;
+  if (l.action === 'export') return `${d.rows} linhas`;
+  if (l.action === 'reset' && d.before) return `tinha ${fmt(d.before.coins)} moedas, ${d.before.album} peixes`;
+  return '';
+}
+async function loadLog(){
+  let d; try { d = await api('/api/admin?action=log'); } catch(e){ toast(e.message, true); return; }
+  const tb = $('#logBody'); tb.replaceChildren();
+  if (!d.log.length) tb.append(el('tr', {}, el('td', {colspan:5, class:'empty', text:'Nenhuma ação registrada ainda.'})));
+  for (const l of d.log) tb.append(el('tr', {},
+    el('td', {title: dateFmt(l.at), text: ago(l.at), style:'white-space:nowrap'}), el('td', {text: l.admin_email}),
+    el('td', {}, el('span', {class:'pill', text: ACTIONS[l.action] || l.action})),
+    el('td', {}, l.target ? el('button', {class:'linkish', type:'button', onclick: () => openPlayer(l.target), text: l.target_name || 'conta apagada'}) : '—'),
+    el('td', {style:'color:var(--ink-2);font-size:13px', text: describe(l)})));
+}
+
+boot();
+})();
+</script>
+</body>
+</html>

@@ -6,8 +6,12 @@ const DB_URL = process.env.DATABASE_URL || process.env.POSTGRES_URL || '';
 export const sql = DB_URL ? neon(DB_URL) : null;
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 export const HAS_BLOB = !!process.env.BLOB_READ_WRITE_TOKEN;
+const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || '').split(',').map((s) => s.trim().toLowerCase()).filter(Boolean);
 
 export const configured = () => !!(sql && GOOGLE_CLIENT_ID);
+export const isAdminEmail = (email) => !!email && ADMIN_EMAILS.includes(String(email).toLowerCase());
+
+export const DEFAULT_SETTINGS = { announcement: '', eventName: '', coinMultiplier: 1 };
 
 // Cria as tabelas na primeira chamada (não precisa rodar SQL na mão).
 let schemaReady = null;
@@ -31,9 +35,33 @@ export function ensureSchema() {
         mega boolean not null default false,
         updated_at timestamptz not null default now()
       )`;
+      await sql`create table if not exists settings (
+        key text primary key,
+        value jsonb not null,
+        updated_at timestamptz not null default now()
+      )`;
+      await sql`create table if not exists admin_log (
+        id bigserial primary key,
+        at timestamptz not null default now(),
+        admin_email text not null,
+        action text not null,
+        target text,
+        detail jsonb
+      )`;
     })().catch((e) => { schemaReady = null; throw e; });
   }
   return schemaReady;
+}
+
+export async function getSettings() {
+  if (!sql) return { ...DEFAULT_SETTINGS };
+  await ensureSchema();
+  const rows = await sql`select value from settings where key = 'game'`;
+  return { ...DEFAULT_SETTINGS, ...(rows[0] ? rows[0].value : {}) };
+}
+
+export async function logAdmin(adminEmail, action, target, detail) {
+  await sql`insert into admin_log (admin_email, action, target, detail) values (${adminEmail}, ${action}, ${target || null}, ${JSON.stringify(detail || {})}::jsonb)`;
 }
 
 // Chave das sessões: usa SESSION_SECRET se existir; senão deriva de segredos que só o servidor conhece.
@@ -70,6 +98,17 @@ export async function sessionPlayer(request) {
   try { const { payload } = await jwtVerify(m[1], await sessionKey()); return payload.sub || null; } catch { return null; }
 }
 
+// Confere se quem chamou é administrador (sessão válida + e-mail na lista ADMIN_EMAILS).
+export async function requireAdmin(request) {
+  if (!configured()) return null;
+  const id = await sessionPlayer(request);
+  if (!id) return null;
+  await ensureSchema();
+  const rows = await sql`select id, email, name from players where id = ${id}`;
+  if (!rows.length || !isAdminEmail(rows[0].email)) return null;
+  return rows[0];
+}
+
 export function json(data, status = 200, headers = {}) {
   return new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...headers } });
 }
@@ -79,5 +118,18 @@ export async function loadPlayer(id) {
     from players p left join saves s on s.player_id = p.id where p.id = ${id}`;
   if (!rows.length) return null;
   const r = rows[0];
-  return { player: { id: r.id, name: r.name, email: r.email, picture: r.picture }, save: r.data || null };
+  return { player: { id: r.id, name: r.name, email: r.email, picture: r.picture, isAdmin: isAdminEmail(r.email) }, save: r.data || null };
+}
+
+export const blobId = (id) => String(id).replace(/[^a-zA-Z0-9_-]/g, '_');
+
+// Colunas de resumo usadas no painel (calculadas a partir do progresso).
+export function summarize(data) {
+  const num = (v) => (Number.isFinite(v) ? Math.max(0, Math.floor(v)) : 0);
+  return {
+    coins: num(data.coins),
+    album: data.album && typeof data.album === 'object' ? Object.keys(data.album).length : 0,
+    caught: num(data.stats && data.stats.caught),
+    mega: data.mega === true,
+  };
 }

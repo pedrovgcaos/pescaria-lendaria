@@ -1,0 +1,212 @@
+[
+ {
+  "id": "sardinha",
+  "name": "Sardinha",
+  "loc": "mar",
+  "zone": 0
+ },
+ {
+  "id": "tainha",
+  "name": "Tainha",
+  "loc": "mar",
+  "zone": 0
+ },
+ {
+  "id": "baiacu",
+  "name": "Baiacu",
+  "loc": "mar",
+  "zone": 0
+ },
+ {
+  "id": "palhaco",
+  "name": "Peixe-palhaço",
+  "loc": "mar",
+  "zone": 0
+ },
+ {
+  "id": "cirurgiao",
+  "name": "Peixe-cirurgião",
+  "loc": "mar",
+  "zone": 1
+ },
+ {
+  "id": "papagaio",
+  "name": "Peixe-papagaio",
+  "loc": "mar",
+  "zone": 1
+ },
+ {
+  "id": "garoupa",
+  "name": "Garoupa",
+  "loc": "mar",
+  "zone": 1
+ },
+ {
+  "id": "arraia",
+  "name": "Arraia",
+  "loc": "mar",
+  "zone": 1
+ },
+ {
+  "id": "atum",
+  "name": "Atum",
+  "loc": "mar",
+  "zone": 2
+ },
+ {
+  "id": "dourado",
+  "name": "Dourado-do-mar",
+  "loc": "mar",
+  "zone": 2
+ },
+ {
+  "id": "martelo",
+  "name": "Tubarão-martelo",
+  "loc": "mar",
+  "zone": 2
+ },
+ {
+  "id": "espadarte",
+  "name": "Espadarte",
+  "loc": "mar",
+  "zone": 2
+ },
+ {
+  "id": "lanterna",
+  "name": "Peixe-lanterna",
+  "loc": "mar",
+  "zone": 3
+ },
+ {
+  "id": "vibora",
+  "name": "Peixe-víbora",
+  "loc": "mar",
+  "zone": 3
+ },
+ {
+  "id": "diabo",
+  "name": "Peixe-diabo-negro",
+  "loc": "mar",
+  "zone": 3
+ },
+ {
+  "id": "celacanto",
+  "name": "Celacanto",
+  "loc": "mar",
+  "zone": 3
+ },
+ {
+  "id": "remo",
+  "name": "Peixe-remo",
+  "loc": "mar",
+  "zone": 4
+ },
+ {
+  "id": "duende",
+  "name": "Tubarão-duende",
+  "loc": "mar",
+  "zone": 4
+ },
+ {
+  "id": "lula",
+  "name": "Lula-colossal",
+  "loc": "mar",
+  "zone": 4
+ },
+ {
+  "id": "groenlandia",
+  "name": "Tubarão-da-Groenlândia",
+  "loc": "mar",
+  "zone": 4
+ },
+ {
+  "id": "megalodon",
+  "name": "Megalodon",
+  "loc": "mar",
+  "zone": 4
+ },
+ {
+  "id": "lambari",
+  "name": "Lambari",
+  "loc": "rio",
+  "zone": 0
+ },
+ {
+  "id": "piranha",
+  "name": "Piranha",
+  "loc": "rio",
+  "zone": 0
+ },
+ {
+  "id": "pacu",
+  "name": "Pacu",
+  "loc": "rio",
+  "zone": 0
+ },
+ {
+  "id": "aruana",
+  "name": "Aruanã",
+  "loc": "rio",
+  "zone": 0
+ },
+ {
+  "id": "jaraqui",
+  "name": "Jaraqui",
+  "loc": "rio",
+  "zone": 1
+ },
+ {
+  "id": "tucunare",
+  "name": "Tucunaré",
+  "loc": "rio",
+  "zone": 1
+ },
+ {
+  "id": "tambaqui",
+  "name": "Tambaqui",
+  "loc": "rio",
+  "zone": 1
+ },
+ {
+  "id": "pirarucu",
+  "name": "Pirarucu",
+  "loc": "rio",
+  "zone": 2
+ },
+ {
+  "id": "arraiafogo",
+  "name": "Arraia-de-fogo",
+  "loc": "rio",
+  "zone": 2
+ },
+ {
+  "id": "poraque",
+  "name": "Poraquê",
+  "loc": "rio",
+  "zone": 2
+ },
+ {
+  "id": "pintado",
+  "name": "Pintado",
+  "loc": "rio",
+  "zone": 2
+ },
+ {
+  "id": "dourada",
+  "name": "Dourada",
+  "loc": "rio",
+  "zone": 3
+ },
+ {
+  "id": "jau",
+  "name": "Jaú",
+  "loc": "rio",
+  "zone": 3
+ },
+ {
+  "id": "piraiba",
+  "name": "Piraíba",
+  "loc": "rio",
+  "zone": 3
+ }
+]
