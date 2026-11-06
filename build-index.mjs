@@ -26,6 +26,9 @@ const out = `<!doctype html>
 <meta property="og:title" content="Pescaria Lendária">
 <meta property="og:description" content="Pesque, aprenda sobre os peixes e encontre o Megalodon!">
 <link rel="icon" href="${icon}">
+<!-- Vercel Web Analytics (pacote @vercel/analytics; em site sem bundler o script é carregado assim) -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 ${head}
 </head>
 <body>

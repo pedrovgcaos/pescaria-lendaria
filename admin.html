@@ -163,6 +163,8 @@ details summary{cursor:pointer;font-weight:900}
 .preview{border:2px dashed var(--line);border-radius:12px;padding:14px;display:grid;justify-items:center;gap:8px;background:var(--surface-2)}
 .preview .ann{font-weight:900;color:#0b1d33;background:#ffd84d;border:3px solid #0b1d33;border-radius:14px;padding:8px 14px;box-shadow:0 4px 0 #0b1d33;text-align:center;max-width:100%}
 .loading{opacity:.55;transition:opacity .2s}
+.site-credit{text-align:center;color:var(--muted);font-weight:800;font-size:13px;padding:0 16px calc(24px + env(safe-area-inset-bottom))}
+.site-credit a{color:var(--ink-2);font-weight:900}
 @media (max-width:640px){ .kv{grid-template-columns:repeat(2,minmax(0,1fr))} .form-grid{grid-template-columns:minmax(0,1fr)} .hrow{grid-template-columns:minmax(80px,120px) minmax(0,1fr) 48px} h1{font-size:24px} .kpi b{font-size:24px} }
 @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
 </style>
@@ -265,6 +267,7 @@ details summary{cursor:pointer;font-weight:900}
     <div class="table-wrap"><table><thead><tr><th>Quando</th><th>Admin</th><th>Ação</th><th>Jogador</th><th>Detalhes</th></tr></thead><tbody id="logBody"></tbody></table></div>
   </section>
 </main>
+<footer class="site-credit">Site desenvolvido por <a href="https://housemedia.app" target="_blank" rel="noopener">House Media</a></footer>
 
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" hidden aria-label="Detalhes do jogador"></aside>
