@@ -1587,9 +1587,9 @@
  },
  "isca_acabou_camarao": {
   "arquivo": "isca_acabou_camarao.mp3",
-  "hash": "ee6c7b0c8a27",
-  "texto": "186bfe978b0c",
-  "bytes": 71096
+  "hash": "81b439bcc923",
+  "texto": "4aee7be9f6db",
+  "bytes": 84470
  },
  "isca_acabou_fruta": {
   "arquivo": "isca_acabou_fruta.mp3",
@@ -1605,9 +1605,9 @@
  },
  "isca_acabou_lula": {
   "arquivo": "isca_acabou_lula.mp3",
-  "hash": "a846fba31240",
-  "texto": "565f98c5bdb1",
-  "bytes": 81127
+  "hash": "25fa68e135b6",
+  "texto": "2cd64bf7cc5e",
+  "bytes": 74021
  },
  "isca_acabou_lendaria": {
   "arquivo": "isca_acabou_lendaria.mp3",
@@ -1698,5 +1698,197 @@
   "hash": "6cb44d1e8d1d",
   "texto": "57178dd576fb",
   "bytes": 125848
+ },
+ "equip_falta_linha_tubaraobaleia": {
+  "arquivo": "equip_falta_linha_tubaraobaleia.mp3",
+  "hash": "2d2660858d55",
+  "texto": "8033a3c66b16",
+  "bytes": 90322
+ },
+ "lenda_equip_tubaraobaleia": {
+  "arquivo": "lenda_equip_tubaraobaleia.mp3",
+  "hash": "586c85aaa306",
+  "texto": "70416d84c87c",
+  "bytes": 151344
+ },
+ "equip_falta_vara_tubaraobaleia": {
+  "arquivo": "equip_falta_vara_tubaraobaleia.mp3",
+  "hash": "0fdb643075b8",
+  "texto": "c303e3420e02",
+  "bytes": 87396
+ },
+ "equip_completo_tubaraobaleia": {
+  "arquivo": "equip_completo_tubaraobaleia.mp3",
+  "hash": "ba05d10cfd20",
+  "texto": "59fed5efc115",
+  "bytes": 96173
+ },
+ "equip_falta_linha_dunkleosteus": {
+  "arquivo": "equip_falta_linha_dunkleosteus.mp3",
+  "hash": "b6b4f82cb8db",
+  "texto": "f0cc2c126fbb",
+  "bytes": 86560
+ },
+ "lenda_equip_dunkleosteus": {
+  "arquivo": "lenda_equip_dunkleosteus.mp3",
+  "hash": "113d7aa4745b",
+  "texto": "7ce4a1935883",
+  "bytes": 173496
+ },
+ "equip_completo_dunkleosteus": {
+  "arquivo": "equip_completo_dunkleosteus.mp3",
+  "hash": "ffd924b04966",
+  "texto": "0cba6525fa19",
+  "bytes": 92412
+ },
+ "equip_falta_vara_dunkleosteus": {
+  "arquivo": "equip_falta_vara_dunkleosteus.mp3",
+  "hash": "a437e3485c59",
+  "texto": "bb8ebd9b1fc1",
+  "bytes": 84470
+ },
+ "lenda_equip_kraken": {
+  "arquivo": "lenda_equip_kraken.mp3",
+  "hash": "87a3c3996e10",
+  "texto": "2350d019a75f",
+  "bytes": 137969
+ },
+ "equip_falta_linha_kraken": {
+  "arquivo": "equip_falta_linha_kraken.mp3",
+  "hash": "5821f3793cac",
+  "texto": "349bd833d914",
+  "bytes": 67752
+ },
+ "equip_falta_vara_kraken": {
+  "arquivo": "equip_falta_vara_kraken.mp3",
+  "hash": "ebf4650bf55d",
+  "texto": "8458b1b151a4",
+  "bytes": 69424
+ },
+ "equip_completo_kraken": {
+  "arquivo": "equip_completo_kraken.mp3",
+  "hash": "aa1a9d707676",
+  "texto": "be98b2238e4e",
+  "bytes": 81127
+ },
+ "equip_falta_linha_megalodon": {
+  "arquivo": "equip_falta_linha_megalodon.mp3",
+  "hash": "468abdbfa8b3",
+  "texto": "456b3d82e23f",
+  "bytes": 72350
+ },
+ "lenda_equip_megalodon": {
+  "arquivo": "lenda_equip_megalodon.mp3",
+  "hash": "5f17b2135eac",
+  "texto": "56c766b70a7d",
+  "bytes": 145910
+ },
+ "equip_falta_vara_megalodon": {
+  "arquivo": "equip_falta_vara_megalodon.mp3",
+  "hash": "62aedc7510ef",
+  "texto": "1d34a8bf987e",
+  "bytes": 74021
+ },
+ "equip_completo_megalodon": {
+  "arquivo": "equip_completo_megalodon.mp3",
+  "hash": "7ff698b04a70",
+  "texto": "5782572ae951",
+  "bytes": 87814
+ },
+ "lenda_equip_megapiranha": {
+  "arquivo": "lenda_equip_megapiranha.mp3",
+  "hash": "5c552b9692f0",
+  "texto": "3f6459fc88a6",
+  "bytes": 153434
+ },
+ "equip_falta_linha_megapiranha": {
+  "arquivo": "equip_falta_linha_megapiranha.mp3",
+  "hash": "e3c05e40489f",
+  "texto": "78166dbdc0c5",
+  "bytes": 83634
+ },
+ "equip_falta_vara_megapiranha": {
+  "arquivo": "equip_falta_vara_megapiranha.mp3",
+  "hash": "6143ff321f02",
+  "texto": "1e20758022e6",
+  "bytes": 81127
+ },
+ "equip_completo_megapiranha": {
+  "arquivo": "equip_completo_megapiranha.mp3",
+  "hash": "7a7f167874ce",
+  "texto": "ea27dcfb0fcc",
+  "bytes": 85724
+ },
+ "equip_falta_linha_boiuna": {
+  "arquivo": "equip_falta_linha_boiuna.mp3",
+  "hash": "535193693ab4",
+  "texto": "39a3d98c1a99",
+  "bytes": 70260
+ },
+ "lenda_equip_boiuna": {
+  "arquivo": "lenda_equip_boiuna.mp3",
+  "hash": "a9aeb0fd0ce2",
+  "texto": "66467bc0e3d7",
+  "bytes": 140059
+ },
+ "equip_falta_vara_boiuna": {
+  "arquivo": "equip_falta_vara_boiuna.mp3",
+  "hash": "ce12f5df1b12",
+  "texto": "1d892826de3e",
+  "bytes": 68588
+ },
+ "equip_completo_boiuna": {
+  "arquivo": "equip_completo_boiuna.mp3",
+  "hash": "d00ea9d7865b",
+  "texto": "b7a36773479f",
+  "bytes": 84888
+ },
+ "alvo_isca_marisco": {
+  "arquivo": "alvo_isca_marisco.mp3",
+  "hash": "76b2b4e0c027",
+  "texto": "3ee926f3d95b",
+  "bytes": 28464
+ },
+ "lenda_equip_misterio": {
+  "arquivo": "lenda_equip_misterio.mp3",
+  "hash": "436229dc29ce",
+  "texto": "6e2c1b67b56b",
+  "bytes": 137133
+ },
+ "alvo_isca_manjuba": {
+  "arquivo": "alvo_isca_manjuba.mp3",
+  "hash": "4327574bf1fa",
+  "texto": "7f12ebff2882",
+  "bytes": 28464
+ },
+ "isca_marisco": {
+  "arquivo": "isca_marisco.mp3",
+  "hash": "c32680a6ff7a",
+  "texto": "cc47f5ed6f70",
+  "bytes": 23448
+ },
+ "isca_manjuba": {
+  "arquivo": "isca_manjuba.mp3",
+  "hash": "b9be7f04aace",
+  "texto": "806988d9e947",
+  "bytes": 24284
+ },
+ "isca_acabou_manjuba": {
+  "arquivo": "isca_acabou_manjuba.mp3",
+  "hash": "27e906a5d11b",
+  "texto": "cb862e198422",
+  "bytes": 87814
+ },
+ "isca_acabou_lendaria_mar": {
+  "arquivo": "isca_acabou_lendaria_mar.mp3",
+  "hash": "b64d4d245bd4",
+  "texto": "52d21b69cdd7",
+  "bytes": 87814
+ },
+ "compra_isca_manjuba": {
+  "arquivo": "compra_isca_manjuba.mp3",
+  "hash": "8a5c076dcf55",
+  "texto": "2b4e4f654f45",
+  "bytes": 81127
  }
 }
