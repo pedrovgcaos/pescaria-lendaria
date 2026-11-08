@@ -536,7 +536,7 @@ const BAITS = [
 ];
 const BAIT_PACKS = [1, 5, 10];
 const RARE_CHANCE = .04, RARE_MULT = 5; // peixe raro dourado: 4% de chance, vale 5x
-const ALBINO_CHANCE = .01, ALBINO_MULT = 10; // peixe albino: o mais raro de todos (1%), vale 10x
+const ALBINO_CHANCE = .02, ALBINO_MULT = 10; // peixe albino: o mais raro de todos (2%), vale 10x
 // Estrelas pelo tamanho: 3 estrelas = os maiores da espécie (os gigantes)
 function starsOf(sp, s){ if (sp.legend) return s >= 1.07 ? 3 : s >= .98 ? 2 : 1; return s >= 1.3 ? 3 : s >= .95 ? 2 : 1; }
 const starTxt = n => '★'.repeat(n) + '☆'.repeat(3 - n);
