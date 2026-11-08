@@ -223,6 +223,31 @@ lenda_pescou_megapiranha;lenda_pescou_megapiranha.mp3;Megalodon;Pescou: Megapira
 lenda_fisgou_boiuna;lenda_fisgou_boiuna.mp3;Megalodon;Lendário mordeu a isca: Boiúna;É a Boiúna! Segura firme! Eu sei que você consegue!;51;Muita energia.
 lenda_passou_boiuna;lenda_passou_boiuna.mp3;Megalodon;Boiúna passou sem a Isca Lendária;Você viu aquilo? Era a Boiúna! Ela só morde a Isca Lendária. Um dia a gente pega!;81;
 lenda_pescou_boiuna;lenda_pescou_boiuna.mp3;Megalodon;Pescou: Boiúna (antes de sabia_ e come_);Você conseguiu! Você pescou a Boiúna! Você é um pescador lendário!;66;O momento mais feliz do jogo!
+lenda_equip_tubaraobaleia;lenda_equip_tubaraobaleia.mp3;Megalodon;Tubarão-baleia passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele;Você viu? Era o Tubarão-baleia! Pra pescar ele, além da Isca Lendária, precisa da Vara do Tubarão-baleia e da Linha do Tubarão-baleia. Tem na loja!;147;
+equip_falta_linha_tubaraobaleia;equip_falta_linha_tubaraobaleia.mp3;Megalodon;Comprou a Vara do Tubarão-baleia e ainda falta a linha;Boa! Você comprou a Vara do Tubarão-baleia! Agora falta a Linha do Tubarão-baleia.;82;
+equip_falta_vara_tubaraobaleia;equip_falta_vara_tubaraobaleia.mp3;Megalodon;Comprou a Linha do Tubarão-baleia e ainda falta a vara;Boa! Você comprou a Linha do Tubarão-baleia! Agora falta a Vara do Tubarão-baleia.;82;
+equip_completo_tubaraobaleia;equip_completo_tubaraobaleia.mp3;Megalodon;Completou o equipamento: Tubarão-baleia;Equipamento completo do Tubarão-baleia! Agora é só colocar a Isca Lendária e ir buscar ele!;91;Empolgação!
+lenda_equip_dunkleosteus;lenda_equip_dunkleosteus.mp3;Megalodon;Dunkleosteus passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele;Você viu? Era o Dunkleosteus! Pra pescar ele, além da Isca Lendária, precisa da Vara do Dunkleosteus e da Linha do Dunkleosteus. Tem na loja!;141;
+equip_falta_linha_dunkleosteus;equip_falta_linha_dunkleosteus.mp3;Megalodon;Comprou a Vara do Dunkleosteus e ainda falta a linha;Boa! Você comprou a Vara do Dunkleosteus! Agora falta a Linha do Dunkleosteus.;78;
+equip_falta_vara_dunkleosteus;equip_falta_vara_dunkleosteus.mp3;Megalodon;Comprou a Linha do Dunkleosteus e ainda falta a vara;Boa! Você comprou a Linha do Dunkleosteus! Agora falta a Vara do Dunkleosteus.;78;
+equip_completo_dunkleosteus;equip_completo_dunkleosteus.mp3;Megalodon;Completou o equipamento: Dunkleosteus;Equipamento completo do Dunkleosteus! Agora é só colocar a Isca Lendária e ir buscar ele!;89;Empolgação!
+lenda_equip_kraken;lenda_equip_kraken.mp3;Megalodon;Kraken passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele;Você viu? Era o Kraken! Pra pescar ele, além da Isca Lendária, precisa da Vara do Kraken e da Linha do Kraken. Tem na loja!;123;
+equip_falta_linha_kraken;equip_falta_linha_kraken.mp3;Megalodon;Comprou a Vara do Kraken e ainda falta a linha;Boa! Você comprou a Vara do Kraken! Agora falta a Linha do Kraken.;66;
+equip_falta_vara_kraken;equip_falta_vara_kraken.mp3;Megalodon;Comprou a Linha do Kraken e ainda falta a vara;Boa! Você comprou a Linha do Kraken! Agora falta a Vara do Kraken.;66;
+equip_completo_kraken;equip_completo_kraken.mp3;Megalodon;Completou o equipamento: Kraken;Equipamento completo do Kraken! Agora é só colocar a Isca Lendária e ir buscar ele!;83;Empolgação!
+lenda_equip_megalodon;lenda_equip_megalodon.mp3;Megalodon;Megalodon passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele;Você viu? Era o Megalodon! Pra pescar ele, além da Isca Lendária, precisa da Vara do Megalodon e da Linha do Megalodon. Tem na loja!;132;
+equip_falta_linha_megalodon;equip_falta_linha_megalodon.mp3;Megalodon;Comprou a Vara do Megalodon e ainda falta a linha;Boa! Você comprou a Vara do Megalodon! Agora falta a Linha do Megalodon.;72;
+equip_falta_vara_megalodon;equip_falta_vara_megalodon.mp3;Megalodon;Comprou a Linha do Megalodon e ainda falta a vara;Boa! Você comprou a Linha do Megalodon! Agora falta a Vara do Megalodon.;72;
+equip_completo_megalodon;equip_completo_megalodon.mp3;Megalodon;Completou o equipamento: Megalodon;Equipamento completo do Megalodon! Agora é só colocar a Isca Lendária e ir buscar ele!;86;Empolgação!
+lenda_equip_megapiranha;lenda_equip_megapiranha.mp3;Megalodon;Megapiranha passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele;Você viu? Era a Megapiranha! Pra pescar ela, além da Isca Lendária, precisa da Vara da Megapiranha e da Linha da Megapiranha. Tem na loja!;138;
+equip_falta_linha_megapiranha;equip_falta_linha_megapiranha.mp3;Megalodon;Comprou a Vara da Megapiranha e ainda falta a linha;Boa! Você comprou a Vara da Megapiranha! Agora falta a Linha da Megapiranha.;76;
+equip_falta_vara_megapiranha;equip_falta_vara_megapiranha.mp3;Megalodon;Comprou a Linha da Megapiranha e ainda falta a vara;Boa! Você comprou a Linha da Megapiranha! Agora falta a Vara da Megapiranha.;76;
+equip_completo_megapiranha;equip_completo_megapiranha.mp3;Megalodon;Completou o equipamento: Megapiranha;Equipamento completo da Megapiranha! Agora é só colocar a Isca Lendária e ir buscar ela!;88;Empolgação!
+lenda_equip_boiuna;lenda_equip_boiuna.mp3;Megalodon;Boiúna passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele;Você viu? Era a Boiúna! Pra pescar ela, além da Isca Lendária, precisa da Vara da Boiúna e da Linha da Boiúna. Tem na loja!;123;
+equip_falta_linha_boiuna;equip_falta_linha_boiuna.mp3;Megalodon;Comprou a Vara da Boiúna e ainda falta a linha;Boa! Você comprou a Vara da Boiúna! Agora falta a Linha da Boiúna.;66;
+equip_falta_vara_boiuna;equip_falta_vara_boiuna.mp3;Megalodon;Comprou a Linha da Boiúna e ainda falta a vara;Boa! Você comprou a Linha da Boiúna! Agora falta a Vara da Boiúna.;66;
+equip_completo_boiuna;equip_completo_boiuna.mp3;Megalodon;Completou o equipamento: Boiúna;Equipamento completo da Boiúna! Agora é só colocar a Isca Lendária e ir buscar ela!;83;Empolgação!
+lenda_equip_misterio;lenda_equip_misterio.mp3;Megalodon;Um lendário ainda desconhecido passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele;Você viu aquilo? Era um peixe lendário! Pra pescar ele, além da Isca Lendária, precisa da vara e da linha lendária dele. Procura na loja!;137;
 lenda_passou_misterio;lenda_passou_misterio.mp3;Megalodon;Um lendário ainda desconhecido passou sem a Isca Lendária;Você viu aquilo? Era um peixe lendário! Ele só morde a Isca Lendária. Um dia a gente pega!;90;
 alvo_sardinha;alvo_sardinha.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Sardinha;Bora pescar a Sardinha! Ela mora nas Águas Rasas, entre 0 e 50 metros.;70;
 alvo_tainha;alvo_tainha.mp3;Mochila: escolher peixe e iscas;Escolheu o alvo: Tainha;Bora pescar a Tainha! Ela mora nas Águas Rasas, entre 0 e 50 metros.;68;
@@ -273,28 +298,34 @@ alvo_misterio_rio_0;alvo_misterio_rio_0.mp3;Mochila: escolher peixe e iscas;Esco
 alvo_misterio_rio_1;alvo_misterio_rio_1.mp3;Mochila: escolher peixe e iscas;Escolheu um peixe ainda desconhecido de: Meio do Rio;Bora pescar esse peixe misterioso! Ele mora no Meio do Rio, entre 20 e 50 metros.;81;
 alvo_misterio_rio_2;alvo_misterio_rio_2.mp3;Mochila: escolher peixe e iscas;Escolheu um peixe ainda desconhecido de: Canal Profundo;Bora pescar esse peixe misterioso! Ele mora no Canal Profundo, entre 50 e 90 metros.;84;
 alvo_misterio_rio_3;alvo_misterio_rio_3.mp3;Mochila: escolher peixe e iscas;Escolheu um peixe ainda desconhecido de: Poço do Rio;Bora pescar esse peixe misterioso! Ele mora no Poço do Rio, entre 90 e 120 metros.;82;
+alvo_isca_marisco;alvo_isca_marisco.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Marisco;Coloquei Marisco no anzol!;26;
+alvo_isca_camarao;alvo_isca_camarao.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Camarão;Coloquei Camarão no anzol!;26;
+alvo_isca_manjuba;alvo_isca_manjuba.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Manjuba;Coloquei Manjuba no anzol!;26;
+alvo_isca_lula;alvo_isca_lula.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Lula;Coloquei Lula no anzol!;23;
 alvo_isca_minhoca;alvo_isca_minhoca.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Minhoca;Coloquei Minhoca no anzol!;26;
 alvo_isca_grilo;alvo_isca_grilo.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Grilo;Coloquei Grilo no anzol!;24;
-alvo_isca_camarao;alvo_isca_camarao.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Camarão;Coloquei Camarão no anzol!;26;
 alvo_isca_fruta;alvo_isca_fruta.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Frutinha;Coloquei Frutinha no anzol!;27;
 alvo_isca_peixinho;alvo_isca_peixinho.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Peixinho;Coloquei Peixinho no anzol!;27;
-alvo_isca_lula;alvo_isca_lula.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Lula;Coloquei Lula no anzol!;23;
 alvo_isca_lendaria;alvo_isca_lendaria.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, a isca colocada: Isca Lendária;Coloquei Isca Lendária no anzol!;32;
 alvo_linha_fraca;alvo_linha_fraca.mp3;Mochila: escolher peixe e iscas;Depois de escolher o alvo, se a linha for fraca;A linha é fraquinha pra ele, então solta bastante!;50;
 alvo_nenhum;alvo_nenhum.mp3;Mochila: escolher peixe e iscas;Tirou o alvo;Tudo bem! Vamos pescar o que aparecer!;38;
+isca_marisco;isca_marisco.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Marisco;Marisco no anzol!;17;
+isca_camarao;isca_camarao.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Camarão;Camarão no anzol!;17;
+isca_manjuba;isca_manjuba.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Manjuba;Manjuba no anzol!;17;
+isca_lula;isca_lula.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Lula;Lula no anzol!;14;
 isca_minhoca;isca_minhoca.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Minhoca;Minhoca no anzol!;17;
 isca_grilo;isca_grilo.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Grilo;Grilo no anzol!;15;
-isca_camarao;isca_camarao.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Camarão;Camarão no anzol!;17;
 isca_fruta;isca_fruta.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Frutinha;Frutinha no anzol!;18;
 isca_peixinho;isca_peixinho.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Peixinho;Peixinho no anzol!;18;
-isca_lula;isca_lula.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Lula;Lula no anzol!;14;
 isca_lendaria;isca_lendaria.mp3;Mochila: escolher peixe e iscas;Trocou a isca para: Isca Lendária;Isca Lendária no anzol!;23;
+isca_acabou_camarao;isca_acabou_camarao.mp3;Mochila: escolher peixe e iscas;A isca de Camarão acabou;Acabou a isca de Camarão! Coloquei marisco no anzol. Dá pra comprar mais na loja!;81;
+isca_acabou_manjuba;isca_acabou_manjuba.mp3;Mochila: escolher peixe e iscas;A isca de Manjuba acabou;Acabou a isca de Manjuba! Coloquei marisco no anzol. Dá pra comprar mais na loja!;81;
+isca_acabou_lula;isca_acabou_lula.mp3;Mochila: escolher peixe e iscas;A isca de Lula acabou;Acabou a isca de Lula! Coloquei marisco no anzol. Dá pra comprar mais na loja!;78;
 isca_acabou_grilo;isca_acabou_grilo.mp3;Mochila: escolher peixe e iscas;A isca de Grilo acabou;Acabou a isca de Grilo! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;79;
-isca_acabou_camarao;isca_acabou_camarao.mp3;Mochila: escolher peixe e iscas;A isca de Camarão acabou;Acabou a isca de Camarão! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;81;
 isca_acabou_fruta;isca_acabou_fruta.mp3;Mochila: escolher peixe e iscas;A isca de Frutinha acabou;Acabou a isca de Frutinha! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;82;
 isca_acabou_peixinho;isca_acabou_peixinho.mp3;Mochila: escolher peixe e iscas;A isca de Peixinho acabou;Acabou a isca de Peixinho! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;82;
-isca_acabou_lula;isca_acabou_lula.mp3;Mochila: escolher peixe e iscas;A isca de Lula acabou;Acabou a isca de Lula! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;78;
-isca_acabou_lendaria;isca_acabou_lendaria.mp3;Mochila: escolher peixe e iscas;A isca de Isca Lendária acabou;Acabou a isca de Isca Lendária! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;87;
+isca_acabou_lendaria;isca_acabou_lendaria.mp3;Mochila: escolher peixe e iscas;A isca de Isca Lendária acabou (no rio);Acabou a isca de Isca Lendária! Coloquei minhoca no anzol. Dá pra comprar mais na loja!;87;
+isca_acabou_lendaria_mar;isca_acabou_lendaria_mar.mp3;Mochila: escolher peixe e iscas;A isca de Isca Lendária acabou (no mar);Acabou a isca de Isca Lendária! Coloquei marisco no anzol. Dá pra comprar mais na loja!;87;
 recusou_palhaco;recusou_palhaco.mp3;Mochila: escolher peixe e iscas;Peixe-palhaço chegou perto e recusou a isca;O Peixe-palhaço chegou pertinho, mas não quis essa isca. Ele prefere Camarão!;77;"No jogo atual ela também diz o nome da isca recusada; a versão gravada fala ""essa isca""."
 recusou_arraia;recusou_arraia.mp3;Mochila: escolher peixe e iscas;Arraia chegou perto e recusou a isca;A Arraia chegou pertinho, mas não quis essa isca. Ela prefere Camarão!;70;"No jogo atual ela também diz o nome da isca recusada; a versão gravada fala ""essa isca""."
 recusou_espadarte;recusou_espadarte.mp3;Mochila: escolher peixe e iscas;Espadarte chegou perto e recusou a isca;O Espadarte chegou pertinho, mas não quis essa isca. Ele prefere Lula!;70;"No jogo atual ela também diz o nome da isca recusada; a versão gravada fala ""essa isca""."
@@ -312,11 +343,12 @@ recusou_misterio_peixinho;recusou_misterio_peixinho.mp3;Mochila: escolher peixe 
 cor_bloqueada_album10;cor_bloqueada_album10.mp3;Mochila: escolher peixe e iscas;Tocou numa cor bloqueada (10 peixes no álbum);Pra liberar essa cor: 10 peixes no álbum!;41;
 cor_bloqueada_album20;cor_bloqueada_album20.mp3;Mochila: escolher peixe e iscas;Tocou numa cor bloqueada (20 peixes no álbum);Pra liberar essa cor: 20 peixes no álbum!;41;
 cor_bloqueada_mega;cor_bloqueada_mega.mp3;Mochila: escolher peixe e iscas;Tocou numa cor bloqueada (Pesque o Megalodon);Pra liberar essa cor: Pesque o Megalodon!;41;
-compra_isca_grilo;compra_isca_grilo.mp3;Loja e viagem;Comprou a isca: Grilo;Uhuul! Grilo no anzol! Os peixes que adoram grilo vão vir correndo!;67;
 compra_isca_camarao;compra_isca_camarao.mp3;Loja e viagem;Comprou a isca: Camarão;Uhuul! Camarão no anzol! Os peixes que adoram camarão vão vir correndo!;71;
+compra_isca_manjuba;compra_isca_manjuba.mp3;Loja e viagem;Comprou a isca: Manjuba;Uhuul! Manjuba no anzol! Os peixes que adoram manjuba vão vir correndo!;71;
+compra_isca_lula;compra_isca_lula.mp3;Loja e viagem;Comprou a isca: Lula;Uhuul! Lula no anzol! Os peixes que adoram lula vão vir correndo!;65;
+compra_isca_grilo;compra_isca_grilo.mp3;Loja e viagem;Comprou a isca: Grilo;Uhuul! Grilo no anzol! Os peixes que adoram grilo vão vir correndo!;67;
 compra_isca_fruta;compra_isca_fruta.mp3;Loja e viagem;Comprou a isca: Frutinha;Uhuul! Frutinha no anzol! Os peixes que adoram frutinha vão vir correndo!;73;
 compra_isca_peixinho;compra_isca_peixinho.mp3;Loja e viagem;Comprou a isca: Peixinho;Uhuul! Peixinho no anzol! Os peixes que adoram peixinho vão vir correndo!;73;
-compra_isca_lula;compra_isca_lula.mp3;Loja e viagem;Comprou a isca: Lula;Uhuul! Lula no anzol! Os peixes que adoram lula vão vir correndo!;65;
 compra_isca_lendaria;compra_isca_lendaria.mp3;Loja e viagem;Comprou a Isca Lendária;A Isca Lendária! Agora os peixes lendários vão querer morder!;61;Empolgação máxima.
 compra_vara_1;compra_vara_1.mp3;Loja e viagem;Comprou: Vara de Fibra;Uhuul! Com a Vara de Fibra dá pra descer até 100 metros! Vamos descobrir peixes novos!;86;
 compra_vara_2;compra_vara_2.mp3;Loja e viagem;Comprou: Vara de Carbono;Uhuul! Com a Vara de Carbono dá pra descer até 225 metros! Vamos descobrir peixes novos!;88;

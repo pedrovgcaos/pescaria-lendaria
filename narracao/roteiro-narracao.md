@@ -1,6 +1,6 @@
 # Roteiro de narração: Iara, a ajudante da Pescaria Lendária
 
-Gerado automaticamente a partir do código do jogo em 08/11/2026. **330 falas**, 17.476 caracteres no total.
+Gerado automaticamente a partir do código do jogo em 08/11/2026. **362 falas**, 20.142 caracteres no total.
 
 ## A personagem
 
@@ -272,6 +272,31 @@ Momentos especiais do tubarão lendário.
 | `lenda_fisgou_boiuna` | Lendário mordeu a isca: Boiúna | É a Boiúna! Segura firme! Eu sei que você consegue!<br><small>*Muita energia.*</small> |
 | `lenda_passou_boiuna` | Boiúna passou sem a Isca Lendária | Você viu aquilo? Era a Boiúna! Ela só morde a Isca Lendária. Um dia a gente pega! |
 | `lenda_pescou_boiuna` | Pescou: Boiúna (antes de sabia_ e come_) | Você conseguiu! Você pescou a Boiúna! Você é um pescador lendário!<br><small>*O momento mais feliz do jogo!*</small> |
+| `lenda_equip_tubaraobaleia` | Tubarão-baleia passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele | Você viu? Era o Tubarão-baleia! Pra pescar ele, além da Isca Lendária, precisa da Vara do Tubarão-baleia e da Linha do Tubarão-baleia. Tem na loja! |
+| `equip_falta_linha_tubaraobaleia` | Comprou a Vara do Tubarão-baleia e ainda falta a linha | Boa! Você comprou a Vara do Tubarão-baleia! Agora falta a Linha do Tubarão-baleia. |
+| `equip_falta_vara_tubaraobaleia` | Comprou a Linha do Tubarão-baleia e ainda falta a vara | Boa! Você comprou a Linha do Tubarão-baleia! Agora falta a Vara do Tubarão-baleia. |
+| `equip_completo_tubaraobaleia` | Completou o equipamento: Tubarão-baleia | Equipamento completo do Tubarão-baleia! Agora é só colocar a Isca Lendária e ir buscar ele!<br><small>*Empolgação!*</small> |
+| `lenda_equip_dunkleosteus` | Dunkleosteus passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele | Você viu? Era o Dunkleosteus! Pra pescar ele, além da Isca Lendária, precisa da Vara do Dunkleosteus e da Linha do Dunkleosteus. Tem na loja! |
+| `equip_falta_linha_dunkleosteus` | Comprou a Vara do Dunkleosteus e ainda falta a linha | Boa! Você comprou a Vara do Dunkleosteus! Agora falta a Linha do Dunkleosteus. |
+| `equip_falta_vara_dunkleosteus` | Comprou a Linha do Dunkleosteus e ainda falta a vara | Boa! Você comprou a Linha do Dunkleosteus! Agora falta a Vara do Dunkleosteus. |
+| `equip_completo_dunkleosteus` | Completou o equipamento: Dunkleosteus | Equipamento completo do Dunkleosteus! Agora é só colocar a Isca Lendária e ir buscar ele!<br><small>*Empolgação!*</small> |
+| `lenda_equip_kraken` | Kraken passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele | Você viu? Era o Kraken! Pra pescar ele, além da Isca Lendária, precisa da Vara do Kraken e da Linha do Kraken. Tem na loja! |
+| `equip_falta_linha_kraken` | Comprou a Vara do Kraken e ainda falta a linha | Boa! Você comprou a Vara do Kraken! Agora falta a Linha do Kraken. |
+| `equip_falta_vara_kraken` | Comprou a Linha do Kraken e ainda falta a vara | Boa! Você comprou a Linha do Kraken! Agora falta a Vara do Kraken. |
+| `equip_completo_kraken` | Completou o equipamento: Kraken | Equipamento completo do Kraken! Agora é só colocar a Isca Lendária e ir buscar ele!<br><small>*Empolgação!*</small> |
+| `lenda_equip_megalodon` | Megalodon passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele | Você viu? Era o Megalodon! Pra pescar ele, além da Isca Lendária, precisa da Vara do Megalodon e da Linha do Megalodon. Tem na loja! |
+| `equip_falta_linha_megalodon` | Comprou a Vara do Megalodon e ainda falta a linha | Boa! Você comprou a Vara do Megalodon! Agora falta a Linha do Megalodon. |
+| `equip_falta_vara_megalodon` | Comprou a Linha do Megalodon e ainda falta a vara | Boa! Você comprou a Linha do Megalodon! Agora falta a Vara do Megalodon. |
+| `equip_completo_megalodon` | Completou o equipamento: Megalodon | Equipamento completo do Megalodon! Agora é só colocar a Isca Lendária e ir buscar ele!<br><small>*Empolgação!*</small> |
+| `lenda_equip_megapiranha` | Megapiranha passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele | Você viu? Era a Megapiranha! Pra pescar ela, além da Isca Lendária, precisa da Vara da Megapiranha e da Linha da Megapiranha. Tem na loja! |
+| `equip_falta_linha_megapiranha` | Comprou a Vara da Megapiranha e ainda falta a linha | Boa! Você comprou a Vara da Megapiranha! Agora falta a Linha da Megapiranha. |
+| `equip_falta_vara_megapiranha` | Comprou a Linha da Megapiranha e ainda falta a vara | Boa! Você comprou a Linha da Megapiranha! Agora falta a Vara da Megapiranha. |
+| `equip_completo_megapiranha` | Completou o equipamento: Megapiranha | Equipamento completo da Megapiranha! Agora é só colocar a Isca Lendária e ir buscar ela!<br><small>*Empolgação!*</small> |
+| `lenda_equip_boiuna` | Boiúna passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele | Você viu? Era a Boiúna! Pra pescar ela, além da Isca Lendária, precisa da Vara da Boiúna e da Linha da Boiúna. Tem na loja! |
+| `equip_falta_linha_boiuna` | Comprou a Vara da Boiúna e ainda falta a linha | Boa! Você comprou a Vara da Boiúna! Agora falta a Linha da Boiúna. |
+| `equip_falta_vara_boiuna` | Comprou a Linha da Boiúna e ainda falta a vara | Boa! Você comprou a Linha da Boiúna! Agora falta a Vara da Boiúna. |
+| `equip_completo_boiuna` | Completou o equipamento: Boiúna | Equipamento completo da Boiúna! Agora é só colocar a Isca Lendária e ir buscar ela!<br><small>*Empolgação!*</small> |
+| `lenda_equip_misterio` | Um lendário ainda desconhecido passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele | Você viu aquilo? Era um peixe lendário! Pra pescar ele, além da Isca Lendária, precisa da vara e da linha lendária dele. Procura na loja! |
 | `lenda_passou_misterio` | Um lendário ainda desconhecido passou sem a Isca Lendária | Você viu aquilo? Era um peixe lendário! Ele só morde a Isca Lendária. Um dia a gente pega! |
 ## Mochila: escolher peixe e iscas
 
@@ -328,28 +353,34 @@ Falas da aba Escolher peixe, da troca de isca e das cores.
 | `alvo_misterio_rio_1` | Escolheu um peixe ainda desconhecido de: Meio do Rio | Bora pescar esse peixe misterioso! Ele mora no Meio do Rio, entre 20 e 50 metros. |
 | `alvo_misterio_rio_2` | Escolheu um peixe ainda desconhecido de: Canal Profundo | Bora pescar esse peixe misterioso! Ele mora no Canal Profundo, entre 50 e 90 metros. |
 | `alvo_misterio_rio_3` | Escolheu um peixe ainda desconhecido de: Poço do Rio | Bora pescar esse peixe misterioso! Ele mora no Poço do Rio, entre 90 e 120 metros. |
+| `alvo_isca_marisco` | Depois de escolher o alvo, a isca colocada: Marisco | Coloquei Marisco no anzol! |
+| `alvo_isca_camarao` | Depois de escolher o alvo, a isca colocada: Camarão | Coloquei Camarão no anzol! |
+| `alvo_isca_manjuba` | Depois de escolher o alvo, a isca colocada: Manjuba | Coloquei Manjuba no anzol! |
+| `alvo_isca_lula` | Depois de escolher o alvo, a isca colocada: Lula | Coloquei Lula no anzol! |
 | `alvo_isca_minhoca` | Depois de escolher o alvo, a isca colocada: Minhoca | Coloquei Minhoca no anzol! |
 | `alvo_isca_grilo` | Depois de escolher o alvo, a isca colocada: Grilo | Coloquei Grilo no anzol! |
-| `alvo_isca_camarao` | Depois de escolher o alvo, a isca colocada: Camarão | Coloquei Camarão no anzol! |
 | `alvo_isca_fruta` | Depois de escolher o alvo, a isca colocada: Frutinha | Coloquei Frutinha no anzol! |
 | `alvo_isca_peixinho` | Depois de escolher o alvo, a isca colocada: Peixinho | Coloquei Peixinho no anzol! |
-| `alvo_isca_lula` | Depois de escolher o alvo, a isca colocada: Lula | Coloquei Lula no anzol! |
 | `alvo_isca_lendaria` | Depois de escolher o alvo, a isca colocada: Isca Lendária | Coloquei Isca Lendária no anzol! |
 | `alvo_linha_fraca` | Depois de escolher o alvo, se a linha for fraca | A linha é fraquinha pra ele, então solta bastante! |
 | `alvo_nenhum` | Tirou o alvo | Tudo bem! Vamos pescar o que aparecer! |
+| `isca_marisco` | Trocou a isca para: Marisco | Marisco no anzol! |
+| `isca_camarao` | Trocou a isca para: Camarão | Camarão no anzol! |
+| `isca_manjuba` | Trocou a isca para: Manjuba | Manjuba no anzol! |
+| `isca_lula` | Trocou a isca para: Lula | Lula no anzol! |
 | `isca_minhoca` | Trocou a isca para: Minhoca | Minhoca no anzol! |
 | `isca_grilo` | Trocou a isca para: Grilo | Grilo no anzol! |
-| `isca_camarao` | Trocou a isca para: Camarão | Camarão no anzol! |
 | `isca_fruta` | Trocou a isca para: Frutinha | Frutinha no anzol! |
 | `isca_peixinho` | Trocou a isca para: Peixinho | Peixinho no anzol! |
-| `isca_lula` | Trocou a isca para: Lula | Lula no anzol! |
 | `isca_lendaria` | Trocou a isca para: Isca Lendária | Isca Lendária no anzol! |
+| `isca_acabou_camarao` | A isca de Camarão acabou | Acabou a isca de Camarão! Coloquei marisco no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_manjuba` | A isca de Manjuba acabou | Acabou a isca de Manjuba! Coloquei marisco no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_lula` | A isca de Lula acabou | Acabou a isca de Lula! Coloquei marisco no anzol. Dá pra comprar mais na loja! |
 | `isca_acabou_grilo` | A isca de Grilo acabou | Acabou a isca de Grilo! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
-| `isca_acabou_camarao` | A isca de Camarão acabou | Acabou a isca de Camarão! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
 | `isca_acabou_fruta` | A isca de Frutinha acabou | Acabou a isca de Frutinha! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
 | `isca_acabou_peixinho` | A isca de Peixinho acabou | Acabou a isca de Peixinho! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
-| `isca_acabou_lula` | A isca de Lula acabou | Acabou a isca de Lula! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
-| `isca_acabou_lendaria` | A isca de Isca Lendária acabou | Acabou a isca de Isca Lendária! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_lendaria` | A isca de Isca Lendária acabou (no rio) | Acabou a isca de Isca Lendária! Coloquei minhoca no anzol. Dá pra comprar mais na loja! |
+| `isca_acabou_lendaria_mar` | A isca de Isca Lendária acabou (no mar) | Acabou a isca de Isca Lendária! Coloquei marisco no anzol. Dá pra comprar mais na loja! |
 | `recusou_palhaco` | Peixe-palhaço chegou perto e recusou a isca | O Peixe-palhaço chegou pertinho, mas não quis essa isca. Ele prefere Camarão!<br><small>*No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".*</small> |
 | `recusou_arraia` | Arraia chegou perto e recusou a isca | A Arraia chegou pertinho, mas não quis essa isca. Ela prefere Camarão!<br><small>*No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".*</small> |
 | `recusou_espadarte` | Espadarte chegou perto e recusou a isca | O Espadarte chegou pertinho, mas não quis essa isca. Ele prefere Lula!<br><small>*No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".*</small> |
@@ -373,11 +404,12 @@ Falas ao comprar e ao viajar entre o mar e o rio.
 
 | Arquivo | Quando toca | Fala |
 | --- | --- | --- |
-| `compra_isca_grilo` | Comprou a isca: Grilo | Uhuul! Grilo no anzol! Os peixes que adoram grilo vão vir correndo! |
 | `compra_isca_camarao` | Comprou a isca: Camarão | Uhuul! Camarão no anzol! Os peixes que adoram camarão vão vir correndo! |
+| `compra_isca_manjuba` | Comprou a isca: Manjuba | Uhuul! Manjuba no anzol! Os peixes que adoram manjuba vão vir correndo! |
+| `compra_isca_lula` | Comprou a isca: Lula | Uhuul! Lula no anzol! Os peixes que adoram lula vão vir correndo! |
+| `compra_isca_grilo` | Comprou a isca: Grilo | Uhuul! Grilo no anzol! Os peixes que adoram grilo vão vir correndo! |
 | `compra_isca_fruta` | Comprou a isca: Frutinha | Uhuul! Frutinha no anzol! Os peixes que adoram frutinha vão vir correndo! |
 | `compra_isca_peixinho` | Comprou a isca: Peixinho | Uhuul! Peixinho no anzol! Os peixes que adoram peixinho vão vir correndo! |
-| `compra_isca_lula` | Comprou a isca: Lula | Uhuul! Lula no anzol! Os peixes que adoram lula vão vir correndo! |
 | `compra_isca_lendaria` | Comprou a Isca Lendária | A Isca Lendária! Agora os peixes lendários vão querer morder!<br><small>*Empolgação máxima.*</small> |
 | `compra_vara_1` | Comprou: Vara de Fibra | Uhuul! Com a Vara de Fibra dá pra descer até 100 metros! Vamos descobrir peixes novos! |
 | `compra_vara_2` | Comprou: Vara de Carbono | Uhuul! Com a Vara de Carbono dá pra descer até 225 metros! Vamos descobrir peixes novos! |

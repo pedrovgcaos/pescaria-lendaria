@@ -1686,5 +1686,17 @@
   "hash": "6bb74276b1f9",
   "texto": "48aa4e03ce32",
   "bytes": 89486
+ },
+ "tres_estrelas": {
+  "arquivo": "tres_estrelas.mp3",
+  "hash": "7deda4c91508",
+  "texto": "f284a11491b7",
+  "bytes": 20941
+ },
+ "peixe_albino": {
+  "arquivo": "peixe_albino.mp3",
+  "hash": "6cb44d1e8d1d",
+  "texto": "57178dd576fb",
+  "bytes": 125848
  }
 }

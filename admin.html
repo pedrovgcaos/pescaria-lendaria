@@ -280,7 +280,9 @@ details summary{cursor:pointer;font-weight:900}
 const $ = s => document.querySelector(s);
 const RODS = ['Bambu (50 m)', 'Fibra (150 m)', 'Carbono (300 m)', 'Profissional (550 m)', 'Abissal (900 m)'];
 const LINES = ['Fina', 'Forte', 'Aço', 'Kevlar', 'Titânica'];
-const BAITS = [['minhoca','🪱 Minhoca ∞'],['grilo','🦗 Grilo'],['camarao','🦐 Camarão'],['fruta','🍒 Frutinha'],['peixinho','🐟 Peixinho'],['lula','🦑 Lula'],['lendaria','✨ Isca Lendária']];
+const BAITS = [['marisco','🦪 Marisco ∞'],['camarao','🦐 Camarão'],['manjuba','🐟 Manjuba (mar)'],['lula','🦑 Lula'],['minhoca','🪱 Minhoca ∞'],['grilo','🦗 Grilo'],['fruta','🍒 Frutinha'],['peixinho','🐟 Peixinho (rio)'],['lendaria','✨ Isca Lendária']];
+const FREE_BAITS = ['marisco','minhoca'];
+const LEGEND_LIST = [['tubaraobaleia','Tubarão-baleia'],['dunkleosteus','Dunkleosteus'],['kraken','Kraken'],['megalodon','Megalodon'],['megapiranha','Megapiranha'],['boiuna','Boiúna']];
 const ACTIONS = {update:'Editou progresso', reset:'Zerou progresso', restore:'Restaurou cópia', delete:'Apagou conta', settings:'Mudou aviso/evento', export:'Exportou CSV'};
 let SPECIES = {}, TOTAL_SPECIES = 35, me = null, view = 'overview', stats = null, speciesAll = false;
 let pState = {q:'', sort:'recent', page:0, total:0, pageSize:50};
@@ -518,7 +520,7 @@ async function openPlayer(id){
 }
 function renderDrawer(d){
   const p = d.player, s = p.data || {}, st = s.stats || {};
-  const album = s.album || {}, owned = s.baits || {minhoca:1};
+  const album = s.album || {}, owned = s.baits || {}, lg = s.lgear || {};
   const head = el('div', {class:'drawer-head'}, avatar(p), el('div', {style:'min-width:0'}, el('h2', {text: p.name || '(sem nome)'}), el('div', {class:'lede', style:'margin:0;font-size:13px;overflow-wrap:anywhere', text: p.email || ''})),
     el('button', {class:'btn small x', type:'button', onclick: closeDrawer, 'aria-label':'Fechar', text:'✕'}));
   const kv = el('div', {class:'kv'},
@@ -530,8 +532,10 @@ function renderDrawer(d){
   const addBtn = n => el('button', {class:'btn small', type:'button', text:`+${fmt(n)}`, onclick: () => { coins.value = Math.max(0, Number(coins.value || 0) + n); }});
   const rod = el('select', {id:'edRod'}, RODS.map((r,i) => el('option', {value:i, selected: (s.rod||0) === i, text: r})));
   const line = el('select', {id:'edLine'}, LINES.map((r,i) => el('option', {value:i, selected: (s.line||0) === i, text: r})));
-  // iscas são por unidade (a minhoca é infinita e não aparece aqui)
-  const baitBoxes = BAITS.filter(([id]) => id !== 'minhoca').map(([id, nm]) => { const inp = el('input', {type:'number', min:0, max:9999, value: Math.max(0, Math.floor(Number(owned[id]) || 0)), 'aria-label': nm, style:'width:76px;min-height:32px;padding:3px 8px'}); inp.dataset.id = id; return [inp, el('label', {class:'check'}, nm, inp)]; });
+  // iscas são por unidade (marisco e minhoca são infinitos e não aparecem aqui)
+  const baitBoxes = BAITS.filter(([id]) => !FREE_BAITS.includes(id)).map(([id, nm]) => { const inp = el('input', {type:'number', min:0, max:9999, value: Math.max(0, Math.floor(Number(owned[id]) || 0)), 'aria-label': nm, style:'width:76px;min-height:32px;padding:3px 8px'}); inp.dataset.id = id; return [inp, el('label', {class:'check'}, nm, inp)]; });
+  // vara e linha de cada lendário
+  const gearBoxes = LEGEND_LIST.flatMap(([id, nm]) => ['rod','line'].map(k => { const inp = el('input', {type:'checkbox', checked: !!(lg[id] && lg[id][k])}); inp.dataset.id = id; inp.dataset.k = k; return [inp, el('label', {class:'check'}, inp, `${k === 'rod' ? '🎣 Vara' : '🧵 Linha'} · ${nm}`)]; }));
   const river = el('input', {type:'checkbox', checked: !!s.river}), mega = el('input', {type:'checkbox', checked: !!s.mega});
   const saveBtn = el('button', {class:'btn primary', type:'submit', text:'Salvar alterações'});
   const form = el('form', {class:'card'},
@@ -541,6 +545,7 @@ function renderDrawer(d){
       el('div', {class:'field'}, el('label', {for:'edRod', text:'Vara'}), rod),
       el('div', {class:'field'}, el('label', {for:'edLine', text:'Linha'}), line),
       el('div', {class:'field full'}, el('label', {text:'Iscas (quantidade)'}), el('div', {class:'checks'}, baitBoxes.map(b => b[1]))),
+      el('div', {class:'field full'}, el('label', {text:'Equipamento lendário'}), el('div', {class:'checks'}, gearBoxes.map(b => b[1]))),
       el('label', {class:'toggle'}, 'Rio Amazonas liberado', river),
       el('label', {class:'toggle'}, 'Já pescou o Megalodon', mega)),
     el('div', {class:'row-btns', style:'margin-top:14px'}, saveBtn));
@@ -548,7 +553,8 @@ function renderDrawer(d){
     e.preventDefault(); saveBtn.disabled = true;
     try {
       await post({action:'update', id: p.id, coins: Number(coins.value), rod: Number(rod.value), line: Number(line.value), river: river.checked, mega: mega.checked,
-        baits: Object.fromEntries(baitBoxes.map(b => [b[0].dataset.id, Math.max(0, Math.floor(Number(b[0].value) || 0))]))});
+        baits: Object.fromEntries(baitBoxes.map(b => [b[0].dataset.id, Math.max(0, Math.floor(Number(b[0].value) || 0))])),
+        lgear: Object.fromEntries(LEGEND_LIST.map(([id]) => [id, Object.fromEntries(gearBoxes.filter(b => b[0].dataset.id === id).map(b => [b[0].dataset.k, b[0].checked]))]))});
       toast('Progresso atualizado ✓'); openPlayer(p.id); refreshCurrent();
     } catch(err){ toast(err.message, true); } finally { saveBtn.disabled = false; }
   });

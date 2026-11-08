@@ -5,7 +5,9 @@ import { list, get, del } from '@vercel/blob';
 import { requireAdmin, sql, json, getSettings, logAdmin, summarize, blobId, HAS_BLOB, DEFAULT_SETTINGS } from './_lib.js';
 
 const SORTS = { recent: 'p.last_login', created: 'p.created_at', coins: 's.coins', caught: 's.caught', album: 's.album', name: 'p.name' };
-const BAITS = ['minhoca', 'grilo', 'camarao', 'fruta', 'peixinho', 'lula', 'lendaria'];
+const BAITS = ['marisco', 'camarao', 'manjuba', 'lula', 'minhoca', 'grilo', 'fruta', 'peixinho', 'lendaria'];
+const FREE_BAITS = ['marisco', 'minhoca'];
+const LEGENDS = ['tubaraobaleia', 'dunkleosteus', 'kraken', 'megalodon', 'megapiranha', 'boiuna'];
 const PAGE = 50;
 
 const forbidden = () => json({ error: 'Acesso só para administradores.' }, 403);
@@ -165,9 +167,15 @@ export async function POST(request) {
     if (typeof body.mega === 'boolean') { changes.mega = [!!data.mega, body.mega]; data.mega = body.mega; }
     if (body.baits && typeof body.baits === 'object' && !Array.isArray(body.baits)) { // quantidade de cada isca
       const next = {};
-      for (const id of BAITS) if (id !== 'minhoca') { const n = int(body.baits[id], 0, 9999); if (n) next[id] = n; }
-      changes.baits = Object.entries(next).map(([k, v]) => `${k} ×${v}`); data.baits = next; data.baitV = 2;
-      if (data.bait && data.bait !== 'minhoca' && !next[data.bait]) data.bait = 'minhoca';
+      for (const id of BAITS) if (!FREE_BAITS.includes(id)) { const n = int(body.baits[id], 0, 9999); if (n) next[id] = n; }
+      changes.baits = Object.entries(next).map(([k, v]) => `${k} ×${v}`); data.baits = next; data.baitV = 3;
+      if (data.bait && !FREE_BAITS.includes(data.bait) && !next[data.bait]) data.bait = data.loc === 'rio' ? 'minhoca' : 'marisco';
+    }
+    if (body.lgear && typeof body.lgear === 'object' && !Array.isArray(body.lgear)) { // vara e linha de cada lendário
+      const next = {};
+      for (const id of LEGENDS) { const g = body.lgear[id] || {}; if (g.rod || g.line) next[id] = { ...(g.rod ? { rod: 1 } : {}), ...(g.line ? { line: 1 } : {}) }; }
+      changes.lgear = Object.entries(next).map(([k, v]) => `${k}: ${[v.rod ? 'vara' : '', v.line ? 'linha' : ''].filter(Boolean).join('+')}`);
+      data.lgear = next; data.lgearV = 1;
     }
     if (!Object.keys(changes).length) return json({ error: 'Nada para alterar.' }, 400);
     const saved = await writeSave(id, data, prev);

@@ -103,6 +103,17 @@ for (const sp of SPECIES.filter((s) => s.legend && s.id !== 'megalodon')) {
   add(`lenda_passou_${sp.id}`, `${sp.name} passou sem a Isca Lendária`, `Você viu aquilo? Era ${theName(sp)}! ${ele(sp)} só morde a Isca Lendária. Um dia a gente pega!`);
   add(`lenda_pescou_${sp.id}`, `Pescou: ${sp.name} (antes de sabia_ e come_)`, `Você conseguiu! Você pescou ${theName(sp)}! Você é um pescador lendário!`, 'O momento mais feliz do jogo!');
 }
+// Equipamento lendário: cada lendário só morde com a Isca Lendária e com a vara e a linha dele
+const daDo = (sp) => (sp.art === 'a' ? 'da' : 'do');
+const gear = (sp, k) => `${k === 'rod' ? 'Vara' : 'Linha'} ${daDo(sp)} ${sp.name}`;
+const eleL = (sp) => (sp.art === 'a' ? 'ela' : 'ele');
+for (const sp of SPECIES.filter((s) => s.legend)) {
+  add(`lenda_equip_${sp.id}`, `${sp.name} passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele`, `Você viu? Era ${theName(sp)}! Pra pescar ${eleL(sp)}, além da Isca Lendária, precisa da ${gear(sp, 'rod')} e da ${gear(sp, 'line')}. Tem na loja!`);
+  add(`equip_falta_linha_${sp.id}`, `Comprou a ${gear(sp, 'rod')} e ainda falta a linha`, `Boa! Você comprou a ${gear(sp, 'rod')}! Agora falta a ${gear(sp, 'line')}.`);
+  add(`equip_falta_vara_${sp.id}`, `Comprou a ${gear(sp, 'line')} e ainda falta a vara`, `Boa! Você comprou a ${gear(sp, 'line')}! Agora falta a ${gear(sp, 'rod')}.`);
+  add(`equip_completo_${sp.id}`, `Completou o equipamento: ${sp.name}`, `Equipamento completo ${daDo(sp)} ${sp.name}! Agora é só colocar a Isca Lendária e ir buscar ${eleL(sp)}!`, 'Empolgação!');
+}
+add('lenda_equip_misterio', 'Um lendário ainda desconhecido passou: tinha a Isca Lendária, mas faltou a vara ou a linha dele', 'Você viu aquilo? Era um peixe lendário! Pra pescar ele, além da Isca Lendária, precisa da vara e da linha lendária dele. Procura na loja!');
 add('lenda_passou_misterio', 'Um lendário ainda desconhecido passou sem a Isca Lendária', 'Você viu aquilo? Era um peixe lendário! Ele só morde a Isca Lendária. Um dia a gente pega!');
 
 sec('Mochila: escolher peixe e iscas', 'Falas da aba Escolher peixe, da troca de isca e das cores.');
@@ -117,7 +128,13 @@ for (const b of BAITS) add(`alvo_isca_${b.id}`, `Depois de escolher o alvo, a is
 add('alvo_linha_fraca', 'Depois de escolher o alvo, se a linha for fraca', 'A linha é fraquinha pra ele, então solta bastante!');
 add('alvo_nenhum', 'Tirou o alvo', 'Tudo bem! Vamos pescar o que aparecer!');
 for (const b of BAITS) add(`isca_${b.id}`, `Trocou a isca para: ${b.name}`, `${b.name} no anzol!`);
-for (const b of BAITS.filter((b) => b.id !== 'minhoca')) add(`isca_acabou_${b.id}`, `A isca de ${b.name} acabou`, `Acabou a isca de ${b.name}! Coloquei minhoca no anzol. Dá pra comprar mais na loja!`);
+// quando a isca acaba, o jogo coloca a isca de graça do lugar (marisco no mar, minhoca no rio)
+const FREE = { mar: BAIT.marisco, rio: BAIT.minhoca };
+for (const b of BAITS.filter((b) => b.cost > 0)) {
+  const fb = FREE[b.loc === 'ambos' ? 'rio' : b.loc];
+  add(`isca_acabou_${b.id}`, `A isca de ${b.name} acabou${b.loc === 'ambos' ? ' (no rio)' : ''}`, `Acabou a isca de ${b.name}! Coloquei ${fb.name.toLowerCase()} no anzol. Dá pra comprar mais na loja!`);
+  if (b.loc === 'ambos') add(`isca_acabou_${b.id}_mar`, `A isca de ${b.name} acabou (no mar)`, `Acabou a isca de ${b.name}! Coloquei ${FREE.mar.name.toLowerCase()} no anzol. Dá pra comprar mais na loja!`);
+}
 for (const sp of SPECIES.filter((s) => s.only && !s.legend)) {
   const fav = BAIT[sp.likes[0]];
   add(`recusou_${sp.id}`, `${sp.name} chegou perto e recusou a isca`, `${OA(sp)} ${sp.name} chegou pertinho, mas não quis essa isca. ${ele(sp)} prefere ${fav.name}!`, 'No jogo atual ela também diz o nome da isca recusada; a versão gravada fala "essa isca".');

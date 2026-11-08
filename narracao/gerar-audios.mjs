@@ -82,7 +82,10 @@ const pendentes = falas.filter((f) => REFAZER || !existsSync(join(outDir, f.arqu
 const chars = pendentes.reduce((a, f) => a + f.texto.length, 0);
 console.log(`Roteiro: ${falas.length} falas · faltam ${pendentes.length} (${chars.toLocaleString('pt-BR')} caracteres) · modelo ${MODEL}`);
 
-if (SIMULAR) { console.log('Modo simulação: nada foi enviado ao ElevenLabs.'); process.exit(0); }
+if (SIMULAR) {
+  for (const f of pendentes) console.log(`  ${existsSync(join(outDir, f.arquivo)) ? 'texto mudou' : 'nova       '} · ${f.id}`);
+  console.log('Modo simulação: nada foi enviado ao ElevenLabs.'); process.exit(0);
+}
 if (!API_KEY || !VOICE_ID) {
   console.error('\nFaltam as variáveis ELEVENLABS_API_KEY e/ou ELEVENLABS_VOICE_ID.');
   console.error('PowerShell:  $env:ELEVENLABS_API_KEY = "sua-chave";  $env:ELEVENLABS_VOICE_ID = "id-da-voz"');
