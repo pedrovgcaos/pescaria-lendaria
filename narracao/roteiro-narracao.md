@@ -1,6 +1,6 @@
 # Roteiro de narração: Iara, a ajudante da Pescaria Lendária
 
-Gerado automaticamente a partir do código do jogo em 06/11/2026. **328 falas**, 17.341 caracteres no total.
+Gerado automaticamente a partir do código do jogo em 08/11/2026. **330 falas**, 17.476 caracteres no total.
 
 ## A personagem
 
@@ -14,7 +14,7 @@ Gerado automaticamente a partir do código do jogo em 06/11/2026. **328 falas**,
 - Cada linha é **um áudio separado**. O nome do arquivo está na coluna `arquivo` do CSV (ex.: `pescou_tucunare.mp3`).
 - Deixe um respiro curto no começo e no fim de cada áudio, porque o jogo junta vários em sequência.
 - Formato sugerido: MP3, 44,1 kHz, mono, volume normalizado igual em todos.
-- No momento de pescar, o jogo toca na ordem: `comemora_N` → `pescou_<peixe>` → (`alvo_cumprido`) → (`peixe_novo`) → (`peixe_gigante` ou `peixe_recorde`) → `sabia_<peixe>` → `come_<peixe>` → (`final_loja` ou `final_N`).
+- No momento de pescar, o jogo toca na ordem: `comemora_N` → `pescou_<peixe>` → (`alvo_cumprido`) → (`peixe_novo`) → (`peixe_albino` ou `peixe_raro`) → (`peixe_gigante` + `tres_estrelas`, ou `peixe_recorde`) → `sabia_<peixe>` → `come_<peixe>` → (`final_loja` ou `final_N`).
 
 ## Pronúncia
 
@@ -116,8 +116,10 @@ O jogo toca: comemoração + "Você pescou…" + (alvo / novo / gigante ou recor
 | `alvo_cumprido` | Quando o peixe pescado era o alvo escolhido | Missão cumprida! Era o peixe que você escolheu! |
 | `peixe_novo` | Quando é a primeira vez daquele peixe | Peixe novo pro álbum! |
 | `peixe_gigante` | Quando o peixe veio gigante | E que peixe gigante! |
+| `tres_estrelas` | Logo depois de peixe_gigante: o peixe ganhou 3 estrelas | Três estrelas!<br><small>*Comemorando, bem animada.*</small> |
 | `peixe_recorde` | Quando é o maior daquela espécie | É o seu maior até agora! |
 | `peixe_raro` | Quando o peixe pescado é o raro dourado (logo depois de "Você pescou…") | Uau, é um peixe raro, todo dourado! Ele vale muito mais!<br><small>*Surpresa e alegria!*</small> |
+| `peixe_albino` | Quando o peixe pescado é albino, o mais raro (logo depois de "Você pescou…") | Uau! É um peixe albino! Ele nasceu sem a cor do corpo, por isso é branquinho e tem olhos rosados. É o mais raro de todos!<br><small>*Muita surpresa, como quem achou um tesouro!*</small> |
 | `sabia_sardinha` | Curiosidade: Sardinha | Sabia que sardinhas nadam em cardumes gigantes, com milhares de peixinhos juntos!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_tainha` | Curiosidade: Tainha | Sabia que a tainha é famosa por dar pulos para fora da água!<br><small>*Tom de quem conta um segredo legal.*</small> |
 | `sabia_baiacu` | Curiosidade: Baiacu | Sabia que quando leva um susto, o baiacu se enche de água e vira uma bola cheia de espinhos!<br><small>*Tom de quem conta um segredo legal.*</small> |
