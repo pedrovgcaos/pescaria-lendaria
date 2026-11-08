@@ -3,6 +3,7 @@
 // POST /api/admin { action: update | reset | restore | delete | settings, ... }
 import { list, get, del } from '@vercel/blob';
 import { requireAdmin, sql, json, getSettings, logAdmin, summarize, blobId, HAS_BLOB, DEFAULT_SETTINGS } from './_lib.js';
+import { HAS_VOICE, eventSpeech, makeEventVoice } from './_voz.js';
 
 const SORTS = { recent: 'p.last_login', created: 'p.created_at', coins: 's.coins', caught: 's.caught', album: 's.album', name: 'p.name' };
 const BAITS = ['marisco', 'camarao', 'manjuba', 'lula', 'minhoca', 'grilo', 'fruta', 'peixinho', 'lendaria'];
@@ -113,7 +114,7 @@ export async function GET(request) {
     return json({ log: rows });
   }
 
-  if (action === 'settings') return json({ settings: await getSettings() });
+  if (action === 'settings') return json({ settings: await getSettings(), voiceReady: HAS_VOICE });
 
   if (action === 'export') {
     const rows = await sql`select p.name, p.email, p.created_at, p.last_login, s.coins, s.caught, s.album, s.mega,
@@ -146,10 +147,18 @@ export async function POST(request) {
       eventName: typeof body.eventName === 'string' ? body.eventName.trim().slice(0, 40) : cur.eventName,
       coinMultiplier: [1, 2, 3].includes(Number(body.coinMultiplier)) ? Number(body.coinMultiplier) : cur.coinMultiplier,
     };
+    // Voz da Iara: gera de novo só quando o texto falado muda (cada geração gasta créditos do ElevenLabs)
+    const text = eventSpeech(next);
+    let voiceError = '';
+    if (!text) next.voice = null;
+    else if (!cur.voice || cur.voice.text !== text || body.regenerateVoice === true) {
+      next.voice = null;
+      try { next.voice = await makeEventVoice(text); } catch (e) { voiceError = (e && e.message) || 'Não deu para gerar a voz.'; }
+    }
     await sql`insert into settings (key, value, updated_at) values ('game', ${JSON.stringify(next)}::jsonb, now())
       on conflict (key) do update set value = excluded.value, updated_at = now()`;
-    await logAdmin(admin.email, 'settings', null, next);
-    return json({ ok: true, settings: next });
+    await logAdmin(admin.email, 'settings', null, { ...next, voice: next.voice ? 'gerada' : (voiceError ? 'falhou' : 'sem voz') });
+    return json({ ok: true, settings: next, voiceError, voiceReady: HAS_VOICE });
   }
 
   const id = typeof body.id === 'string' ? body.id : '';

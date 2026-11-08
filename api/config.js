@@ -12,6 +12,8 @@ export async function GET() {
       announcement: settings.announcement || '',
       eventName: settings.eventName || '',
       coinMultiplier: [1, 2, 3].includes(settings.coinMultiplier) ? settings.coinMultiplier : 1,
+      // MP3 da Iara falando o aviso/evento (gerado quando o admin salva); vazio = o jogo usa a voz do aparelho
+      eventVoice: settings.voice && settings.voice.hash ? `/api/voz-evento?v=${settings.voice.hash}` : '',
     },
     { headers: { 'cache-control': 'no-store' } },
   );

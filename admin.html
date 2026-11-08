@@ -257,6 +257,8 @@ details summary{cursor:pointer;font-weight:900}
         <div class="card-head"><h2>Como aparece no jogo</h2></div>
         <div class="preview" id="preview"></div>
         <p class="lede" style="margin:12px 0 0;font-size:13px">As mudanças valem para quem abrir o jogo depois de salvar.</p>
+        <div class="card-head" style="margin-top:14px"><h2>Voz da Iara</h2></div>
+        <div id="voiceBox"></div>
       </div>
     </div>
   </section>
@@ -613,12 +615,34 @@ function updatePreview(){
   renderEventBox($('#preview'), {announcement: $('#annText').value.trim(), eventName: $('#evName').value.trim(), coinMultiplier: mult});
 }
 $('#annText').addEventListener('input', updatePreview); $('#evName').addEventListener('input', updatePreview);
+// Voz da Iara do aviso/evento: o servidor gera sozinho ao salvar (ElevenLabs) e o jogo toca ao abrir.
+function renderVoice(s, voiceReady, voiceError){
+  const box = $('#voiceBox'); box.replaceChildren();
+  const hasText = !!(s.announcement || s.coinMultiplier > 1);
+  if (!hasText){ box.append(el('p', {class:'lede', style:'margin:0;font-size:13px', text:'Sem aviso nem evento: a Iara não fala nada ao abrir o jogo.'})); return; }
+  if (s.voice && s.voice.hash){
+    box.append(el('p', {class:'lede', style:'margin:0 0 6px;font-size:13px', text:`🔊 Voz da Iara pronta: “${s.voice.text}”`}),
+      el('audio', {controls:'', preload:'none', src:`/api/voz-evento?v=${s.voice.hash}`, style:'width:100%'}));
+    return;
+  }
+  const why = voiceError || (voiceReady ? 'A voz ainda não foi gerada para este texto.' : 'Voz automática desligada: falta ELEVENLABS_API_KEY ou ELEVENLABS_VOICE_ID nas variáveis da Vercel.');
+  box.append(el('p', {class:'lede', style:'margin:0 0 6px;font-size:13px;color:var(--danger,#c0392b)', text:`⚠️ ${why} Por enquanto o jogo usa a voz do aparelho.`}));
+  if (voiceReady) box.append(el('button', {class:'btn small', type:'button', text:'Gerar voz de novo', onclick: () => saveSettings({regenerateVoice:true})}));
+}
 async function loadSettings(){
-  try { const d = await api('/api/admin?action=settings'); $('#annText').value = d.settings.announcement || ''; $('#evName').value = d.settings.eventName || ''; setMult(d.settings.coinMultiplier || 1); }
+  try { const d = await api('/api/admin?action=settings'); $('#annText').value = d.settings.announcement || ''; $('#evName').value = d.settings.eventName || ''; setMult(d.settings.coinMultiplier || 1); renderVoice(d.settings, d.voiceReady); }
   catch(e){ toast(e.message, true); }
 }
 async function saveSettings(body){
-  try { await post({action:'settings', ...body}); toast('Publicado no jogo ✓'); loadSettings(); } catch(e){ toast(e.message, true); }
+  const btns = document.querySelectorAll('#settingsForm button, #voiceBox button'); btns.forEach(b => b.disabled = true);
+  if (body.announcement || Number(body.coinMultiplier) > 1 || body.regenerateVoice) $('#voiceBox').replaceChildren(el('p', {class:'lede', style:'margin:0;font-size:13px', text:'🎙️ Gerando a voz da Iara…'}));
+  try {
+    const d = await post({action:'settings', ...body});
+    toast(d.voiceError ? 'Publicado no jogo ✓ (sem voz gravada)' : 'Publicado no jogo ✓');
+    $('#annText').value = d.settings.announcement || ''; $('#evName').value = d.settings.eventName || ''; setMult(d.settings.coinMultiplier || 1);
+    renderVoice(d.settings, d.voiceReady, d.voiceError);
+  } catch(e){ toast(e.message, true); loadSettings(); }
+  finally { btns.forEach(b => b.disabled = false); }
 }
 $('#settingsForm').addEventListener('submit', e => { e.preventDefault(); saveSettings({announcement: $('#annText').value, eventName: $('#evName').value, coinMultiplier: mult}); });
 $('#clearSettings').addEventListener('click', () => saveSettings({announcement:'', eventName:'', coinMultiplier:1}));

@@ -857,7 +857,10 @@ async function loadClips(){
   if (!CAN_CLIPS) return;
   try { const r = await fetch(VOICE_BASE + 'manifest.json', {cache:'no-cache'}); if (r.ok) clipSet = new Set(Object.keys(await r.json())); } catch(e){}
 }
-const hasClips = ids => !!(clipSet && voiceEl && ids && ids.length && ids.every(id => clipSet.has(id)));
+// um clipe é um id do roteiro (narracao/audio/<id>.mp3) ou um endereço pronto, como a fala do evento gerada pelo servidor
+const isClipUrl = id => id.startsWith('/') || /^https?:/.test(id);
+const clipUrl = id => isClipUrl(id) ? id : VOICE_BASE + id + '.mp3';
+const hasClips = ids => !!(clipSet && voiceEl && ids && ids.length && ids.every(id => isClipUrl(id) || clipSet.has(id)));
 // No iPhone/iPad o áudio só toca depois de um toque: "destrava" o player tocando um clipe sem som.
 function unlockVoice(){
   if (voiceUnlocked || !voiceEl || !clipSet || !clipSet.size) return;
@@ -875,11 +878,11 @@ function stopVoice(){
 function playClips(ids){
   stopVoice();
   const token = clipToken; let i = 0;
-  clipWarm = ids.slice(1, 4).map(id => { const a = new Audio(); a.preload = 'auto'; a.src = VOICE_BASE + id + '.mp3'; return a; });
+  clipWarm = ids.slice(1, 4).map(id => { const a = new Audio(); a.preload = 'auto'; a.src = clipUrl(id); return a; });
   const next = () => {
     if (token !== clipToken || i >= ids.length) return;
     voiceEl.onended = () => setTimeout(next, 90);
-    voiceEl.muted = false; voiceEl.src = VOICE_BASE + ids[i++] + '.mp3';
+    voiceEl.muted = false; voiceEl.src = clipUrl(ids[i++]);
     const p = voiceEl.play(); if (p && p.catch) p.catch(() => {});
   };
   next();
@@ -2666,7 +2669,7 @@ function sayAnnouncement(){
   const parts = [];
   if (acctCfg.announcement) parts.push(`Aviso do porto: ${acctCfg.announcement}`);
   if (eventMult() > 1) parts.push(`Hoje tem ${acctCfg.eventName || 'evento especial'}: as moedas valem ${eventMult() === 2 ? 'o dobro' : 'o triplo'}!`);
-  if (parts.length){ announceSaid = true; const evClips = !acctCfg.announcement && eventMult() > 1 ? [`evento_x${eventMult()}`] : null; setTimeout(() => say(parts.join(' '), undefined, evClips), 4200); }
+  if (parts.length){ announceSaid = true; const evClips = acctCfg.eventVoice ? [acctCfg.eventVoice] : (!acctCfg.announcement && eventMult() > 1 ? [`evento_x${eventMult()}`] : null); setTimeout(() => say(parts.join(' '), undefined, evClips), 4200); }
 }
 function avatarHTML(cls){
   const nm = user ? (user.name || user.email || 'P') : '';
